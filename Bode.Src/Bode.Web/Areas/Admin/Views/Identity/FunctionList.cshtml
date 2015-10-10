@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "功能列表";
+    Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
+    ViewBag.ToolbarItem = "edit,save,cancel";
+    ViewBag.GridDataUrl = Url.Action("GetFunctionData", new{controllerId = new Guid()});
+    ViewBag.SaveUrl = Url.Action("EditFunctionData");
+    ViewBag.DeleteUrl = Url.Action("DeleteFunctions");
+}
+
+@section customScript
+{
+    <script src="~/Content/js/osharp/osharp.treeview.js"></script>
+    <script type="text/javascript">
+        var functionTypes = @Html.Raw(Json.Encode(@ViewBag.FunctionTypes));
+
+        columns = [
+            { data: "Id", title: "编号", type: "hide" },
+            { data: "Name", title: "名称", type: "text", search: true },
+            {
+                data: "FunctionType",
+                title: "功能类型",
+                type: "combobox",
+                search: true,
+                editor: {},
+                source: { data: functionTypes },
+                format: function(d) {
+                    var sceneryId = d["FunctionType"] || d;
+                    for (var i = 0; i < functionTypes.length; i++) {
+                        if (functionTypes[i]["val"].toString() === sceneryId.toString()) {
+                            return functionTypes[i]["text"];
+                        }
+                    }
+                    return sceneryId;
+                }
+            },
+            { data: "Area", title: "区域", type: "text" },
+            { data: "Controller", title: "控制器", type: "text" },
+            { data: "Action", title: "方法", type: "text" },
+            { data: "OperateLogEnabled", title: "操作日志", type: "switch", search: true, editor: {} },
+            { data: "DataLogEnabled", title: "数据日志", type: "switch", search: true, editor: {} },
+            { data: "CacheExpirationSeconds", title: "缓存秒数", type: "number", search: true, editor: {} },
+            { data: "IsCacheSliding", title: "缓存过期", type: "switch", search: true, editor: {} },
+            { data: "IsLocked", title: "已锁定", type: "switch", search: true, editor: {} },
+            { data: "IsAjax", title: "Ajax方法", type: "switch", search: true },
+            { data: "IsController", title: "控制器", type: "switch", search: true },
+            { data: "OrderNo", title: "排序号", type: "number", search: true, editor: {} }
+        ];
+
+        startfunction = function () {
+            var tabArea = $(".page-body>.row>div");
+            tabArea.attr("class", "col-xs-8 col-md-9 col-lg-10");
+            tabArea.before($("#tree"));
+
+            //UITree.init();
+            var tree = new $.osharp.Treeview("#treeContent", {
+                folderSelectEnable: true,
+                ajax: "@Url.Action("GetControllers")",
+                initialValue:"0",
+                itemSelect: function (item) {
+                    dataTable.conf.ajax = "@Url.Action("GetFunctionData")" + "?controllerId=" + item.value;
+
+                    dataTable.reload();
+                }
+            });
+        }
+</script>
+}
+
+@section headHtml{
+    <div id="tree" class="col-xs-4 col-md-3 col-lg-2">
+        <div class="widget flat radius-bordered">
+            <div class="widget-header bg-info">
+                <span class="widget-caption">控制器</span>
+                <div class="widget-buttons">
+                    <a href="#" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="#" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div id="treeContent" class="tree tree-solid-line">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

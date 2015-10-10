@@ -1,0 +1,68 @@
+﻿<#+
+// <copyright file="DtosTemplate.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+
+public class DtoMappersTemplate : CSharpTemplate
+{    
+    private  IEnumerable<Type> _modelTypes;
+
+    public DtoMappersTemplate(IEnumerable<Type> modelTypes)
+    {
+            _modelTypes=modelTypes;
+    }
+
+    
+     public string FileName
+    {
+        get{ return string.Format("DtoMappers.generated.cs"); }
+    }
+
+	public override string TransformText()
+	{
+		base.TransformText();
+#>
+
+
+using AutoMapper;
+<#+
+    var modules = _modelTypes.Select(p => p.Namespace).Distinct().Select(p => 
+    {
+        var index = p.LastIndexOf('.') + 1;
+        return p.Substring(index, p.Length - index);
+    });
+    foreach(var item in modules)
+    {
+        #>
+        using Bode.Services.Core.Models.<#= item #>;
+        using Bode.Services.Core.Dtos.<#= item #>;
+        <#+
+    }
+ #>
+
+namespace Bode.Services.Core.Dtos
+{
+	public partial class DtoMappers
+	{
+        public static void MapperRegister()
+        {
+            <#+
+                foreach(var item in _modelTypes)
+                {
+                    #>
+                    Mapper.CreateMap<<#=item.Name #>Dto, <#=item.Name #>>();
+                    <#+
+                }
+            #>
+
+            MapperRegisterCustom();
+        }
+
+       static partial void MapperRegisterCustom();
+	}
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>

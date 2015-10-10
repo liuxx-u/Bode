@@ -1,0 +1,61 @@
+﻿<#+
+// <copyright file="DtosTemplate.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+
+public class DtosTemplate : CSharpTemplate
+{
+
+    private T4ModelInfo _model;
+
+    public DtosTemplate(T4ModelInfo model)
+    {
+        _model = model;
+    }
+    
+     public string FileName
+    {
+        get{ return string.Format("{0}Dto.generated.cs", _model.Name); }
+    }
+
+	public override string TransformText()
+	{
+		base.TransformText();
+#>
+
+using OSharp.Core.Data;
+using System.ComponentModel.DataAnnotations;
+using <#= _model.Namespace #>;
+
+namespace Bode.Services.Core.Dtos.<#= _model.ModuleName #>
+{
+	public partial class <#= _model.Name #>Dto: IAddDto, IEditDto<int>
+	{
+        public System.Int32 Id { get; set; }
+        <#+
+            Type baseType = typeof(EntityBase<>);
+            var displayProperties=_model.Properties.Where(p => p.HasAttribute<DisplayAttribute>());
+            foreach(var item in displayProperties)
+            {
+                var theType=item.PropertyType;
+                if(baseType.IsGenericAssignableFrom(theType))
+                {
+                    #>
+                    public System.Int32 <#= item.Name #>Id { get; set; }
+                    <#+
+                }
+                else
+                {
+                    #>
+                    public <#=theType.FullName #> <#= item.Name #> { get; set; }
+                    <#+
+                }
+            }
+        #>
+	}
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>

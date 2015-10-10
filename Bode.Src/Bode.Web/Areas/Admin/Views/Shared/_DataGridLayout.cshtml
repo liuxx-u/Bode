@@ -1,0 +1,325 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    string toolbarItem = ViewBag.ToolbarItem ?? "add,edit,save,cancel,delete";
+}
+@section header{
+    <link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
+
+@section footer{
+    <script src="~/Content/js/osharp/osharp.datatable.js"></script>
+    <script src="~/Content/js/toastr/toastr.js"></script>
+    <script src="~/Content/js/bootbox/bootbox.js"></script>
+    <script src="~/Content/js/select2/select2.js"></script>
+    <script src="~/Content/js/datetime/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/js/datetime/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript">
+        var dataTable;
+        var columns = [];
+
+        var startfunction = function () { };
+        var endfunction = function () { };
+        var addObject = function () {
+            return {};
+        };
+    </script>
+    @RenderSection("customScript", true)
+
+    <script type="text/javascript">
+
+        $(function () {
+            startfunction();
+
+            @if (!toolbarItem.Contains("add"))
+            {
+                @:$("#btAdd").remove(),
+            }
+            @if (!toolbarItem.Contains("edit"))
+            {
+                @:$("#btEdit").remove(),
+            }
+            @if (!toolbarItem.Contains("save"))
+            {
+                @:$("#btSave").remove(),
+             }
+            @if (!toolbarItem.Contains("cancel"))
+            {
+                @:$("#btCancel").remove(),
+             }
+            @if (!toolbarItem.Contains("delete"))
+            {
+                @:$("#btDelete").remove(),
+            }
+
+            //初始化数据
+            dataTable = new $.osharp.Datatable("#dataTable", {
+                ajax: "@ViewBag.GridDataUrl",
+                columns: columns
+            });
+
+
+            //添加按钮事件
+            $("#btSearch").click(function (e) {
+                e.preventDefault();
+                var filter = { Rules: [] };
+                $("#dataTable").closest("div").find(".col-sm-4").each(function () {
+                    var v = $(this).find(".query-input").val();
+                    filter.Rules.push({
+                        Field: $(this).find("select:eq(0)").select2("val"),
+                        Operate: $(this).find("select:eq(1)").select2("val"),
+                        Value: $(this).find(".query-input").val()
+                    });
+                });
+                dataTable.queryParams.where = JSON.stringify(filter);
+                dataTable.query();
+            });
+
+            $("#btAdd").click(function (e) {
+                e.preventDefault();
+                dataTable.addNewRow();
+            });
+
+            $("#btEdit").click(function (e) {
+                e.preventDefault();
+                var selectRow = dataTable.getCurrent();
+                if (typeof (selectRow) == "undefined") {
+                    Notify("请选择要编辑的行", 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                    return;
+                }
+                dataTable.editRow();
+            });
+
+            $("#btSave").click(function (e) {
+                e.preventDefault();
+
+                if (dataTable.editingRow != null) {
+                    dataTable.saveRow(dataTable.editingRow);
+                }
+                var d = dataTable.getChanges();
+                var dtos = d.adds.concat(d.edits);
+
+                $.post("@ViewBag.SaveUrl", { dtos: dtos }, function (data) {
+                    if (data.Type === "Error") {
+                        Notify(data.Content, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
+                    } else {
+                        Notify(data.Content, 'bottom-right', '5000', 'info', 'fa-envelope', true);
+                        dataTable.reload();
+                    }
+                });
+            });
+
+            $("#dataTable").closest("div").find("div.row:eq(0)").find("a.btn").click(function () {
+                var count = $("#dataTable").closest("div").find("div.col-sm-4").length;
+                var row;
+
+                if (count % 3 === 1) {
+                    row = $('<div class="row" style="padding-bottom:10px;">');
+                    $("#dataTable").before(row);
+                } else {
+                    row = $("#dataTable").closest("div").find("div.row:eq(-2)");
+                }
+                var nSearch = $('<div class="col-sm-4"></div>').appendTo(row);
+
+                var options = $(this).closest("div").find("select:eq(0)").html();
+                var fieldSelect = $('<select style="width:25%">' + options + '</select>').appendTo(nSearch).select2({
+                    //去掉搜索框
+                    minimumResultsForSearch: -1
+                }).on("change", function (e) {
+                    var oprateSelect = $(this).closest("div").find("select:eq(1)");
+                    var dataInput = $(this).closest("div").find(".query-input");
+                    dataInput.attr("style", "margin-left:4px;margin-right:4px;");
+
+                    var type = dataTable.columnsHash[e.target.value].type;
+                    var opraArr = dataTable.searchOperators.common.concat([]);
+
+                    //改变操作选项
+                    if (type === "decimal" || type === "datepicker") {
+                        opraArr = opraArr.concat(dataTable.searchOperators.struct);
+                    }
+                    if (type === "text" || type === "textarea") {
+                        opraArr = opraArr.concat(dataTable.searchOperators.text);
+                    }
+
+                    oprateSelect.empty();
+                    for (var i = 0, n = opraArr.length; i < n; i++) {
+                        $('<option value="' + opraArr[i].val + '">' + opraArr[i].text + '</option>').appendTo(oprateSelect);
+                    }
+                    oprateSelect.select2("val", opraArr[0].val);
+                    //对switch与combobox选项的值进行处理
+                    if (type === "combobox" || type === "switch") {
+                        var source = dataTable.columnsHash[e.target.value].source;
+                        var valueFiled = source.valueField || "val";
+                        var textField = source.textField || "text";
+
+                        dataInput.hide();
+                        var dataSelect = $('<select data-type="combobox" style="width:30%;margin-left:4px;margin-right:4px;"></select>').on("change", function () {
+                            $(this).closest("div").find(".query-input").val($(this).select2("val"));
+                        });
+
+                        for (var i = 0, n = source.data.length; i < n; i++) {
+                            $('<option value="' + source.data[i][valueFiled] + '">' + source.data[i][textField] + '</option>').appendTo(dataSelect);
+                        }
+                        $(this).closest("div").find("a.btn").before(dataSelect);
+                        dataSelect.select2();
+                        dataSelect.change();
+                    } else {
+                        $(this).closest("div").find(".select2-container").eq(2).remove();
+                        dataInput.val("").show();
+                    }
+                });
+
+                $('<select style="width:25%"></select>').appendTo(nSearch).select2({
+                    //去掉搜索框
+                    minimumResultsForSearch: -1
+                });
+                $('<input type="text" class="query-input">').appendTo(nSearch);
+                $('<a class="btn btn-warning btn-sm icon-only" href="javascript:void(0);"><i class="fa fa-minus-square-o"></i></a>').on("click", function () {
+                    if ($(this).closest(".row").find(".col-sm-4").length === 1) {
+                        $(this).closest(".row").remove();
+                    } else {
+                        $(this).closest(".col-sm-4").remove();
+                    }
+                }).appendTo(nSearch);
+                //初始化
+                fieldSelect.change();
+            });
+
+            $("#btCancel").click(function (e) {
+                e.preventDefault();
+                dataTable.cancel();
+            });
+
+            $("#btDelete").click(function (e) {
+                e.preventDefault();
+
+                var selectRow = dataTable.getCurrent();
+                if (typeof (selectRow) == "undefined" || selectRow.length === 0) {
+                    Notify("请选择要删除的行", 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                    return;
+                }
+
+                bootbox.confirm("是否要删除所有选中的行？此操作是不可恢复的。", function (result) {
+                    if (result) {
+                        var ids = [];
+                        var data = dataTable.getRowData(selectRow);
+                        ids.push(data["Id"]);
+                        $.post("@ViewBag.DeleteUrl", { ids: ids }, function (data) {
+                            if (data.Type === "Error") {
+                                Notify(data.Content, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
+                            } else {
+                                Notify(data.Content, 'bottom-right', '5000', 'info', 'fa-envelope', true);
+                                dataTable.reload();
+                            }
+                        });
+                    }
+                });
+            });
+
+            endfunction();
+        });
+    </script>
+
+    <style type="text/css">
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .tr-selected {
+            background-color: #4ACAE7;
+            color: #ffffff;
+        }
+
+        .tr-hover {
+            background-color: #E5F8FD;
+        }
+
+        .query-input {
+            height: 32px;
+            line-height: 32px;
+            width: 30%;
+            vertical-align: middle;
+        }
+    </style>
+}
+
+@RenderSection("headHtml", false)
+
+<div class="page-container">
+    <div class="page-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget flat radius-bordered">
+                    <div class="widget-header bg-info">
+                        <span class="widget-caption"><strong>@ViewBag.Title</strong></span>
+                        <div class="widget-buttons">
+                            <a href="#" data-toggle="collapse">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                            <a href="#" data-toggle="dispose">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div role="grid" id="editabledatatable_wrapper" class="dataTables_wrapper form-inline no-footer">
+                            <div class="row" style="padding-bottom: 10px;">
+                                <div class="col-sm-4">
+                                    <select style="width: 25%"></select>
+                                    <select style="width: 25%"></select>
+                                    <input type="text" class="query-input">
+                                    <a class="btn btn-info btn-sm icon-only" href="javascript:void(0);"><i class="fa fa-plus-square-o"></i></a>
+                                </div>
+
+                                <div class="col-sm-8">
+                                    <div class="form-group" style="float: right" id="operateArea">
+                                        <div class="pull-right">
+                                            <button id="btDelete" class="btn btn btn-darkorange">
+                                                <span class="fa fa-trash-o" aria-hidden="true"></span>删 除
+                                            </button>
+                                        </div>
+                                        <div class="pull-right" style="margin-right: 10px;">
+                                            <button id="btCancel" class="btn btn-warning">
+                                                <span class="fa fa-reply" aria-hidden="true"></span> 取 消
+                                            </button>
+                                        </div>
+                                        <div class="pull-right" style="margin-right: 10px;">
+                                            <button id="btSave" class="btn btn-magenta">
+                                                <span class="fa fa-save" aria-hidden="true"></span> 保 存
+                                            </button>
+                                        </div>
+                                        <div class="pull-right" style="margin-right: 10px;">
+                                            <button id="btEdit" class="btn btn-sky">
+                                                <span class="fa fa-edit" aria-hidden="true"></span>编 辑
+                                            </button>
+                                        </div>
+                                        <div class="pull-right" style="margin-right: 10px;">
+                                            <button id="btAdd" class="btn btn-palegreen">
+                                                <span class="fa fa-plus" aria-hidden="true"></span> 新 增
+                                            </button>
+                                        </div>
+                                        <div class="pull-right" style="margin-right: 10px;">
+                                            <button id="btSearch" class="btn btn-info">
+                                                <span class="fa fa-search" aria-hidden="true"></span>查 询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered dataTable no-footer" id="dataTable" aria-describedby="editabledatatable_info">
+                                <thead>
+                                    <tr></tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@RenderBody()
+@RenderSection("footHtml", false)

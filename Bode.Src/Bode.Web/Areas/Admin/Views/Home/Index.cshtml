@@ -1,0 +1,513 @@
+﻿@{
+    ViewBag.Title = "bode-后台管理系统";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .nav-tabs {
+        height: 40px;
+    }
+
+        .nav-tabs li {
+            height: 40px;
+        }
+
+            .nav-tabs li a i {
+                margin: 0 -10px 0 5px;
+                cursor: pointer;
+                display: none;
+            }
+
+        .nav-tabs .active {
+            border-top: 0;
+            border-bottom: 1px solid #ef694b;
+        }
+</style>
+<!-- Navbar -->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="navbar-container">
+            <!-- Navbar Barnd -->
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand">
+                    <small>
+                        <img src="~/Content/images/logo.png" alt="" />
+                    </small>
+                </a>
+            </div>
+            <!-- /Navbar Barnd -->
+            <!-- Sidebar Collapse -->
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="collapse-icon fa fa-bars"></i>
+            </div>
+            <!-- /Sidebar Collapse -->
+            <!-- Account Area and Settings --->
+            <div class="navbar-header pull-right">
+                <div class="navbar-account">
+                    <ul class="account-area">
+                        <li>
+                            <a class=" dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
+                                <i class="icon fa fa-warning"></i>
+                            </a>
+                            <!--Notification Dropdown-->
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-phone bg-themeprimary white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Skype meeting with Patty</span>
+                                                <span class="description">01:00 pm</span>
+                                            </div>
+                                            <div class="notification-extra">
+                                                <i class="fa fa-clock-o themeprimary"></i>
+                                                <span class="description">office</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-check bg-darkorange white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Uncharted break</span>
+                                                <span class="description">03:30 pm - 05:15 pm</span>
+                                            </div>
+                                            <div class="notification-extra">
+                                                <i class="fa fa-clock-o darkorange"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-gift bg-warning white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Kate birthday party</span>
+                                                <span class="description">08:30 pm</span>
+                                            </div>
+                                            <div class="notification-extra">
+                                                <i class="fa fa-calendar warning"></i>
+                                                <i class="fa fa-clock-o warning"></i>
+                                                <span class="description">at home</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-glass bg-success white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Dinner with friends</span>
+                                                <span class="description">10:30 pm</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="dropdown-footer ">
+                                    <span>
+                                        Today, March 28
+                                    </span>
+                                    <span class="pull-right">
+                                        10°c
+                                        <i class="wi wi-cloudy"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                            <!--/Notification Dropdown-->
+                        </li>
+                        <li>
+                            <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
+                                <i class="icon fa fa-envelope"></i>
+                                <span class="badge">3</span>
+                            </a>
+                            <!--Messages Dropdown-->
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
+                                <li>
+                                    <a href="#">
+                                        <img src="~/Content/images/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">
+                                        <div class="message">
+                                            <span class="message-sender">
+                                                Divyia Austin
+                                            </span>
+                                            <span class="message-time">
+                                                2 minutes ago
+                                            </span>
+                                            <span class="message-subject">
+                                                Here's the recipe for apple pie
+                                            </span>
+                                            <span class="message-body">
+                                                to identify the sending application when the senders image is shown for the main icon
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="~/Content/images/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">
+                                        <div class="message">
+                                            <span class="message-sender">
+                                                Bing.com
+                                            </span>
+                                            <span class="message-time">
+                                                Yesterday
+                                            </span>
+                                            <span class="message-subject">
+                                                Bing Newsletter: The January Issue‏
+                                            </span>
+                                            <span class="message-body">
+                                                Discover new music just in time for the Grammy® Awards.
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="~/Content/images/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">
+                                        <div class="message">
+                                            <span class="message-sender">
+                                                Nicolas
+                                            </span>
+                                            <span class="message-time">
+                                                Friday, September 22
+                                            </span>
+                                            <span class="message-subject">
+                                                New 4K Cameras
+                                            </span>
+                                            <span class="message-body">
+                                                The 4K revolution has come over the horizon and is reaching the general populous
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--/Messages Dropdown-->
+                        </li>
+
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
+                                <i class="icon fa fa-tasks"></i>
+                                <span class="badge">4</span>
+                            </a>
+                            <!--Tasks Dropdown-->
+                            <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">
+                                <li class="dropdown-header bordered-darkorange">
+                                    <i class="fa fa-tasks"></i>
+                                    4 Tasks In Progress
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Account Creation</span>
+                                            <span class="pull-right">65%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:65%" class="progress-bar"></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Profile Data</span>
+                                            <span class="pull-right">35%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:35%" class="progress-bar progress-bar-success"></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Updating Resume</span>
+                                            <span class="pull-right">75%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:75%" class="progress-bar progress-bar-darkorange"></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Adding Contacts</span>
+                                            <span class="pull-right">10%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:10%" class="progress-bar progress-bar-warning"></div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="dropdown-footer">
+                                    <a href="#">
+                                        See All Tasks
+                                    </a>
+                                    <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>
+                                </li>
+                            </ul>
+                            <!--/Tasks Dropdown-->
+                        </li>
+                        <li>
+                            <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                <div class="avatar" title="View your public profile">
+                                    <img src="~/Content/images/avatars/adam-jansen.jpg">
+                                </div>
+                                <section>
+                                    <h2><span class="profile"><span>David Stevenson</span></span></h2>
+                                </section>
+                            </a>
+                            <!--Login Area Dropdown-->
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                                <li class="username"><a>David Stevenson</a></li>
+                                <li class="email"><a>David.Stevenson@live.com</a></li>
+                                <!--Avatar Area-->
+                                <li>
+                                    <div class="avatar-area">
+                                        <img src="~/Content/images/avatars/adam-jansen.jpg" class="avatar">
+                                        <span class="caption">Change Photo</span>
+                                    </div>
+                                </li>
+                                <!--Avatar Area-->
+                                <li class="edit">
+                                    <a href="profile.html" class="pull-left">简介</a>
+                                    <a href="#" class="pull-right">设置</a>
+                                </li>
+                                <!--Theme Selector Area-->
+                                <li class="theme-area">
+                                    <ul class="colorpicker" id="skin-changer">
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="~/Content/css/skins/blue.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="~/Content/css/skins/azure.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="~/Content/css/skins/teal.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="~/Content/css/skins/green.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="~/Content/css/skins/orange.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="~/Content/css/skins/pink.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="~/Content/css/skins/darkred.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="~/Content/css/skins/purple.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#0072C6;" rel="~/Content/css/skins/darkblue.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="~/Content//css/skins/gray.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="~/Content/css/skins/black.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="~/Content/css/skins/deepblue.min.css"></a></li>
+                                    </ul>
+                                </li>
+                                <!--/Theme Selector Area-->
+                                <li class="dropdown-footer">
+                                    <a href="login.html">
+                                        退出登录
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--/Login Area Dropdown-->
+                        </li>
+                        <!-- /Account Area -->
+                    </ul>
+                </div>
+            </div>
+            <!-- /Account Area and Settings -->
+        </div>
+    </div>
+</div>
+<!-- /Navbar -->
+<!-- Main Container -->
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <div class="page-sidebar" id="sidebar">
+            <!-- Page Sidebar Header-->
+            <div class="sidebar-header-wrapper">
+                <input type="text" class="searchinput" />
+                <i class="searchicon fa fa-search"></i>
+                <div class="searchhelper">搜索用户、日志、订单。</div>
+            </div>
+            <!-- /Page Sidebar Header -->
+            <!-- Sidebar Menu -->
+            <ul id="navMenus" class="nav sidebar-menu">
+                <!--UI Elements-->
+
+            </ul>
+            <!-- /Sidebar Menu -->
+        </div>
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <div class="widget flat radius-bordered" style="margin:0">
+
+                        <div class="widget-body" style="padding:0">
+                            <div class="widget-main ">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs tabs-flat" id="tab">
+                                        <li onclick="tabClick(this)" class="active">
+                                            <a data-toggle="tab" href="#Index">
+                                                首页
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div id="content" class="tab-content tabs-flat" style="background: #eee;padding:0">
+                                        <div id="Index" class="tab-pane in active">
+                                            <iframe frameborder="0" src="@Url.Action("Welcome")" style="width:100%; height: 100%;"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-xs-12">
+                </div>
+            </div>
+
+            <!-- Page Breadcrumb -->
+            @*<div class="page-breadcrumbs">
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="#">主页</a>
+                            </li>
+                            <li>
+                                <a href="#">权限管理</a>
+                            </li>
+                            <li class="active">用户管理</li>
+                        </ul>
+                </div>
+                <iframe id="frameContent" frameborder="0" src="@Url.Action("Welcome")" style="width:85%; height: 95%; position: fixed;"></iframe>*@
+        </div>
+        <!-- /Page Content -->
+    </div>
+    <!-- /Page Container -->
+    <!-- Main Container -->
+
+</div>
+
+@section footer{
+    <script type="text/javascript">
+        //浏览器窗口变化时改变frame的宽高
+        window.onresize = function () {
+            $("#content").children("div").width(document.body.clientWidth - 224);
+            $("#content").children("div").height(document.body.scrollHeight - 85 - 5);
+        }
+
+        //关闭当前tab
+        function closeTab(oObj) {
+            //获取前一个tab的序号
+            var prevIndex = $(oObj).closest("li").index() - 1;
+
+            var contentId = $(oObj).closest("a").attr("href");
+            $(contentId).remove();
+            $(oObj).closest("li").remove();
+
+            var prevLi = $("#tab li:eq(" + prevIndex + ")");
+            prevLi.click();
+            prevLi.find("a").tab("show");
+
+            return false;
+        }
+
+        //tab点击事件
+        function tabClick(oObj) {
+            if ($(oObj).hasClass("active")) return;
+
+            $("#tab .fa-times-circle").remove();
+
+            if ($(oObj).index() > 0) {
+                $('<i onclick="closeTab(this)" class="fa fa-times-circle"></i>').appendTo($(oObj).find("a"));
+            }
+        }
+
+
+        $(function () {
+            //重写内容页的宽高
+            $("#content").children("div").width(document.body.clientWidth - 500);
+            $("#content").children("div").height(document.body.scrollHeight - 85 - 5);
+
+
+
+            $.post("@Url.Action("GetMenus")", {}, function (data) {
+                //添加菜单栏
+                for (var i = 0, len = data.length; i < len; i++) {
+                    var groupMenu = $('<li ' + (i === 0 ? 'class="active"' : '') + '><a href="#" class="menu-dropdown"><i class="menu-icon fa ' + data[i]["IconCls"] + '"></i><span class="menu-text"> ' + data[i].Text +
+                        ' </span><i class="menu-expand"></i></a><ul class="submenu"></ul></li>');
+                    for (var j = 0, len2 = data[i].Children.length; j < len2; j++) {
+                        var theItem = data[i].Children[j];
+                        $('<li><a href="javascript:void(0)" data-menuId=' + theItem.Id + ' data-href=' + theItem.Url
+                            + '><span class="menu-text">' + theItem.Text + '</span></a></li>').appendTo(groupMenu.find('.submenu'));
+                    }
+                    $("#navMenus").append(groupMenu);
+                }
+
+                //绑定左侧菜单栏点击事件
+                $("#navMenus>li").each(function () {
+                    $(this).click(function () {
+                        if (!$(this).find(".submenu").is(":hidden")) {
+                            $(this).find(".submenu").slideUp();
+                            $(this).removeClass("open");
+                            $("#navMenus>li").removeClass("active");
+                            $(this).addClass("active");
+                        } else {
+                            var activeMenu = $(".submenu:visible");
+                            if (activeMenu.find(".active").length > 0) {
+                                activeMenu.closest("li").addClass("active");
+                            }
+                            activeMenu.slideUp();
+                            $(this).find(".submenu").slideDown();
+                            $("#navMenus .open").removeClass("open");
+                            $(this).addClass("open");
+                        }
+                        return false;
+                    });
+                });
+
+                $("#navMenus .submenu").find("a[data-href]").each(function() {
+                    $(this).click(function() {
+                        $("#navMenus .active").removeClass("active");
+                        $(this).closest("li").addClass("active");
+
+                        //添加tab
+                        var menuId = $(this).attr("data-menuId");
+                        if ($("#" + menuId).length > 0) {
+                            var index = $("#" + menuId).index();
+                            var tab = $("#tab").find("li:eq(" + index + ")");
+                            tab.click();
+                            tab.find("a").tab("show");
+                        } else {
+                            var newTab = $('<li onclick="tabClick(this)" ><a data-toggle="tab" href="#' + menuId + '">' + $(this).text() + '</a></li>');
+                            newTab.appendTo($("#tab"));
+
+                            $('<div id="' + menuId + '" class="tab-pane"><iframe frameborder="0" src="' + $(this).attr("data-href") + '" style="width: 100%; height: 100%;"></iframe></div>')
+                                .width(document.body.clientWidth - 224).height(document.body.scrollHeight - 85 - 5).appendTo($("#content"));
+                            newTab.click();
+                            newTab.find("a").tab("show");
+                        }
+                        return false;
+                    });
+                });
+
+
+                //打开第一个菜单
+                $("#navMenus .active .submenu").slideDown();
+                $("#navMenus .active").addClass("open");
+            });
+        });
+    </script>
+}

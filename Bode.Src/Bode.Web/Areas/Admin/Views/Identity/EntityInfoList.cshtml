@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "实体数据列表";
+    Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
+    ViewBag.ToolbarItem = "edit,save,cancel";
+    ViewBag.GridDataUrl = Url.Action("GetEntityInfoData");
+    ViewBag.SaveUrl = Url.Action("EditEntityInfoData");
+}
+
+@section customScript
+{
+    <script type="text/javascript">
+        columns = [
+            { data: "Id", title: "编号", type: "hide" },
+            { data: "Name", title: "实体名称", type: "text", search: true },
+            { data: "ClassName", title: "类名", type: "text", search: true },
+            { data: "DataLogEnabled", title: "开启数据日志", type: "switch", search: true, editor: {} }
+        ];
+    </script>
+}
+

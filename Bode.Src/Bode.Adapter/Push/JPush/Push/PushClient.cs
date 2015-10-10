@@ -1,0 +1,65 @@
+﻿using Bode.Adapter.Push.Jpush.common;
+using Bode.Adapter.Push.Jpush.push.mode;
+using Bode.Adapter.Push.Jpush.util;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using OSharp.Utility.Secutiry;
+
+namespace Bode.Adapter.Push.Jpush.push
+{
+    internal class PushClient:BaseHttpClient
+    {
+        private const String HOST_NAME_SSL = "https://api.jpush.cn";
+        private const String PUSH_PATH = "/v3/push";
+
+        private String appKey;
+        private String masterSecret;
+        public PushClient(String appKey,String masterSecret)
+        {
+            this.appKey = appKey;
+            this.masterSecret = masterSecret;
+        }
+        public MessageResult sendPush(PushPayload payload) 
+        {
+            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            payload.Check();
+            String payloadJson = payload.ToJson();
+            return sendPush(payloadJson);
+        }
+        public MessageResult sendPush(string payloadString)
+        {
+            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
+           
+            String url = HOST_NAME_SSL;
+            url += PUSH_PATH;
+            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
+            MessageResult messResult = new MessageResult();
+            messResult.ResponseResult = result;
+           
+            JpushSuccess jpushSuccess = JsonConvert.DeserializeObject<JpushSuccess>(result.responseContent);
+            messResult.sendno = int.Parse(jpushSuccess.sendno);
+            messResult.msg_id = int.Parse(jpushSuccess.msg_id);
+           
+            return messResult;
+        }
+        private String Authorization(){
+
+            Debug.Assert(!string.IsNullOrEmpty(this.appKey));
+            Debug.Assert(!string.IsNullOrEmpty(this.masterSecret));
+
+            String origin=this.appKey+":"+this.masterSecret;
+            return  Base64Helper.GetBase64Encode(origin);
+        }
+    }
+    enum MsgTypeEnum
+    {
+        NOTIFICATIFY = 1,
+        COUSTOM_MESSAGE =2
+    }
+}

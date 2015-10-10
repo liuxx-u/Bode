@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "子机构列表";
+    Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
+    ViewBag.GridDataUrl = Url.Action("GetOrganizationData", new { parentId = 0 });
+    ViewBag.SaveUrl = Url.Action("SaveOrganizationData");
+    ViewBag.DeleteUrl = Url.Action("DeleteRoles");
+}
+
+@section customScript
+{
+    <script src="~/Content/js/osharp/osharp.treeview.js"></script>
+    <script type="text/javascript">
+        columns = [
+            { data: "Id", title: "编号" },
+            { data: "Name", title: "名称", type: "text", search: true, editor: {}, validation: { required: true } },
+            { data: "SortCode", title: "排序号", type: "number", search: true, editor: {} },
+            {
+                data: "CreatedTime",
+                title: "创建时间",
+                type: "datepicker",
+                search: true,
+                format: function (d) {
+                    return $.osharp.tools.formatDate(d);
+                },
+                isformatval: true
+            },
+            { data: "ParentId", title: "父级编号", type: "hide" }
+        ];
+
+        startfunction = function () {
+            var tabArea = $(".page-body>.row>div");
+            tabArea.attr("class", "col-xs-8 col-md-9 col-lg-10");
+            tabArea.before($("#tree"));
+
+            //UITree.init();
+            var tree = new $.osharp.Treeview("#treeContent", {
+                folderSelectEnable: true,
+                ajax: "@Url.Action("GetOrganizationTree")",
+                itemSelect: function (item) {
+                    dataTable.conf.ajax = "@Url.Action("GetOrganizationData")" + "?parentId=" + item.value;
+
+                    dataTable.beforeEdit = function (index, row) {
+                        row.ParentId = item.value;
+                    }
+                    dataTable.reload();
+                }
+            });
+        }
+    </script>
+}
+
+@section headHtml{
+    <div id="tree" class="col-xs-4 col-md-3 col-lg-2">
+        <div class="widget flat radius-bordered">
+            <div class="widget-header bg-info">
+                <span class="widget-caption">组织机构</span>
+                <div class="widget-buttons">
+                    <a href="#" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="#" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div id="treeContent" class="tree tree-solid-line">
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

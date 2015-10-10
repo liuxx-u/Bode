@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/Content/images/favicon.png" type="image/x-icon">
+
+    <!--Basic Styles-->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/weather-icons.min.css" rel="stylesheet" />
+
+    <!--Fonts-->
+    <link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="~/Content/css/beyond.min.css" rel="stylesheet" />
+    <link href="~/Content/css/demo.min.css" rel="stylesheet" />
+    <link href="~/Content/css/typicons.min.css" rel="stylesheet" />
+    <link href="~/Content/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="~/Content/js/skins.min.js"></script>
+
+    @RenderSection("header", false)
+</head>
+<body>
+    <!-- Loading Container -->
+    <div class="loading-container">
+        <div class="loader"></div>
+    </div>
+
+    <!--  /Loading Container -->
+
+    @RenderBody()
+
+    <!--Basic Scripts-->
+    <script src="~/Content/js/jquery-2.0.3.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+
+    <!--Beyond Scripts-->
+    <script src="~/Content/js/beyond.min.js"></script>
+
+    <script src="~/Content/js/osharp/osharp.global.js"></script>
+    @RenderSection("footer", false)
+</body>
+</html>

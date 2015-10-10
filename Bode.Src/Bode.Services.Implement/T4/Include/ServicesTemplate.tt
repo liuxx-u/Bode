@@ -1,0 +1,167 @@
+﻿<#+
+// <copyright file="ServicesTemplate.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+
+public class ServicesTemplate : CSharpTemplate
+{
+	private IEnumerable<Type> _innerModelTypes;
+    private string _moduleName;
+
+    public ServicesTemplate(IEnumerable<Type> innerModelTypes,string moduleName)
+    {
+        _innerModelTypes = innerModelTypes;
+        _moduleName=moduleName;
+    }
+    
+     public string FileName
+    {
+        get{ return string.Format("{0}Service.generated.cs", _moduleName); }
+    }
+
+	public override string TransformText()
+	{
+		base.TransformText();
+#>
+
+using System;
+using System.Linq;
+using OSharp.Core;
+using OSharp.Core.Data;
+using OSharp.Utility;
+using OSharp.Utility.Data;
+using OSharp.Utility.Extensions;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+using Bode.Services.Core.Contracts;
+using Bode.Services.Core.Dtos.<#=_moduleName #>;
+using Bode.Services.Core.Models.<#=_moduleName #>;
+
+namespace Bode.Services.Implement.Services
+{
+	public partial class <#=_moduleName #>Service : I<#=_moduleName #>Contract
+	{
+		<#+
+            foreach(var item in _innerModelTypes)
+            {
+                Type baseType = typeof(EntityBase<>);
+                var noRepeatGroups = item.GetProperties().Where(p=>p.HasAttribute<NotRepeatAttribute>())
+                    .GroupBy(p => ((NotRepeatAttribute)p.GetCustomAttributes(typeof(NotRepeatAttribute)).First()).GroupName);
+
+                var foreignKeyProperties=item.GetProperties().Where(p => p.HasAttribute<DisplayAttribute>() && baseType.IsGenericAssignableFrom(p.PropertyType));
+                            
+                #>
+                #region <#=item.Name #>信息业务
+
+                public IRepository<<#=item.Name #>, int> <#=item.Name #>Repo { protected get; set; }
+
+                public IQueryable<<#=item.Name #>> <#=item.Name #>s
+                {
+                    get { return <#=item.Name #>Repo.Entities.Where(p => !p.IsDeleted); }
+                }
+
+                
+                /// <summary>
+                /// 检查<#=item.Name #>信息是否存在
+                /// </summary>
+                /// <param name="predicate">检查谓语表达式</param>
+                /// <param name="id">更新的<#=item.Name #>编号</param>
+                /// <returns><#=item.Name #>信息是否存在</returns>
+                public async Task<bool> Check<#=item.Name #>Exists(Expression<Func<<#=item.Name #>, bool>> predicate, int id = 0)
+                {
+                    return await Task.Run(() =>
+                    {
+                        return <#=item.Name #>Repo.CheckExists(predicate, id);
+                    });
+                }
+
+                /// <summary>
+                /// 保存<#=item.Name #>信息(新增/更新)
+                /// </summary>
+                /// <param name="updateForeignKey">更新时是否更新外键信息</param>
+                /// <param name="dtos">要保存的<#=item.Name #>Dto信息</param>
+                /// <returns>业务操作集合</returns>
+                public async Task<OperationResult> Save<#=item.Name #>s(bool updateForeignKey=false,params <#=item.Name #>Dto[] dtos)
+                {
+                    try
+                    {
+                        dtos.CheckNotNull("dtos");
+                        var addDtos = dtos.Where(p => p.Id == 0).ToArray();
+                        var updateDtos = dtos.Where(p => p.Id != 0).ToArray();
+
+                        <#=item.Name #>Repo.UnitOfWork.TransactionEnabled = true;
+
+                        Action<<#=item.Name #>Dto> checkAction=<#+if(noRepeatGroups.Count()==0){#>null;<#+}else{#>dto =>
+                        {
+                            <#+
+                                foreach(var groups in noRepeatGroups)
+                                {
+                            #>
+
+                            if (<#=item.Name #>Repo.CheckExists(p => <#+foreach(var groupItem in groups){#>p.<#=groupItem.Name #> == dto.<#=groupItem.Name #><#+if(groupItem!=groups.Last()){#>&&<#+}}#>,dto.Id))
+                            {
+                                throw new Exception("“{0}”已被使用".FormatWith("<#=groups.Key #>"));
+                            }
+
+                        <#+
+                                }
+                            #>
+                        };<#+} #>
+
+                        Func<<#=item.Name #>Dto, <#=item.Name #>, <#=item.Name #>> updateFunc=<#+if(foreignKeyProperties.Count()==0){#>null;<#+}else{#>(dto, entity) => 
+                        {
+                            if(dto.Id==0||updateForeignKey)
+                            {
+                                <#+
+                                    foreach(var foreignKeyItem in foreignKeyProperties)
+                                    {
+                                        #>
+                                        entity.<#=foreignKeyItem.Name #> = <#=foreignKeyItem.PropertyType.Name #>Repo.GetByKey(dto.<#=foreignKeyItem.Name #>Id);
+                                        <#+
+                                    }
+                                #>
+                            }
+                            return entity; 
+                        };<#+} #>
+
+                        if (addDtos.Length > 0)
+                        {
+                            <#=item.Name #>Repo.Insert(addDtos,checkAction,updateFunc);
+                        }
+                        if (updateDtos.Length > 0)
+                        {
+                            <#=item.Name #>Repo.Update(updateDtos,checkAction,updateFunc);
+                        }
+                        await <#=item.Name #>Repo.UnitOfWork.SaveChangesAsync();
+                        return new OperationResult(OperationResultType.Success, "保存成功");
+                    }
+                    catch(Exception e)
+                    {
+                        return new OperationResult(OperationResultType.Error, e.Message);
+                    }
+                }
+
+                /// <summary>
+                /// 删除<#=item.Name #>信息
+                /// </summary>
+                /// <param name="ids">要删除的Id编号</param>
+                /// <returns>业务操作结果</returns>
+                public async Task<OperationResult> Delete<#=item.Name #>s(params int[] ids)
+                {
+                    ids.CheckNotNull("ids");
+                    return await Task.Run(() => <#=item.Name #>Repo.Delete(ids));
+                }
+
+                #endregion
+
+                <#+
+            }
+        #>
+	}
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>

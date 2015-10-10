@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "系统用户列表";
+    Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
+    ViewBag.GridDataUrl = Url.Action("GetUserData");
+    ViewBag.SaveUrl = Url.Action("SaveUserData");
+    ViewBag.DeleteUrl = Url.Action("DeleteUsers");
+}
+
+@section customScript
+{
+    <script src="~/Content/js/osharp/osharp.treeview.js"></script>
+    <script type="text/javascript">
+        var roles = [], organizations = [], organizRoleMap = {}, roleIdMap = {};
+        var curUserId = 0;
+
+        $(function() {
+            //获取所有角色数据
+            $.get("@Url.Action("GetAllRoleBriefs")", {}, function(data) {
+                roles = data;
+
+                for (var i = 0, n = roles.length; i < n; i++) {
+                    $('<div class="col-sm-4 col-md-3"><div class="checkbox"><label><input type="checkbox" value="' + roles[i]["Id"] +
+                        '"><span class="text">' + roles[i]["Name"] + '</span></label></div></div>').appendTo($("#roleContent"));
+
+                    //默认未选中
+                    roles[i]["Checked"] = false;
+
+                    //初始化organizRole哈希表
+                    if (typeof (organizRoleMap[roles[i]["OrganizationId"]]) === "undefined") {
+                        organizRoleMap[roles[i]["OrganizationId"]] = [];
+                    }
+                    organizRoleMap[roles[i]["OrganizationId"]].push(roles[i]);
+                    //初始化roleIdMap方便查找
+                    roleIdMap[roles[i]["Id"]] = roles[i];
+                }
+            });
+            //获取所有组织机构数据
+            $.get("@Url.Action("GetOrganizationTree")", {}, function(data) {
+                organizations = data;
+            });
+        });
+
+        //根据roles的状态初始化复选框
+        function initRoleSelect() {
+            $('.modal-dialog :checkbox').each(function() {
+                var roleId = parseInt($(this).val());
+                $(this).attr("checked", roleIdMap[roleId]["Checked"]);
+            });
+        }
+
+        //设置角色点击事件
+        function setRole(userId) {
+            //弹出框
+            bootbox.dialog({
+                message: $("#modal").html(),
+                title: "设置角色",
+                className: "modal-blue",
+                buttons: {
+                    success: {
+                        label: "保存",
+                        className: "btn-blue",
+                        callback: function() {
+                            var roleIds = [];
+                            $('.modal-dialog :checkbox:checked').each(function() {
+                                roleIds.push(parseInt($(this).val()));
+                            });
+                            $.post("@Url.Action("SetUserRoles")", { userId: userId, strRoleIds: JSON.stringify(roleIds) }, function(data) {
+                                if (data.Type === "Error") {
+                                    Notify(data.Content, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
+                                } else {
+                                    Notify(data.Content, 'bottom-right', '5000', 'info', 'fa-envelope', true);
+                                }
+                            });
+                        }
+                    },
+                    "取消": {
+                        className: "btn-danger",
+                        callback: function() {}
+                    }
+                }
+            });
+            $(".modal-dialog").width(document.body.clientWidth - 224 * 3);
+
+            //初始化复选框状态
+            if (curUserId !== userId) {
+                for (var i = 0, n = roles.length; i < n; i++) {
+                    roles[i]["Checked"] = false;
+                }
+
+                $.get("@Url.Action("GetUserRoleIds")", { userId: userId }, function(data) {
+                    for (var i = 0, n = data.length; i < n; i++) {
+                        roleIdMap[data[i]]["Checked"] = true;
+                    }
+                    initRoleSelect();
+                });
+            } else {
+                initRoleSelect();
+            }
+            curUserId = userId;
+
+            //绑定树
+            var tree = new $.osharp.Treeview(".modal-dialog .col-xs-4 .widget-body .tree", {
+                folderSelectEnable: true,
+                source: organizations,
+                itemSelect: function(item) {
+                    $('.modal-dialog').find(".widget-body .col-md-3").hide();
+                    var curRoles = organizRoleMap[item.value] || [];
+                    for (var i = 0, n = curRoles.length; i < n; i++) {
+                        $('.modal-dialog :checkbox[value="' + curRoles[i]["Id"] + '"]').closest(".col-md-3").show();
+                    }
+                }
+            });
+
+            //添加复选框点击事件
+            $('.modal-dialog :checkbox').click(function() {
+                var roleId = parseInt($(this).val());
+                roleIdMap[roleId]["Checked"] = $(this).is(":checked");
+            });
+        }
+
+        columns = [
+            { data: "Id", title: "编号" },
+            { data: "UserName", title: "用户名称", type: "text", search: true, editor: {}, validation: { required: true } },
+            { data: "NickName", title: "用户昵称", type: "text", search: true, editor: {} },
+            { data: "Email", title: "电子邮箱", type: "text", search: true, editor: {} },
+            { data: "IsLocked", title: "是否锁定", type: "switch", search: true, editor: {} },
+            {
+                data: "CreatedTime",
+                title: "创建时间",
+                type: "datepicker",
+                search: true,
+                format: function(d) {
+                    return $.osharp.tools.formatDate(d);
+                },
+                isformatval: true
+            },
+            {
+                data: "Id",
+                title: "操作选项",
+                type: "opt",
+                format: function(id) {
+                    return '<a href="javascript:setRole(' + id + ')">设置角色</a>';
+                }
+            }
+        ];
+    </script>
+}
+
+@section headHtml{
+    <div id="modal" style="display:none;">
+        <div class="row">
+            <div id="organizationTree" class="col-xs-4">
+                <div class="widget flat radius-bordered">
+                    <div class="widget-header bg-info">
+                        <span class="widget-caption">组织机构</span>
+                    </div>
+
+                    <div class="widget-body">
+                        <div id="treeContent" class="tree tree-solid-line">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-8">
+                <div class="widget flat radius-bordered">
+                    <div class="widget-header bg-info">
+                        <span class="widget-caption">角色组</span>
+                    </div>
+                    <div class="widget-body">
+                        <div id="roleContent" class="row">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

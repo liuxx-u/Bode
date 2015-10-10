@@ -1,0 +1,188 @@
+/*
+*==文件名：main.css
+*==作用:网站通用样式
+*==编写时间：2014-11-07
+*==编写：伯德梦想www.bodecn.net
+*/
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, font, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend { margin: 0; padding: 0; border: 0; outline: 0; font-size: 13px; }body { line-height: 1; }ol, ul { list-style: none; }blockquote, q {	quotes: none; }blockquote:before, blockquote:after,q:before, q:after { content: ''; content: none; }
+:focus { outline: 0; }
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+table { border-collapse: collapse; border-spacing: 0; }
+article, aside, footer, header, hgroup, nav, section { display: block; }
+body{min-width:1024px;margin:0px; padding:0px; font-family:"宋体"; color: #252525; font-size: 14px; }
+a{ text-decoration:none;  color:#252525; font-size:12px;}
+
+
+
+.clear { display: block; height: 0; overflow: hidden; clear: both; }
+.clearfix:after { content: '\20'; display: block; height: 0; clear: both; }
+.clearfix { *zoom:1;}
+.f_left { float: left !important; }
+.f_right { float: right !important; }
+.wrapper { width: 1010px; margin: 0px auto; overflow: visible;}
+
+.border { border: none !important;}
+
+#header { height: 60px; background-color: #f5f5f5; line-height: 60px; border-bottom: solid #bdbdbd 1px;}
+#header .logo { display: block; float: left; margin-top: 5px;}
+#header ul { float: right;}
+#header ul li { float: left; margin-right: 15px;}
+#header ul li img { margin-right: 35px; margin-left: 5px;}
+.slides { position: relative;}
+.slides .img_list{ width: 100%; height: 700px; position: relative; cursor: pointer;}
+.slides .img_list >li { display: none;}
+.slides .img_list >li img { width: 100%; height: 700px;}
+.slides .circle { position: absolute; width: 150px; height: 30px; bottom: 20px; left: 50%; margin-left: -75px;}
+.slides .circle li { float: left; margin-right: 10px; width: 6px; height: 6px; border-radius: 50%; background-color: #282f2c; cursor: pointer; }
+.slides .circle li.currt { width: 8px; height: 8px; background-color: #c7cacd;}
+.slides .img_list:hover .btn { display: block;}
+.slides .btn { position:absolute; top: 50%; margin-top: -28px; background: url(../images/prev.png) no-repeat; width: 31px; height: 56px; display: none;}
+.slides .pre { left: 20px; opacity: 0.5; background-position: -2px 0;}
+.slides .pre:hover { opacity: 1;}
+.slides .next { right: 20px; background-position:-39px 0; opacity: 0.5;}
+.slides .next:hover { opacity: 1;}
+	/*.slides{ width:100%;height:auto;position:relative;overflow:hidden;}
+	.slideInner .moveElem >img { width: 100%; height: 700px}
+	.slideInner{ height: 700px; position:relative;left:0;margin-left:0;}
+	.slideInner a{display:block;height:700px;background-size:cover;background-position:center center;position:relative;text-align:center;z-index:1;}
+	.nav{width:1200px;position:relative;left:50%;margin-left:-600px;display:none;}
+	.nav a{display:block;width:37px;height:119px;opacity:.2;z-index:9;}
+	.nav a.prev{position:absolute;left:0;top:-350px;margin-top:-58px;background:url(../images/prev.png) no-repeat;}
+	.nav a.next{position:absolute;right:0;top:-350px;margin-top:-58px;background:url(../images/prev.png) no-repeat; background-position: -40px 0px;}
+*/
+.slides .shoping { position: absolute; z-index: 10; border-radius: 10px; opacity: 0.5; left: 50%; margin-left: -410px; top: 50%; margin-top: -30px; width: 820px; height: 60px; background-color: #000; filter:alpha(opacity=50);}
+.slides .content { position: absolute; z-index: 13; border-radius: 10px; width: 810px; height: 50px; background-color: #fff; top: 50%; margin-top: -25px; left: 50%; margin-left: -405px;}
+.slides .content ul >li { position: relative; float: left; width: 150px; font-size: 16px; color: #959595; line-height: 50px; border-right: solid #eee 2px; text-indent: 10px; cursor: pointer;}
+.slides .content ul >li input { width: 140px; height: 50px; line-height:50px; border: none; font-size: 16px;} 
+.slides .content ul >li img { margin-left: 35px;}
+.slides .content ul >li:nth-child(1) { width: 260px;}
+.select_style {width:140px; height:50px; float:left; background:url(../images/ico_select.png) no-repeat 120px center;  background-color:rgba(255,255,255,0.5);}
+.select_style select{-webkit-appearance: none; background:transparent; width:100%; padding-left:5px;  border:none; height:50px;color:#959595; line-height:28px;  position:relative /*for Webkit browsers*/}
+.select_style select option{color:#959595; }
+.btn_search{display:block; width:152px; height:50px; float:left; background:url(../images/ico_search.png) center center no-repeat #289628; border-radius:4px; border:none; cursor:pointer }
+.slides .content .serch { display: block; float: right; background: url(../images/serch.png) no-repeat; background-position: 20px; width: 70px; height: 50px; background-color: #289628; border-radius: 10px;}
+#message { height: 210px; padding-top: 20px; background-images: linear-gradient(to bottom, #f5f5f5 0%,#ffffff 100%); background-color: #fefefe;}
+#message dl { display: block; margin-left: 70px; float: left; width: 125px; text-align: center;}
+#message dl dd { font-size: 12px; line-height: 25px;}
+#message dl strong { display: block; margin-top: 20px; font-size: 20px; font-weight: 400;}
+
+#travel {}
+.title_h2 { height: 40px; border-bottom: solid #bb3232 1px; line-height: 40px; color: #289628; text-indent: 20px; font-size: 16px; font-weight: 400;}
+.title_h2 span { margin-left: 10px; font-size: 14px; color: #bb3232;}
+.title_h2 a { display: block; float: right; margin-right: 10px; font-size: 14px; color: #464646;}
+#travel .content >ul { width: 480px; margin: 20px auto; }
+#travel .content >ul li { float: left; cursor: pointer; height: 30px; padding: 0px 20px; line-height: 30px;}
+#travel .content >ul li.currt { background-color: #d4601b; border-radius: 20px; color: #fff;}
+#travel .message  { margin-top: 20px; height: 400px;}
+#travel .message ul li{ float: left; position: relative; cursor: pointer;}
+#travel .message .normal p { position: absolute; top: 0; left: 50%; margin-left: -10px;width: 20px; height: 360px; padding-top: 40px; color: #fff; font-size: 20px; }
+#travel .message .bg { position: absolute; width: 479px; height: 90px; bottom:0; background-color: #000; opacity: 0.3; filter:alpha(opacity=30);}
+#travel .message dl { position: absolute; height: 90px; width: 479px; bottom: 0; }
+#travel .message dl dt { float: left; margin-left: 15px; margin-right: 15px; margin-top: 10px;}
+#travel .message dl dt img { width: 72px; border: solid #fff 2px; border-radius: 50%;}
+#travel .message dl dd { float: left; color: #fff; width: 360px; font-size: 12px;}
+#travel .message dl dd span { float: right;}
+#travel .message dl dd img { float: left; margin-left: 15px; margin-right: 5px;}
+#travel .message dl dd.frist { margin-top: 20px; margin-bottom: 10px; line-height: 25px; font-weight: bold; font-size: 14px;}
+
+#alone { padding-top: 20px;}
+#alone .alone { width: 710px; float: left}
+#alone .alone dl { margin-top: 15px;}
+#alone .alone dt { display: block; float: left; width: 330px; height: 360px; margin-right: 10px;}
+#alone .alone dd { float: left; width: 180px; height: 175px; margin-bottom: 10px; margin-right: 5px;}
+#alone .alone dl a { position: absolute;display: block;}
+#alone .alone dl a div { display: none; font-size: 16px; top: 50%; margin-top: -20px;}
+#alone .alone dl dt a div { display: none; width: 310px; padding: 0px 10px; height: 40px; line-height: 40px;}
+#alone .alone dl dd a div { display: none; width: 160px; padding: 0px 10px; height: 40Px; padding-top: 10px; font-size: 14px;}
+#alone .alone dl dd a div span { display: block; float:inherit; text-align: center; margin-top: -5px;}
+#alone .alone dl dd a div span img { float: inherit;}
+#alone .alone dl a div span { float: right; font-size: 14px;}
+#alone .alone dl a div span img { float: left; margin-top: 10px; margin-right: 10px;}
+#alone .alone dl a div span font { color: #000;}
+#alone .alone dl a:hover div { background: #289628; display: block; position: absolute; left: 0; color: #fff;}
+#alone .clipper { width: 290px; float: right; background-color: #fbfbfb;} 
+#alone .clipper >ul { height: 40px; margin-top: 20px; line-height: 40px;}
+#alone .clipper >ul li { float: left; width: 95px; border-right: solid #ededed 1px; border-top: solid #f5f5f5 2px; text-align: center; background-color: #f5f5f5;}
+#alone .clipper >ul li.currt { color: #d4601b; border-top: solid #d4601b 2px; background-color: #fff;}
+#alone .clipper >ul li:lat-child { border: none;}
+#alone .clipper .select_btn { display: block; width: 240px; height: 34px; border: solid #ededed 1px; cursor: pointer; background-color: #fff;}
+#alone .clipper .select_btn img { float: right; margin-top: 10px; margin-right: 10px;}
+#alone .clipper .content { margin-top: 20px; width: 240px; margin: 0px auto;}
+#alone .clipper .content .select_style { display: block; width: 240px; height: 34px; border-radius: 5px; border: solid #ededed 1px; background: #fff url(../images/ico_select.png) no-repeat 220px center; line-height: 34px; }
+#alone .clipper .content .select_style select{-webkit-appearance: none; background:transparent; width:100%; padding-left:5px;  border:none; height:34px;color:#333; line-height:28px;  position:relative /*for Webkit browsers*/}
+#alone .clipper .content .select_style select option{color:#d7d7d7}
+.btn_search{display:block; width:110px; height:50px; float:left; background:url(../images/ico_search.png) center center no-repeat #289628; border-radius:4px; border:none; cursor:pointer }
+#alone .clipper .content dd { position: relative;}
+#alone .clipper .content dd span { display: block; margin: 15px 0px; color: #959595;}
+#alone .clipper .content dd input {width: 240px; height: 34px; border: solid #ededed 1px; border-radius:5px; line-height: 34px;}
+#alone .clipper .content dd .laydate-icon { width: 115px;}
+#alone .clipper .content dt a { display: block; margin: 22px auto; width: 158px; height: 36px; background-color: #289628; color: #fff; text-align: center; line-height: 36px; font-size:16px; border-radius: 10px;}
+#alone .clipper .content .popmessage { position: absolute; top: 65px;display: none; width: 240px; height: 120px; z-index: 99; background-color: #fff;}
+#alone .clipper .content .popmessage li { height: 30px; line-height: 30px; border-bottom: solid #ededed 1px; text-indent: 10px;}
+/*.btn-select {  position: relative; display: inline-block; width: 240px; height: 34px;} 
+.btn-select .cur-select { position: absolute; display: block; width: 240px; height: 34px; margin: 0px !important; border: solid #ededed 1px; border-radius:10px; line-height: 34px; background: #fff url(../images/down.png) no-repeat 205px center; text-indent: 10px;} 
+.btn-select select { position: absolute; top: 0; left: 0; width: 240px; height: 34px; opacity: 0; filter:alpha(opacity=0);color: #f80; } */
+
+/*message*/
+#rever { height: 130px;}
+#rever span { display: block; float: left; background-image: url(../images/message.jpg); width:500px; height: 130px;}
+#rever span a{ display: block; width: 164px; height: 40px; margin: 0px auto; margin-top: 45px; text-align: center; line-height: 40px; border: solid #fff 1px; color:#fff; font-size: 26px;}
+#rever span a:hover { background-color: #289628; color: #fff; border: solid #289628 1px;}
+
+#information { height: 300px; margin-top: 20px; background-color: #f5f5f5; font-size: 16px; }
+#information dl dt,#information dl dd { width: 160px; margin-top: 53px; margin-left: 150px; float: left; text-align: center; line-height: 24px;}
+#information dl dt span,#information dl dd span,#information dl dt img,#information dl dd img { display: block; margin: 0px auto;}
+
+#information dl dt img,#information dl dd img { margin-bottom: 15px; }
+#information dl a { font-size: 16px;}
+#information dl a:hover{ color: #bb3232;}
+
+
+/*footer*/
+#footer {}
+#footer .about { height: 265px; padding-top: 95px;background-color: #289628; color: #fff;}
+#footer .about dl.weixin { float: left; width: 520px;}
+#footer .about dl.weixin dt span,#footer .about dl.weixin dd span { display: block; line-height: 30px;}
+#footer .about dl.weixin dt { margin-right: 95px; float: left;}
+#footer .about dl.about_us { width: 420px; border-bottom: solid #000 1px; float: right; padding-bottom: 20px; text-indent: 15px;}
+#footer .about dl.about_us dt { line-height: 30px; font-size: 18px; font-weight: bold;}
+#footer .about dl.about_us dd { float: left; width: 85px; margin-top: 10px; border-right: solid #fff 1px; }
+#footer .about dl.about_us a { color: #fff;}
+#footer .about dl.about_us a:hover { color: #000;}
+
+#footer .about dl.address { margin-top: 20px; width: 420px; float: right; text-indent: 15px;}
+#footer .about dl.address dt { line-height: 30px; font-size: 18px; font-weight: bold;}
+#footer .about dl.address dd { float: left; line-height: 25px; }
+#footer .copy { height: 40px; text-align: center; color: #bb3232; line-height: 40px;}
+
+#tanchu {}
+
+
+.buyshop { position: fixed ; top: 50%; margin-top: -200px; left: 50%; margin-left: -275px; width: 550px; height: 400px; background-color: #fff; line-height: 30px; z-index: 999; padding-left: 15px;}
+.buyshop h2 { padding: 10px;}
+.buyshop h2 .close { float:right; width: 12px; height: 11px; background: url(../images/close.png) no-repeat;cursor: pointer;}
+.buyshop h2 .close:hover { background-position: -34px 0}
+.buyshop dt { font-size: 16px;}
+
+
+
+
+
+
+
+/***登陆注册*************/
+.hidden { display: none !important;}
+.show { display: block !important;}
+.pop_bg { position: fixed; top: 0; width: 100%; height: 100%; background-color: #000; opacity: 0.6; filter:alpha(opacity=60); z-index: 999;}
+.logion { position: fixed ; top: 50%; margin-top: -185px; left: 50%; z-index: 999; margin-left: -265px; width: 530px; height: 370px; background-color: #fff; border-radius: 10px;}
+.logion h2 { padding: 10px;}
+.logion h2 .close { float:right; width: 12px; height: 11px; background: url(../images/close.png) no-repeat;cursor: pointer;}
+.logion h2 .close:hover { background-position: -34px 0}
+.logion img { display: block; margin: 10px auto;}
+.logion input { display: block; width: 380px; height: 48px; margin: 10px auto; text-indent: 10px; border-radius: 10px; border: solid #ccc 1px;}
+.logion button { display: block; width: 380px; height: 50px; margin: 0px auto; margin-top:20px; border-radius: 10px; background-color: #289628; color: #fff; font-size: 16px; border: none; cursor: pointer;}
+.logion p { width: 380px; height: 50px; margin: 0px auto; line-height: 50px;}
+.logion p span { float: right;}
+.logion p span a { color: #bb3232;}
+.logion p.cor { color:#bb3232; line-height: 20px;}

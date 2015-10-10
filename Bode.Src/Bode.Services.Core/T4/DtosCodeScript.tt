@@ -1,0 +1,43 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\OSharp.Utility.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\OSharp.Core.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\OSharp.Core.Permissions.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="OSharp.Utility.Extensions" #>
+<#@ import namespace="OSharp.Utility.Develop.T4" #>
+<#@ import namespace="OSharp.Core.Data" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ include file="Include\DtosTemplate.tt" #>
+<#
+// <copyright file="DtosCodeScript.tt" company="">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+    string currentPath = Path.GetDirectoryName(Host.TemplateFile);
+    string projectPath = currentPath.Substring(0, currentPath.IndexOf(@"\T4"));
+
+    string modelFile = Path.Combine(projectPath, @"bin\Debug\Bode.Services.Core.dll");
+    byte[] fileData = File.ReadAllBytes(modelFile);
+    Assembly assembly = Assembly.Load(fileData);
+    Type baseType = typeof(EntityBase<>);
+    IEnumerable<Type> modelTypes = assembly.GetTypes().Where(m => baseType.IsGenericAssignableFrom(m) && !m.IsAbstract&&m.HasAttribute<GenerateAttribute>());
+    foreach(Type modelType in modelTypes)
+    {
+        T4ModelInfo model = new T4ModelInfo(modelType, true);
+        //实体映射类
+        DtosTemplate config = new DtosTemplate(model);
+        string path = model.UseModuleDir
+            ? string.Format(@"{0}\Dtos\{1}", projectPath, model.ModuleName)
+            : string.Format(@"{0}\Dtos", projectPath);
+        config.Output.Encoding = Encoding.UTF8;
+        config.RenderToFile(Path.Combine(path, config.FileName));
+    }
+
+#>

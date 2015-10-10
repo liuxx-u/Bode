@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "系统用户列表";
+    Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
+    ViewBag.ToolbarItem = "delete";
+    ViewBag.GridDataUrl = Url.Action("GetOperateLogData");
+    ViewBag.DeleteUrl = Url.Action("DeleteOperateLogs");
+}
+
+@section customScript
+{
+    <script src="~/Content/js/osharp/osharp.treeview.js"></script>
+    <script type="text/javascript">
+        var treeDatas = [], dataItemHash = {}, operatingTypes = {};
+        var curOperateId = 0;
+
+        $(function() {
+            var typeArray = @Html.Raw(Json.Encode(@ViewBag.OperatingTypes));
+            for (var i = 0, n = typeArray.length; i < n; i++) {
+                operatingTypes[typeArray[i]["val"]] = typeArray[i]["text"];
+            }
+        });
+
+        function initDataLog() {
+            var dataLogTree = new $.osharp.Treeview(".modal-dialog .tree", {
+                source: treeDatas,
+                itemSelect: function(item) {
+                    //to do something...
+                    var tab = $(".modal-dialog tbody");
+                    var dataItems = dataItemHash[item.value];
+                    for (var i = 0, n = dataItems.length; i < n; i++) {
+                        $('<tr><td>' + dataItems[i]["Field"] + '</td><td>' + dataItems[i]["FieldName"] + '</td><td>' + dataItems[i]["OriginalValue"] + '</td><td>' + dataItems[i]["NewValue"] + '</td><td>' + dataItems[i]["DataType"] + '</td></tr>').appendTo(tab);
+                    }
+                }
+            });
+        }
+
+        //设置角色点击事件
+        function getDataLog(operateId) {
+            //弹出框
+            bootbox.dialog({
+                message: $("#modal").html(),
+                title: "数据日志",
+                className: "modal-blue",
+                buttons: {
+                    success: {
+                        label: "关闭",
+                        className: "btn-blue",
+                        callback: function() {}
+                    }
+                }
+            });
+            $(".modal-dialog").width(document.body.clientWidth - 224 * 3);
+            if (curOperateId !== operateId) {
+                //清空数据日志数据
+                treeDatas.length = 0;
+
+                $.get("@Url.Action("GetDataLogData")", { operateLogId: operateId }, function(data) {
+                    for (var i = 0, n = data.length; i < n; i++) {
+                        var operateType = operatingTypes[data[i]["OperateType"]];
+                        var entityName = /[^\.]+$/.exec(data[i]["EntityName"]);
+
+                        //添加树数据源
+                        treeDatas.push({
+                            value: data[i].Id,
+                            text: data[i].Name + "-" + entityName + "-" + operateType,
+                            parentId: 0
+                        });
+
+                        //添加操作日志条目哈希表
+                        if (typeof(dataItemHash[data[i].Id]) === "undefined") {
+                            dataItemHash[data[i].Id] = data[i].LogItems;
+                        }
+                    }
+                    initDataLog();
+                });
+                curOperateId = operateId;
+            } else {
+                initDataLog();
+            }
+        }
+
+        columns = [
+            { data: "Id", title: "编号" },
+            { data: "FunctionName", title: "功能名称", type: "text", search: true, validation: { required: true } },
+            { data: "UserName", title: "操作人", type: "text", search: true },
+            { data: "Email", title: "IP地址", type: "text", search: true },
+            {
+                data: "CreatedTime",
+                title: "创建时间",
+                type: "datepicker",
+                search: true,
+                format: function(d) {
+                    return $.osharp.tools.formatDate(d);
+                },
+                isformatval: true
+            },
+            {
+                data: "Id",
+                title: "操作选项",
+                type: "opt",
+                format: function(id) {
+                    return '<a href="javascript:getDataLog(' + id + ')">数据日志</a>';
+                }
+            }
+        ];
+    </script>
+}
+
+@section headHtml{
+    <div id="modal" style="display:none;">
+        <div class="row">
+            <div id="organizationTree" class="col-xs-4">
+                <div class="widget flat radius-bordered">
+                    <div class="widget-header bg-info">
+                        <span class="widget-caption">实体类</span>
+                    </div>
+
+                    <div class="widget-body">
+                        <div id="treeContent" class="tree tree-solid-line">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-8">
+                <div class="widget flat radius-bordered">
+                    <div class="widget-header bg-info">
+                        <span class="widget-caption">修改详情</span>
+                    </div>
+                    <div class="widget-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        名称
+                                    </th>
+                                    <th>
+                                        字段
+                                    </th>
+                                    <th>
+                                        旧值
+                                    </th>
+                                    <th>
+                                        新值
+                                    </th>
+                                    <th>
+                                        类型
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
