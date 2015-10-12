@@ -248,9 +248,9 @@ namespace OSharp.Core.Data.Entity
                 catch (DbEntityValidationException ex)
                 {
                     IEnumerable<DbEntityValidationResult> errorResults = ex.EntityValidationErrors;
-                    List<string> ls = (from result in errorResults
-                                       let lines = result.ValidationErrors.Select(error => "{0}: {1}".FormatWith(error.PropertyName, error.ErrorMessage)).ToArray()
-                                       select "{0}({1})".FormatWith(result.Entry.Entity.GetType().FullName, lines.ExpandAndToString(", "))).ToList();
+                    List<string>ls = (from result in errorResults
+                                      let lines = result.ValidationErrors.Select(error => "{0}: {1}".FormatWith(error.PropertyName, error.ErrorMessage)).ToArray()
+                                      select "{0}({1})".FormatWith(result.Entry.Entity.GetType().FullName, lines.ExpandAndToString(", "))).ToList();
                     string message = "数据验证引发异常——" + ls.ExpandAndToString(" | ");
                     throw new DataException(message, ex);
                 }

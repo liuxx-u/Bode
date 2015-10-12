@@ -9,7 +9,9 @@ using OSharp.Autofac.Mvc;
 using OSharp.Core;
 using OSharp.Core.Caching;
 using OSharp.SiteBase.Initialize;
-using OSharp.Web.Http.Auth;
+using OSharp.Web.Http.Authentication;
+using OSharp.Web.Http.Caching;
+using OSharp.Web.Http.Handlers;
 using OSharp.Web.Http.Initialize;
 using OSharp.Web.Mvc.Initialize;
 using OSharp.Web.Mvc.Routing;
@@ -23,11 +25,11 @@ namespace Bode.Web
             AreaRegistration.RegisterAllAreas();
             RoutesRegister();
 
-            //注册WebApi的Handler
-            GlobalConfiguration.Configure(DelegatingHandlerRegister);
-
             DtoMappers.MapperRegister();
             Initialize();
+
+            //注册WebApi的Handler
+            GlobalConfiguration.Configure(DelegatingHandlerRegister);
         }
 
         private static void RoutesRegister()
@@ -44,7 +46,8 @@ namespace Bode.Web
         private static void DelegatingHandlerRegister(HttpConfiguration config)
         {
             // Web API 配置和服务
-            config.MessageHandlers.Add(new AuthorizeHandler());
+            config.MessageHandlers.Add(new ThrottlingHandler(new InMemoryThrottleStore(), id => 60, TimeSpan.FromMinutes(1)));
+            config.MessageHandlers.Add(new TokenAuthenticationHandler(new OnlineUserStore()));
         }
 
         private static void Initialize()

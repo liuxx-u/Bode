@@ -106,6 +106,7 @@
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
+    <Compile Include="Helper\LatLngHelper.cs" />
     <Compile Include="Helper\MathHelper.cs" />
     <Compile Include="Helper\OrderNoHelper.cs" />
     <Compile Include="Helper\SerializeHelper.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="IM\ImBase.cs" />
     <Compile Include="IM\ImExecutor.cs" />
     <Compile Include="IM\ImManager.cs" />
+    <Compile Include="Office\ExcelHandler.cs" />
     <Compile Include="Reflection\FastInvokeHandler.cs" />
     <Compile Include="Dynamic\MetaObject.cs" />
     <Compile Include="Exceptions\ExceptionMessage.cs" />

@@ -24,10 +24,10 @@ namespace OSharp.Core.Identity.Models
     /// 角色信息基类
     /// </summary>
     /// <typeparam name="TKey">角色编号类型</typeparam>
-    public abstract class RoleBase<TKey> : EntityBase<TKey>, IRole<TKey>, ICreatedTime
+    public abstract class RoleBase<TKey> : EntityBase<TKey>, IRole<TKey>
     {
         /// <summary>
-        /// 获取或设置 用户名
+        /// 获取或设置 角色名
         /// </summary>
         [Required, StringLength(50)]
         public string Name { get; set; }
@@ -47,10 +47,5 @@ namespace OSharp.Core.Identity.Models
         /// 获取或设置 是否系统角色
         /// </summary>
         public bool IsSystem { get; set; }
-        
-        /// <summary>
-        /// 获取设置 信息创建时间
-        /// </summary>
-        public DateTime CreatedTime { get; set; }
     }
 }

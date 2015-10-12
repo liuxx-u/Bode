@@ -238,7 +238,7 @@ namespace OSharp.Core.Security
                     continue;
                 }
                 bool isUpdate = false;
-                TFunction function = functions.Single(m => m.Area == item.Area && m.Controller == item.Controller && m.Action == item.Action);
+                TFunction function = functions.Single(m => m.Area == item.Area && m.Controller == item.Controller && m.Action == item.Action && m.Provider == item.Provider);
                 if (item.Name != function.Name)
                 {
                     item.Name = function.Name;

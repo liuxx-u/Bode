@@ -48,6 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -95,7 +96,7 @@
     <Compile Include="Initialize\ControllerTypeFinder.cs" />
     <Compile Include="Initialize\ActionMethodInfoFinder.cs" />
     <Compile Include="Initialize\FunctionHandler.cs" />
-    <Compile Include="Initialize\IocResolver.cs" />
+    <Compile Include="Initialize\MvcIocResolver.cs" />
     <Compile Include="Initialize\MvcFrameworkInitializer.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Logging\OperateLogFilterAttribute.cs" />
@@ -115,6 +116,8 @@
     <Compile Include="UI\Extensions.cs" />
     <Compile Include="UI\GridData.cs" />
     <Compile Include="UI\GridRequest.cs" />
+    <Compile Include="Upload\UeditorUploader.cs" />
+    <Compile Include="Upload\UploadHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="OSharp.Keys.snk" />

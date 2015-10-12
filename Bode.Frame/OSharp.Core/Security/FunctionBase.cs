@@ -93,7 +93,7 @@ namespace OSharp.Core.Security
         public bool IsAjax { get; set; }
 
         /// <summary>
-        /// 是否是菜单
+        /// 获取或设置 是否是菜单
         /// </summary>
         public bool IsMenu { get; set; }
 

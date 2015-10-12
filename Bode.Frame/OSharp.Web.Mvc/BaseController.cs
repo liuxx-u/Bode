@@ -15,7 +15,7 @@ using OSharp.Web.Mvc.UI;
 namespace OSharp.Web.Mvc
 {
     /// <summary>
-    /// 控制器基类
+    /// MVC控制器基类
     /// </summary>
     public abstract class BaseController : Controller
     {

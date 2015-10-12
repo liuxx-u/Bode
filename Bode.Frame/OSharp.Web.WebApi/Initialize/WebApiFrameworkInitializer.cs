@@ -33,11 +33,11 @@ namespace OSharp.Web.Http.Initialize
             DatabaseInitializer = new DatabaseInitializer();
             EntityInfoHandler = new EntityInfoHandler()
             {
-                IocResolver = new IocResolver()
+                IocResolver = new WebApiIocResolver()
             };
             FunctionHandler = new FunctionHandler()
             {
-                IocResolver = new IocResolver()
+                IocResolver = new WebApiIocResolver()
             };
         }
     }

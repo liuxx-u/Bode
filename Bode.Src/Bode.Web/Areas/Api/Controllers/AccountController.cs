@@ -9,7 +9,8 @@ using OSharp.Core.Context;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
 using OSharp.Web.Http;
-using OSharp.Web.Http.Auth;
+using OSharp.Web.Http.Authentication;
+using OSharp.Web.Http.Caching;
 using OSharp.Web.Http.Messages;
 
 namespace Bode.Web.Areas.Api.Controllers
@@ -18,6 +19,8 @@ namespace Bode.Web.Areas.Api.Controllers
     public class AccountController : BaseApiController
     {
         public IUserContract UserContract { get; set; }
+
+        public IOnlineUserStore OnlineUserStore { protected get; set; }
 
         #region 账户相关业务
 
@@ -49,11 +52,16 @@ namespace Bode.Web.Areas.Api.Controllers
         public async Task<IHttpActionResult> Login(string phoneNo, string password, LoginDevice loginDevice, string registKey = "")
         {
             var result = await UserContract.Login(phoneNo, password, registKey, loginDevice);
+            if (result.ResultType == OperationResultType.Success)
+            {
+                OnlineUserStore.ResetLastOperationTime(phoneNo);
+            }
+
             return Json(result.ToApiResult());
         }
 
-        [ApiAuth]
         [HttpPost]
+        [TokenAuth]
         [Description("重置密码")]
         public async Task<IHttpActionResult> ResetPassword(string phoneNo, string newPsw, string validateCode)
         {
@@ -61,8 +69,8 @@ namespace Bode.Web.Areas.Api.Controllers
             return Json(result.ToApiResult());
         }
 
-        [ApiAuth]
         [HttpPost]
+        [TokenAuth]
         [Description("修改密码")]
         public async Task<IHttpActionResult> ChangePassword(string phoneNo, string oldPsw, string newPsw)
         {
@@ -70,8 +78,8 @@ namespace Bode.Web.Areas.Api.Controllers
             return Json(result.ToApiResult());
         }
 
-        [ApiAuth]
         [HttpPost]
+        [TokenAuth]
         [Description("修改手机号")]
         public async Task<IHttpActionResult> ChangePhoneNo(string phoneNo, string newPhoneNo, string password, string validateCode)
         {
@@ -79,8 +87,8 @@ namespace Bode.Web.Areas.Api.Controllers
             return Json(result.ToApiResult());
         }
 
-        [ApiAuth]
         [HttpPost]
+        [TokenAuth]
         [Description("编辑用户信息")]
         public async Task<IHttpActionResult> EditUserInfo(string data)
         {
@@ -89,8 +97,8 @@ namespace Bode.Web.Areas.Api.Controllers
             return Json(new ApiResult(result.ResultType, "信息更新成功"));
         }
 
-        [ApiAuth]
         [HttpPost]
+        [TokenAuth]
         [Description("获取自己个人信息")]
         public async Task<IHttpActionResult> GetUserInfo()
         {
@@ -109,8 +117,8 @@ namespace Bode.Web.Areas.Api.Controllers
             return Json(new ApiResult("获取成功", userData));
         }
 
-        [ApiAuth]
         [HttpPost]
+        [TokenAuth]
         [Description("意见反馈")]
         public async Task<IHttpActionResult> AddFeedBack(FeedBackDto dto)
         {

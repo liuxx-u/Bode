@@ -24,7 +24,7 @@ namespace OSharp.Core.Identity.Models
     /// 用户信息基类
     /// </summary>
     /// <typeparam name="TKey">用户编号类型</typeparam>
-    public abstract class UserBase<TKey> : EntityBase<TKey>, IUser<TKey>, ICreatedTime
+    public abstract class UserBase<TKey> : EntityBase<TKey>, IUser<TKey>
     {
         /// <summary>
         /// Unique username
@@ -91,10 +91,5 @@ namespace OSharp.Core.Identity.Models
         /// 获取或设置 当前登录失败次数，达到设定值将被锁定
         /// </summary>
         public int AccessFailedCount { get; set; }
-
-        /// <summary>
-        /// 获取设置 信息创建时间
-        /// </summary>
-        public DateTime CreatedTime { get; set; }
     }
 }

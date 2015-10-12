@@ -65,14 +65,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth\ApiAuthAttribute.cs" />
-    <Compile Include="Auth\AuthorizeHandler.cs" />
+    <Compile Include="Authentication\TokenAuthAttribute.cs" />
+    <Compile Include="Authentication\TokenAuthenticationHandler.cs" />
     <Compile Include="BaseApiController.cs" />
     <Compile Include="Caching\CachingHandler.cs" />
     <Compile Include="Caching\EntityTagKey.cs" />
     <Compile Include="Caching\IEntityTagStore.cs" />
     <Compile Include="Caching\InMemoryEntityTagStore.cs" />
+    <Compile Include="Caching\OnlineUserStore.cs" />
     <Compile Include="Caching\InMemoryThrottleStore.cs" />
+    <Compile Include="Caching\IOnlineUserStore.cs" />
     <Compile Include="Caching\IThrottleStore.cs" />
     <Compile Include="Caching\ThrottleEntry.cs" />
     <Compile Include="Caching\TimedEntityTagHeaderValue.cs" />
@@ -86,7 +88,7 @@
     <Compile Include="Filters\ValidationAttribute.cs" />
     <Compile Include="Formattings\CSVMediaTypeFormatter.cs" />
     <Compile Include="Formattings\PlainTextFormatter.cs" />
-    <Compile Include="Auth\BasicAuthenticationHandlerBase.cs" />
+    <Compile Include="Authentication\BasicAuthenticationHandlerBase.cs" />
     <Compile Include="Handlers\EncodingHandler.cs" />
     <Compile Include="Handlers\ETagHandler.cs" />
     <Compile Include="Handlers\HeadMessageHandler.cs" />
@@ -97,13 +99,13 @@
     <Compile Include="Handlers\SelfHostConsoleOutputHandler.cs" />
     <Compile Include="Handlers\SimpleCorsHandler.cs" />
     <Compile Include="Handlers\ThrottlingHandler.cs" />
-    <Compile Include="Auth\TokenAuthenticationHandlerBase.cs" />
+    <Compile Include="Authentication\TokenAuthenticationHandlerBase.cs" />
     <Compile Include="Handlers\TraceMessageHandler.cs" />
     <Compile Include="Handlers\UriFormatExtensionHandler.cs" />
     <Compile Include="Initialize\ActionMethodInfoFinder.cs" />
     <Compile Include="Initialize\ControllerTypeFinder.cs" />
     <Compile Include="Initialize\FunctionHandler.cs" />
-    <Compile Include="Initialize\IocResolver.cs" />
+    <Compile Include="Initialize\WebApiIocResolver.cs" />
     <Compile Include="Initialize\WebApiFrameworkInitializer.cs" />
     <Compile Include="Internal\EnumerableExtensions.cs" />
     <Compile Include="Internal\HttpHeaderNames.cs" />

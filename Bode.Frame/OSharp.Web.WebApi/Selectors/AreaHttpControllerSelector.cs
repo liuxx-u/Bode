@@ -1,15 +1,4 @@
-﻿// 源文件头信息：
-// <copyright file="AreaHttpControllerSelector.cs">
-// Copyright(c)2012-2014 66SOFT.All rights reserved.
-// CLR版本：4.0.30319.239
-// 开发组织：柳柳软件坊
-// 公司网站：http://www.66soft.net
-// 所属工程：Gmf.Web
-// 最后修改：郭明锋
-// 最后修改：2014/05/28 13:33
-// </copyright>
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
