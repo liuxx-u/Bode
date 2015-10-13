@@ -38,7 +38,7 @@ namespace Bode.Services.Implement.Services
                 /// <param name="predicate">检查谓语表达式</param>
                 /// <param name="id">更新的FeedBack编号</param>
                 /// <returns>FeedBack信息是否存在</returns>
-               public async Task<bool> CheckFeedBackExists(Expression<Func<FeedBack, bool>> predicate, int id = 0)
+                public async Task<bool> CheckFeedBackExists(Expression<Func<FeedBack, bool>> predicate, int id = 0)
                 {
                     return await Task.Run(() =>
                     {
@@ -47,25 +47,25 @@ namespace Bode.Services.Implement.Services
                 }
 
                 /// <summary>
-                /// 保存UserInfo信息(新增/更新)
+                /// 保存FeedBack信息(新增/更新)
                 /// </summary>
                 /// <param name="updateForeignKey">更新时是否更新外键信息</param>
                 /// <param name="dtos">要保存的FeedBackDto信息</param>
                 /// <returns>业务操作集合</returns>
                 public async Task<OperationResult> SaveFeedBacks(bool updateForeignKey=false,params FeedBackDto[] dtos)
                 {
-                    dtos.CheckNotNull("dtos");
-                    var addDtos = dtos.Where(p => p.Id == 0).ToArray();
-                    var updateDtos = dtos.Where(p => p.Id != 0).ToArray();
-
                     try
                     {
-                        UserInfoRepo.UnitOfWork.TransactionEnabled = true;
+                        dtos.CheckNotNull("dtos");
+                        var addDtos = dtos.Where(p => p.Id == 0).ToArray();
+                        var updateDtos = dtos.Where(p => p.Id != 0).ToArray();
+
+                        FeedBackRepo.UnitOfWork.TransactionEnabled = true;
 
                         Action<FeedBackDto> checkAction=null;
                         Func<FeedBackDto, FeedBack, FeedBack> updateFunc=(dto, entity) => 
                         {
-                            if(updateForeignKey)
+                            if(dto.Id==0||updateForeignKey)
                             {
                                                                         entity.UserInfo = UserInfoRepo.GetByKey(dto.UserInfoId);
                                                                     }
@@ -79,12 +79,12 @@ namespace Bode.Services.Implement.Services
                         {
                             FeedBackRepo.Update(updateDtos,checkAction,updateFunc);
                         }
-                        await UserInfoRepo.UnitOfWork.SaveChangesAsync();
+                        await FeedBackRepo.UnitOfWork.SaveChangesAsync();
                         return new OperationResult(OperationResultType.Success, "保存成功");
                     }
-                    catch
+                    catch(Exception e)
                     {
-                        return new OperationResult(OperationResultType.Success, "保存失败");
+                        return new OperationResult(OperationResultType.Error, e.Message);
                     }
                 }
 
@@ -117,7 +117,7 @@ namespace Bode.Services.Implement.Services
                 /// <param name="predicate">检查谓语表达式</param>
                 /// <param name="id">更新的UserInfo编号</param>
                 /// <returns>UserInfo信息是否存在</returns>
-               public async Task<bool> CheckUserInfoExists(Expression<Func<UserInfo, bool>> predicate, int id = 0)
+                public async Task<bool> CheckUserInfoExists(Expression<Func<UserInfo, bool>> predicate, int id = 0)
                 {
                     return await Task.Run(() =>
                     {
@@ -133,12 +133,12 @@ namespace Bode.Services.Implement.Services
                 /// <returns>业务操作集合</returns>
                 public async Task<OperationResult> SaveUserInfos(bool updateForeignKey=false,params UserInfoDto[] dtos)
                 {
-                    dtos.CheckNotNull("dtos");
-                    var addDtos = dtos.Where(p => p.Id == 0).ToArray();
-                    var updateDtos = dtos.Where(p => p.Id != 0).ToArray();
-
                     try
                     {
+                        dtos.CheckNotNull("dtos");
+                        var addDtos = dtos.Where(p => p.Id == 0).ToArray();
+                        var updateDtos = dtos.Where(p => p.Id != 0).ToArray();
+
                         UserInfoRepo.UnitOfWork.TransactionEnabled = true;
 
                         Action<UserInfoDto> checkAction=dto =>
@@ -150,7 +150,14 @@ namespace Bode.Services.Implement.Services
                             }
 
                                                 };
-                        Func<UserInfoDto, UserInfo, UserInfo> updateFunc=null;
+                        Func<UserInfoDto, UserInfo, UserInfo> updateFunc=(dto, entity) => 
+                        {
+                            if(dto.Id==0||updateForeignKey)
+                            {
+                                                                        entity.SysUser = SysUserRepo.GetByKey(dto.SysUserId);
+                                                                    }
+                            return entity; 
+                        };
                         if (addDtos.Length > 0)
                         {
                             UserInfoRepo.Insert(addDtos,checkAction,updateFunc);
@@ -162,9 +169,9 @@ namespace Bode.Services.Implement.Services
                         await UserInfoRepo.UnitOfWork.SaveChangesAsync();
                         return new OperationResult(OperationResultType.Success, "保存成功");
                     }
-                    catch
+                    catch(Exception e)
                     {
-                        return new OperationResult(OperationResultType.Success, "保存失败");
+                        return new OperationResult(OperationResultType.Error, e.Message);
                     }
                 }
 
@@ -197,7 +204,7 @@ namespace Bode.Services.Implement.Services
                 /// <param name="predicate">检查谓语表达式</param>
                 /// <param name="id">更新的ValidateCode编号</param>
                 /// <returns>ValidateCode信息是否存在</returns>
-               public async Task<bool> CheckValidateCodeExists(Expression<Func<ValidateCode, bool>> predicate, int id = 0)
+                public async Task<bool> CheckValidateCodeExists(Expression<Func<ValidateCode, bool>> predicate, int id = 0)
                 {
                     return await Task.Run(() =>
                     {
@@ -206,20 +213,20 @@ namespace Bode.Services.Implement.Services
                 }
 
                 /// <summary>
-                /// 保存UserInfo信息(新增/更新)
+                /// 保存ValidateCode信息(新增/更新)
                 /// </summary>
                 /// <param name="updateForeignKey">更新时是否更新外键信息</param>
                 /// <param name="dtos">要保存的ValidateCodeDto信息</param>
                 /// <returns>业务操作集合</returns>
                 public async Task<OperationResult> SaveValidateCodes(bool updateForeignKey=false,params ValidateCodeDto[] dtos)
                 {
-                    dtos.CheckNotNull("dtos");
-                    var addDtos = dtos.Where(p => p.Id == 0).ToArray();
-                    var updateDtos = dtos.Where(p => p.Id != 0).ToArray();
-
                     try
                     {
-                        UserInfoRepo.UnitOfWork.TransactionEnabled = true;
+                        dtos.CheckNotNull("dtos");
+                        var addDtos = dtos.Where(p => p.Id == 0).ToArray();
+                        var updateDtos = dtos.Where(p => p.Id != 0).ToArray();
+
+                        ValidateCodeRepo.UnitOfWork.TransactionEnabled = true;
 
                         Action<ValidateCodeDto> checkAction=null;
                         Func<ValidateCodeDto, ValidateCode, ValidateCode> updateFunc=null;
@@ -231,12 +238,12 @@ namespace Bode.Services.Implement.Services
                         {
                             ValidateCodeRepo.Update(updateDtos,checkAction,updateFunc);
                         }
-                        await UserInfoRepo.UnitOfWork.SaveChangesAsync();
+                        await ValidateCodeRepo.UnitOfWork.SaveChangesAsync();
                         return new OperationResult(OperationResultType.Success, "保存成功");
                     }
-                    catch
+                    catch(Exception e)
                     {
-                        return new OperationResult(OperationResultType.Success, "保存失败");
+                        return new OperationResult(OperationResultType.Error, e.Message);
                     }
                 }
 

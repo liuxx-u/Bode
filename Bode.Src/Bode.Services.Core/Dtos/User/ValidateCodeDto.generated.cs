@@ -5,7 +5,7 @@
 
 
 using OSharp.Core.Data;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using Bode.Services.Core.Models.User;
 
 namespace Bode.Services.Core.Dtos.User

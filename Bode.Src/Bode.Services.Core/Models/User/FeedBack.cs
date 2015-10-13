@@ -9,10 +9,10 @@ namespace Bode.Services.Core.Models.User
     [Description("用户-消息反馈")]
     public class FeedBack : EntityBase<int>
     {
-        [Display(Name = @"反馈内容")]
+        [Description("反馈内容")]
         public string Content { get; set; }
 
-        [Display(Name = @"用户信息")]
+        [Description("用户信息")]
         public virtual UserInfo UserInfo { get; set; }
     }
 }

@@ -24,7 +24,7 @@ public class DtosTemplate : CSharpTemplate
 #>
 
 using OSharp.Core.Data;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using <#= _model.Namespace #>;
 
 namespace Bode.Services.Core.Dtos.<#= _model.ModuleName #>
@@ -34,7 +34,7 @@ namespace Bode.Services.Core.Dtos.<#= _model.ModuleName #>
         public System.Int32 Id { get; set; }
         <#+
             Type baseType = typeof(EntityBase<>);
-            var displayProperties=_model.Properties.Where(p => p.HasAttribute<DisplayAttribute>());
+            var displayProperties=_model.Properties.Where(p => p.HasAttribute<DescriptionAttribute>());
             foreach(var item in displayProperties)
             {
                 var theType=item.PropertyType;

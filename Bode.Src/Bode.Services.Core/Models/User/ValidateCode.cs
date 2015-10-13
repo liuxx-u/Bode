@@ -9,13 +9,13 @@ namespace Bode.Services.Core.Models.User
     [Description("用户-验证码")]
     public class ValidateCode : EntityBase<int>
     {
-        [Display(Name = @"电话号码")]
+        [Description("电话号码")]
         public string PhoneNo { get; set; }
 
-        [Display(Name = @"验证码类型")]
+        [Description("验证码类型")]
         public CodeType CodeType { get; set; }
 
-        [Display(Name = @"验证码")]
+        [Description("验证码")]
         public string Code { get; set; }
     }
     public enum CodeType

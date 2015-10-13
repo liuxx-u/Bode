@@ -49,7 +49,7 @@ namespace Bode.Services.Implement.Services
                 var noRepeatGroups = item.GetProperties().Where(p=>p.HasAttribute<NotRepeatAttribute>())
                     .GroupBy(p => ((NotRepeatAttribute)p.GetCustomAttributes(typeof(NotRepeatAttribute)).First()).GroupName);
 
-                var foreignKeyProperties=item.GetProperties().Where(p => p.HasAttribute<DisplayAttribute>() && baseType.IsGenericAssignableFrom(p.PropertyType));
+                var foreignKeyProperties=item.GetProperties().Where(p => p.HasAttribute<DescriptionAttribute>() && baseType.IsGenericAssignableFrom(p.PropertyType));
                             
                 #>
                 #region <#=item.Name #>信息业务

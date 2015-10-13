@@ -11,31 +11,31 @@ namespace Bode.Services.Core.Models.User
     [Description("用户-用户信息")]
     public class UserInfo : EntityBase<int>
     {
-        [NotRepeat(GroupName = "手机号"), Required, Display(Name = @"手机号")]
+        [NotRepeat(GroupName = "手机号"), Required, Description("手机号")]
         public string PhoneNo { get; set; }
 
-        [Display(Name = @"登录密码")]
+        [Description("登录密码")]
         public string Password { get; set; }
 
-        [Display(Name = @"昵称")]
+        [Description("昵称")]
         public string NickName { get; set; }
 
-        [Display(Name = @"头像地址")]
+        [Description("头像地址")]
         public string HeadPic { get; set; }
 
-        [Display(Name = @"出生年月")]
+        [Description("出生年月")]
         public DateTime BirthDay { get; set; }
 
-        [Display(Name = @"个性签名")]
+        [Description("个性签名")]
         public string Signature { get; set; }
 
-        [Display(Name = @"设备唯一标识号")]
+        [Description("设备唯一标识号")]
         public string RegistKey { get; set; }
 
-        [Display(Name = @"性别")]
+        [Description("性别")]
         public Sex Sex { get; set; }
 
-        [Display(Name = @"系统用户")]
+        [Description("系统用户")]
         public virtual SysUser SysUser { get; set; }
 
         /// <summary>

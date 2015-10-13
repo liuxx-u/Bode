@@ -5,7 +5,7 @@
 
 
 using OSharp.Core.Data;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using Bode.Services.Core.Models.User;
 
 namespace Bode.Services.Core.Dtos.User
@@ -21,5 +21,6 @@ namespace Bode.Services.Core.Dtos.User
                                         public System.String Signature { get; set; }
                                         public System.String RegistKey { get; set; }
                                         public Bode.Services.Core.Models.User.Sex Sex { get; set; }
+                                        public System.Int32 SysUserId { get; set; }
                     	}
 }
