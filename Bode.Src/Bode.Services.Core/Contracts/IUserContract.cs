@@ -33,8 +33,19 @@ namespace Bode.Services.Core.Contracts
         /// <param name="password">密码</param>
         /// <param name="registKey">极光注册Key</param>
         /// <param name="loginDevice">登录设备</param>
+        /// <param name="clientVersion">客户端当前版本</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> Login(string phoneNo, string password, string registKey, LoginDevice loginDevice, string clientVersion);
+
+
+        /// <summary>
+        /// 重置用户Token有效期
+        /// </summary>
+        /// <param name="user">用户</param>
+        /// <param name="loginDevice">登录设备</param>
+        /// <param name="clientVersion">客户端版本</param>
         /// <returns></returns>
-        Task<OperationResult> Login(string phoneNo, string password, string registKey, LoginDevice loginDevice);
+        Task<OperationResult> ResetToken(UserInfo user, LoginDevice loginDevice, string clientVersion);
 
         /// <summary>
         /// 更改手机号

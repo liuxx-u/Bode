@@ -6,6 +6,7 @@
 //  <last-date>2014-08-12 19:24</last-date>
 // -----------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 
 namespace OSharp.Core.Context
@@ -39,6 +40,11 @@ namespace OSharp.Core.Context
         /// 登录设备
         /// </summary>
         public LoginDevice LoginDevice { get; set; }
+
+        /// <summary>
+        /// 有效期
+        /// </summary>
+        public DateTime ValidatePeriod { get; set; }
 
         /// <summary>
         /// 用户数据

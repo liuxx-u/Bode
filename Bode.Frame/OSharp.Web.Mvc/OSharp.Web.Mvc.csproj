@@ -100,6 +100,24 @@
     <Compile Include="Initialize\MvcFrameworkInitializer.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Logging\OperateLogFilterAttribute.cs" />
+    <Compile Include="Pay\AliPay\AlipayConfig.cs" />
+    <Compile Include="Pay\AliPay\AlipayCore.cs" />
+    <Compile Include="Pay\AliPay\AlipayNotify.cs" />
+    <Compile Include="Pay\AliPay\AlipayNotifyInfo.cs" />
+    <Compile Include="Pay\AliPay\AlipayRequest.cs" />
+    <Compile Include="Pay\AliPay\DeliverErrorCode.cs" />
+    <Compile Include="Pay\AliPay\LogisticsPayment.cs" />
+    <Compile Include="Pay\AliPay\LogisticsType.cs" />
+    <Compile Include="Pay\AliPay\RefundStatus.cs" />
+    <Compile Include="Pay\AliPay\TradeStatus.cs" />
+    <Compile Include="Pay\WxPay\Config.cs" />
+    <Compile Include="Pay\WxPay\Data.cs" />
+    <Compile Include="Pay\WxPay\Exception.cs" />
+    <Compile Include="Pay\WxPay\HttpService.cs" />
+    <Compile Include="Pay\WxPay\Log.cs" />
+    <Compile Include="Pay\WxPay\NativeNotify.cs" />
+    <Compile Include="Pay\WxPay\Notify.cs" />
+    <Compile Include="Pay\WxPay\WxPayApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

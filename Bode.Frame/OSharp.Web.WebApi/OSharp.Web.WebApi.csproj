@@ -65,7 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\TokenAuthAttribute.cs" />
     <Compile Include="Authentication\TokenAuthenticationHandler.cs" />
     <Compile Include="BaseApiController.cs" />
     <Compile Include="Caching\CachingHandler.cs" />

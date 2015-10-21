@@ -5,11 +5,11 @@ using System.Web.Http;
 using Bode.Services.Core.Contracts;
 using Bode.Services.Core.Dtos.User;
 using Bode.Services.Core.Models.User;
+using Bode.Web.Filters;
 using OSharp.Core.Context;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
 using OSharp.Web.Http;
-using OSharp.Web.Http.Authentication;
 using OSharp.Web.Http.Caching;
 using OSharp.Web.Http.Messages;
 
@@ -49,14 +49,28 @@ namespace Bode.Web.Areas.Api.Controllers
 
         [HttpPost]
         [Description("用户登录")]
-        public async Task<IHttpActionResult> Login(string phoneNo, string password, LoginDevice loginDevice, string registKey = "")
+        public async Task<IHttpActionResult> Login(string phoneNo, string password, LoginDevice loginDevice,
+            string clientVersion, string registKey = "")
         {
-            var result = await UserContract.Login(phoneNo, password, registKey, loginDevice);
-            if (result.ResultType == OperationResultType.Success)
-            {
-                OnlineUserStore.ResetLastOperationTime(phoneNo);
-            }
+            var result = await UserContract.Login(phoneNo, password, registKey, loginDevice, clientVersion);
 
+            //if (result.ResultType == OperationResultType.Success)
+            //{
+            //    OnlineUserStore.ResetLastOperationTime(phoneNo);
+            //}
+
+            return Json(result.ToApiResult());
+        }
+
+        [HttpPost]
+        [TokenAuth]
+        [Description("启动时重置Token过期时间")]
+        public async Task<IHttpActionResult> ResetTokenValidityPeriod(LoginDevice loginDevice, string clientVersion)
+        {
+            var user = await UserContract.UserInfos.SingleOrDefaultAsync(p => p.Id == OperatorId);
+            if (user == null) return Json(new ApiResult("用户不存在", OperationResultType.QueryNull));
+
+            var result = await UserContract.ResetToken(user, loginDevice, clientVersion);
             return Json(result.ToApiResult());
         }
 

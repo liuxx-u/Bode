@@ -180,7 +180,7 @@ namespace Bode.Web.Areas.Admin.Controllers
 
         #region 用户
 
-        [AjaxOnly]
+        //[AjaxOnly]
         [Description("获取用户数据")]
         public ActionResult GetUserData()
         {

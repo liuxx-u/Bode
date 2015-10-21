@@ -113,8 +113,9 @@ namespace Bode.Services.Implement.Services
         /// <param name="password">密码</param>
         /// <param name="registKey">极光registKey</param>
         /// <param name="loginDevice">登录设备</param>
+        /// <param name="clientVersion">客户端版本</param>
         /// <returns></returns>
-        public async Task<OperationResult> Login(string phoneNo, string password, string registKey, LoginDevice loginDevice)
+        public async Task<OperationResult> Login(string phoneNo, string password, string registKey, LoginDevice loginDevice, string clientVersion)
         {
             phoneNo.CheckNotNullOrEmpty("phoneNo");
             phoneNo.CheckNotNullOrEmpty("password");
@@ -137,7 +138,7 @@ namespace Bode.Services.Implement.Services
                 }
 
                 //变更登录信息
-                SetToken(theUser, loginDevice);
+                await ResetToken(theUser, loginDevice, clientVersion);
 
                 var loginInfo = new UserTokenDto()
                 {
@@ -257,6 +258,32 @@ namespace Bode.Services.Implement.Services
             return new OperationResult(OperationResultType.Success, "密码重置成功");
         }
 
+        /// <summary>
+        /// 重置用户Token有效期
+        /// </summary>
+        /// <param name="user">用户</param>
+        /// <param name="loginDevice">登录设备</param>
+        /// <param name="clientVersion">客户端版本</param>
+        /// <returns></returns>
+        public async Task<OperationResult> ResetToken(UserInfo user, LoginDevice loginDevice, string clientVersion)
+        {
+            Operator oper = new Operator()
+            {
+                UserId = user.Id.ToString(),
+                UserName = user.SysUser.UserName,
+                LoginDevice = loginDevice,
+                PhoneNo = user.SysUser.PhoneNumber,
+                ClientVersion = clientVersion,
+                ValidatePeriod = DateTime.Now.AddDays(30)//默认30天有效期
+            };
+            string authDesKey = "bodeauth";
+            string strAuth = oper.ToJsonString();
+            user.Token = DesHelper.Encrypt(strAuth, authDesKey);
+
+            await UserInfoRepo.UpdateAsync(user);
+            return new OperationResult(OperationResultType.Success, "重置成功");
+        }
+
         #region 私有方法
 
         //获取验证码
@@ -270,25 +297,6 @@ namespace Bode.Services.Implement.Services
 
             return codeEntity == null ? string.Empty : codeEntity.Code;
         }
-
-        //加密生成token
-        public void SetToken(UserInfo user, LoginDevice loginDevice)
-        {
-            Operator oper = new Operator()
-            {
-                UserId = user.Id.ToString(),
-                UserName = user.SysUser.NickName,
-                LoginDevice = loginDevice,
-                PhoneNo = user.SysUser.PhoneNumber,
-                ClientVersion = "1.0"
-            };
-            string authDesKey = "bodeauth";
-            string strAuth = oper.ToJsonString();
-            user.Token = DesHelper.Encrypt(strAuth, authDesKey);
-
-            UserInfoRepo.Update(user);
-        }
-
         #endregion
 
     }

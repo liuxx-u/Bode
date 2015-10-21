@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="DataAnnotations\PasswordAttributeTests.cs" />
     <Compile Include="Data\DateTimeRangeTests.cs" />
+    <Compile Include="Demo\UnitTest1.cs" />
     <Compile Include="Extensions\BooleanExtensionsTests.cs" />
     <Compile Include="Extensions\CollectionExtensionsTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
 using OSharp.Core.Caching;
 
 namespace OSharp.Web.Http.Caching

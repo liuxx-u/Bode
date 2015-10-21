@@ -9,7 +9,6 @@ using OSharp.Autofac.Mvc;
 using OSharp.Core;
 using OSharp.Core.Caching;
 using OSharp.SiteBase.Initialize;
-using OSharp.Web.Http.Authentication;
 using OSharp.Web.Http.Caching;
 using OSharp.Web.Http.Handlers;
 using OSharp.Web.Http.Initialize;
@@ -47,7 +46,6 @@ namespace Bode.Web
         {
             // Web API 配置和服务
             config.MessageHandlers.Add(new ThrottlingHandler(new InMemoryThrottleStore(), id => 60, TimeSpan.FromMinutes(1)));
-            config.MessageHandlers.Add(new TokenAuthenticationHandler(new OnlineUserStore()));
         }
 
         private static void Initialize()
