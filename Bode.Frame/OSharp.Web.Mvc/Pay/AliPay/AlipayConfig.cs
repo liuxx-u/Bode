@@ -1,4 +1,6 @@
 ﻿
+using System.Configuration;
+
 namespace OSharp.Web.Mvc.Pay.AliPay
 {
     /// <summary>
@@ -8,11 +10,11 @@ namespace OSharp.Web.Mvc.Pay.AliPay
     {
         static AlipayConfig()
         {
-            Partner = "2088021116482180";
-            Key = "p8mykjguqa79v4esuog0cnzalbfttbdt";
-            PublicKey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
-            InputCharset = "utf-8";
-            SignType = "RSA";
+            Partner = ConfigurationManager.AppSettings["AliPay-Partner"];
+            Key = ConfigurationManager.AppSettings["AliPay-SecurityKey"];
+            PublicKey = ConfigurationManager.AppSettings["AliPay-PublicKey"];
+            InputCharset = ConfigurationManager.AppSettings["AliPay-InputCharset"] ?? "utf-8";
+            SignType = ConfigurationManager.AppSettings["AliPay-SignType"] ?? "RSA";
         }
 
         /// <summary>

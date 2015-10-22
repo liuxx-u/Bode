@@ -5,11 +5,11 @@ using System.Web.Http;
 using Bode.Services.Core.Contracts;
 using Bode.Services.Core.Dtos.User;
 using Bode.Services.Core.Models.User;
-using Bode.Web.Filters;
 using OSharp.Core.Context;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
 using OSharp.Web.Http;
+using OSharp.Web.Http.Authentication;
 using OSharp.Web.Http.Caching;
 using OSharp.Web.Http.Messages;
 

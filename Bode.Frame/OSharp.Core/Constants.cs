@@ -22,5 +22,8 @@ namespace OSharp.Core
     {
         public const string CurrentMvcFunctionKey = "OSHARP_MVC_FUNCTION_CURRENT";
         public const string CurrentWebApiFunctionKey = "OSHARP_WEBAPI_FUNCTION_CURRENT";
+
+        //8位或24位
+        public const string BodeAuthDesKey = "BODE_AUTH_TOKEN_DES_KEY_";
     }
 }
