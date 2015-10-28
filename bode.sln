@@ -71,7 +71,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Plugin.Sms.Ccp", "Bode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Plugin.Im.Easemob", "Bode.Plugin\Bode.Plugin.Im.Easemob\Bode.Plugin.Im.Easemob.csproj", "{81FCD115-34EA-4FE5-9643-ABD7A9F323CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Plugin.Push.Jpush", "Bode.Plugin.Push.Jpush\Bode.Plugin.Push.Jpush.csproj", "{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Plugin.Push.Jpush", "Bode.Plugin\Bode.Plugin.Push.Jpush\Bode.Plugin.Push.Jpush.csproj", "{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
