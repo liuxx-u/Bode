@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Bode.Plugin.Core.SMS;
 using Bode.Services.Core.Dtos.User;
 using Bode.Services.Core.Models.Identity;
 using Bode.Services.Core.Models.User;
@@ -14,13 +15,12 @@ using OSharp.Utility.Data;
 using OSharp.Utility.Drawing;
 using OSharp.Utility.Extensions;
 using OSharp.Utility.Secutiry;
-using OSharp.Utility.SMS;
 
 namespace Bode.Services.Implement.Services
 {
     public partial class UserService
     {
-        private static readonly ISms Sms = SmsManager.GetInstance("ValidateCode");
+        private static readonly ISms Sms = SmsManager.SmsInstance;
 
         /// <summary>
         /// 获取用户注册验证码
@@ -41,7 +41,7 @@ namespace Bode.Services.Implement.Services
 
             //发送手机短信
             var smsContent = "您本次的验证码为" + validateCode + "，工作人员不会向您索要此验证码，请勿向任何人泄露。[右行养车]";
-            Sms.Send(phoneNo, smsContent, "");
+            Sms.Send(phoneNo,1, smsContent);
 
 
             return new OperationResult(OperationResultType.Success, "验证码发送成功", validateCode);

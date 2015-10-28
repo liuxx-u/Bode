@@ -1146,7 +1146,6 @@
     <Content Include="Content\js\angular\angular.min.js.map" />
     <Content Include="Content\js\angular\errors.json" />
     <Content Include="Content\js\angular\version.json" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1195,10 +1194,6 @@
     <ProjectReference Include="..\..\Bode.Frame\OSharp.Web.WebApi\OSharp.Web.WebApi.csproj">
       <Project>{fa06bc09-11b9-4fbd-81cd-24075ed1ec57}</Project>
       <Name>OSharp.Web.WebApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bode.Adapter\Bode.Adapter.csproj">
-      <Project>{7d55c154-d3bd-49de-8c4a-6fcb016f04eb}</Project>
-      <Name>Bode.Adapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bode.Services.Core\Bode.Services.Core.csproj">
       <Project>{1f57a37a-9f0e-4fd7-8994-b431de2d5c04}</Project>

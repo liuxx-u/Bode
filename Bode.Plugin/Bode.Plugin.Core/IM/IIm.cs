@@ -1,5 +1,4 @@
-﻿
-namespace OSharp.Utility.IM
+﻿namespace Bode.Plugin.Core.IM
 {
     public interface IIm
     {
@@ -102,7 +101,7 @@ namespace OSharp.Utility.IM
         /// <param name="userName">用户名</param>
         /// <param name="blockedUser">已拉黑的用户名</param>
         /// <returns></returns>
-        T RemoveFromBlockList<T>(string userName,string blockedUser);
+        T RemoveFromBlockList<T>(string userName, string blockedUser);
 
         /// <summary>
         /// 获取用户状态

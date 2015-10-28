@@ -9,7 +9,9 @@ using Bode.Services.Core.Contracts;
 using Bode.Services.Core.Dtos.Identity;
 using Bode.Services.Core.Dtos.Security;
 using Bode.Services.Core.Models.Identity;
+using OSharp.Core.Data;
 using OSharp.Core.Data.Extensions;
+using OSharp.Core.Logging;
 using OSharp.Core.Security;
 using OSharp.Utility;
 using OSharp.Utility.Data;
@@ -28,6 +30,8 @@ namespace Bode.Web.Areas.Admin.Controllers
         public IIdentityContract IdentityContract { get; set; }
 
         public ISecurityContract SecurityContract { get; set; }
+
+        public IRepository<OperateLog, int> OperateLogRepo { get; set; }
 
         #region Ajax功能
 

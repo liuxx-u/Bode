@@ -111,11 +111,6 @@
     <Compile Include="Helper\OrderNoHelper.cs" />
     <Compile Include="Helper\SerializeHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
-    <Compile Include="IM\IIm.cs" />
-    <Compile Include="IM\IImProvider.cs" />
-    <Compile Include="IM\ImBase.cs" />
-    <Compile Include="IM\ImExecutor.cs" />
-    <Compile Include="IM\ImManager.cs" />
     <Compile Include="Office\ExcelHandler.cs" />
     <Compile Include="Reflection\FastInvokeHandler.cs" />
     <Compile Include="Dynamic\MetaObject.cs" />
@@ -166,11 +161,6 @@
     <Compile Include="Secutiry\DesHelper.cs" />
     <Compile Include="Secutiry\HashHelper.cs" />
     <Compile Include="Secutiry\RsaHelper.cs" />
-    <Compile Include="SMS\ISms.cs" />
-    <Compile Include="SMS\ISmsProvider.cs" />
-    <Compile Include="SMS\SmsBase.cs" />
-    <Compile Include="SMS\SmsExecutor.cs" />
-    <Compile Include="SMS\SmsManager.cs" />
     <Compile Include="Web\UserAgentHelper.cs" />
     <Compile Include="Windows\PresentationExtensions.cs" />
     <Compile Include="Windows\RegistryBaseKey.cs" />
