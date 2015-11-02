@@ -109,6 +109,7 @@
     <Compile Include="Helper\LatLngHelper.cs" />
     <Compile Include="Helper\MathHelper.cs" />
     <Compile Include="Helper\OrderNoHelper.cs" />
+    <Compile Include="Helper\RetryHelper.cs" />
     <Compile Include="Helper\SerializeHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Office\ExcelHandler.cs" />

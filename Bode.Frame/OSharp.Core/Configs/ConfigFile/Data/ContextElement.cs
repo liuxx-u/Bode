@@ -22,6 +22,7 @@ namespace OSharp.Core.Configs.ConfigFile
         private const string ConnectionStringNameKey = "connectionStringName";
         private const string TypeKey = "type";
         private const string DbContextInitializerKey = "initializer";
+        private const string ReadConnectionStringNamesKey = "readConnectionStringNames";
 
         /// <summary>
         /// 获取或设置 节点名称
@@ -61,6 +62,16 @@ namespace OSharp.Core.Configs.ConfigFile
         {
             get { return (string)this[ConnectionStringNameKey]; }
             set { this[ConnectionStringNameKey] = value; }
+        }
+
+        /// <summary>
+        /// 获取或设置 读库字符串名称
+        /// </summary>
+        [ConfigurationProperty(ReadConnectionStringNamesKey, DefaultValue = "")]
+        public virtual string ReadConnectionStringNames
+        {
+            get { return (string)this[ReadConnectionStringNamesKey]; }
+            set { this[ReadConnectionStringNamesKey] = value; }
         }
 
         /// <summary>

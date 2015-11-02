@@ -1,4 +1,5 @@
 ﻿using System;
+using OSharp.Utility.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace OSharp.Utility.Tests.Demo
@@ -9,9 +10,12 @@ namespace OSharp.Utility.Tests.Demo
         [TestMethod]
         public void TestMethod1()
         {
-            decimal a = 1.2M;
-            var b = a/1;
-
+            var time = DateTime.Now;
+            var tesult= RetryHelper.Retry(() =>
+            {
+                var a = time;
+                return false;
+            }, 2);
         }
     }
 }

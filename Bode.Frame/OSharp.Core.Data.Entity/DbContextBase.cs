@@ -167,6 +167,36 @@ namespace OSharp.Core.Data.Entity
         public bool TransactionEnabled { get; set; }
 
         /// <summary>
+        /// 获取读库上下文默认实现
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IUnitOfWork GetSlaveContext(string readNameOrConnectionString)
+        {
+            return this;
+        }
+
+        /// <summary>
+        /// 获取读库上下文
+        /// </summary>
+        private IUnitOfWork _readContext;
+        public IUnitOfWork ReadContext
+        {
+            get
+            {
+                if (_readContext == null)
+                {
+                    if (!_contextConfig.ReadConnectionStringNames.Any()) return this;
+                    int index = DateTime.Now.Millisecond % _contextConfig.ReadConnectionStringNames.Length;
+
+                    _readContext=GetSlaveContext(_contextConfig.ReadConnectionStringNames[index]);
+                }
+                return _readContext;
+            }
+        }
+
+
+
+        /// <summary>
         /// 对数据库执行给定的 DDL/DML 命令。 
         /// 与接受 SQL 的任何 API 一样，对任何用户输入进行参数化以便避免 SQL 注入攻击是十分重要的。 您可以在 SQL 查询字符串中包含参数占位符，然后将参数值作为附加参数提供。 
         /// 您提供的任何参数值都将自动转换为 DbParameter。 unitOfWork.ExecuteSqlCommand("UPDATE dbo.Posts SET Rating = 5 WHERE Author = @p0", userSuppliedAuthor); 
@@ -284,7 +314,6 @@ namespace OSharp.Core.Data.Entity
             }
         }
 
-#if NET45
 
         /// <summary>
         /// 对数据库执行给定的 DDL/DML 命令。 
@@ -373,7 +402,5 @@ namespace OSharp.Core.Data.Entity
                 }
             }
         }
-#endif
-
     }
 }

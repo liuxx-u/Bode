@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Plugin.Im.Easemob", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Plugin.Push.Jpush", "Bode.Plugin\Bode.Plugin.Push.Jpush\Bode.Plugin.Push.Jpush.csproj", "{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Plugin.Sms.Md", "Bode.Plugin\Bode.Plugin.Sms.Md\Bode.Plugin.Sms.Md.csproj", "{40A42ADE-D8CA-4296-807A-A1987B4E5B70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,10 @@ Global
 		{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40A42ADE-D8CA-4296-807A-A1987B4E5B70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40A42ADE-D8CA-4296-807A-A1987B4E5B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40A42ADE-D8CA-4296-807A-A1987B4E5B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40A42ADE-D8CA-4296-807A-A1987B4E5B70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,5 +203,6 @@ Global
 		{D05FD033-50F8-4176-A2F2-D5A1F3F8F3C8} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
 		{81FCD115-34EA-4FE5-9643-ABD7A9F323CA} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
 		{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
+		{40A42ADE-D8CA-4296-807A-A1987B4E5B70} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
 	EndGlobalSection
 EndGlobal

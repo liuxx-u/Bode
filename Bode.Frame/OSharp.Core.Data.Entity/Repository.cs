@@ -34,6 +34,7 @@ namespace OSharp.Core.Data.Entity
         where TEntity : class, IEntity<TKey>
     {
         private readonly DbSet<TEntity> _dbSet;
+        private readonly DbSet<TEntity> _readDbSet;
 
         /// <summary>
         /// 初始化一个<see cref="Repository{TEntity, TKey}"/>类型的新实例
@@ -41,7 +42,9 @@ namespace OSharp.Core.Data.Entity
         public Repository(IDbContextTypeResolver contextTypeResolver)
         {
             UnitOfWork = contextTypeResolver.Resolve<TEntity, TKey>();
+
             _dbSet = ((DbContext)UnitOfWork).Set<TEntity>();
+            _readDbSet = ((DbContext) UnitOfWork.ReadContext).Set<TEntity>();
         }
 
         /// <summary>
@@ -54,7 +57,7 @@ namespace OSharp.Core.Data.Entity
         /// </summary>
         public IQueryable<TEntity> Entities
         {
-            get { return _dbSet.AsNoTracking(); }
+            get { return _readDbSet.AsNoTracking(); }
         }
 
         /// <summary>
@@ -533,8 +536,6 @@ namespace OSharp.Core.Data.Entity
                 : _dbSet.SqlQuery(sql, parameters).AsNoTracking();
         }
 
-#if NET45
-
         /// <summary>
         /// 异步插入实体
         /// </summary>
@@ -834,8 +835,6 @@ namespace OSharp.Core.Data.Entity
             predicate.CheckNotNull("predicate");
             return await _dbSet.Where(predicate).ToListAsync();
         }
-
-#endif
 
         #region 私有方法
 

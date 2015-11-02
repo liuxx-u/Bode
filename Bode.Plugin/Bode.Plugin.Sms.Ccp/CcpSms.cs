@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using Bode.Plugin.Core.SMS;
+using OSharp.Utility.Helper;
 using OSharp.Utility.Logging;
 
 namespace Bode.Plugin.Sms.Ccp
@@ -38,17 +39,11 @@ namespace Bode.Plugin.Sms.Ccp
         
         public bool Send(string phoneNos, int templateId = 0, params string[] content)
         {
-            int retryCount = 4;
-            while (retryCount > 0)
+            return RetryHelper.Retry(() =>
             {
                 Dictionary<string, object> result = _api.SendTemplateSMS(phoneNos, templateId.ToString(), content);
-                if ((string) result["statusCode"] == "000000")
-                {
-                    return true;
-                }
-                retryCount--;
-            }
-            return false;
+                return (string) result["statusCode"] == "000000";
+            }, 4);
         }
     }
 }

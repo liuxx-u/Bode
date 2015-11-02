@@ -28,6 +28,11 @@ namespace OSharp.Core.Data
         /// </summary>
         bool TransactionEnabled { get; set; }
 
+        /// <summary>
+        /// 获取读库上下文
+        /// </summary>
+        IUnitOfWork ReadContext { get; }
+
         #endregion
 
         #region 方法

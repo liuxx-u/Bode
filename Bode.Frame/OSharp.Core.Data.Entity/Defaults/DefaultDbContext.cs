@@ -34,5 +34,14 @@ namespace OSharp.Core.Data.Entity
             : base(nameOrConnectionString)
         { }
 
+        /// <summary>
+        /// 获取读库上下文
+        /// </summary>
+        /// <param name="readNameOrConnectionString">读库连接字符串</param>
+        /// <returns>读库上下文</returns>
+        protected override IUnitOfWork GetSlaveContext(string readNameOrConnectionString)
+        {
+            return new DefaultDbContext(readNameOrConnectionString);
+        }
     }
 }
