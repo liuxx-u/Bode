@@ -14,8 +14,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using OSharp.Core.Data;
 
-namespace OSharp.Core.Data.Entity
+
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// 数据实体映射配置基类

@@ -13,10 +13,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using OSharp.Core.Data;
 using OSharp.Core.Dependency;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// 定义数据上下文实例创建器

@@ -15,15 +15,15 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using EntityFramework.Extensions;
-
-using OSharp.Core.Data.Entity.Properties;
+using OSharp.Core.Data;
+using OSharp.Data.Entity.Properties;
 using OSharp.Core.Data.Extensions;
 using OSharp.Utility;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// EntityFramework的仓储实现

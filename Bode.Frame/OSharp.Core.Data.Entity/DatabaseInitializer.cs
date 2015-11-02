@@ -12,14 +12,13 @@ using System.Linq;
 using System.Reflection;
 
 using OSharp.Core.Configs;
-using OSharp.Core.Data.Entity.Logging;
-using OSharp.Core.Data.Entity.Properties;
+using OSharp.Data.Entity.Logging;
+using OSharp.Data.Entity.Properties;
 using OSharp.Core.Initialize;
-using OSharp.Core.Reflection;
 using OSharp.Utility.Extensions;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// 数据库初始化器，从程序集中反射实体映射类并加载到相应上下文类中，进行上下文类型的初始化
@@ -27,17 +26,9 @@ namespace OSharp.Core.Data.Entity
     public class DatabaseInitializer : IDatabaseInitializer
     {
         /// <summary>
-        /// 初始化一个<see cref="DatabaseInitializer"/>类型的新实例
-        /// </summary>
-        public DatabaseInitializer()
-        {
-            MapperAssemblyFinder = new EntityMapperAssemblyFinder();
-        }
-
-        /// <summary>
         /// 获取或设置 实体映射程序集查找器
         /// </summary>
-        public IAssemblyFinder MapperAssemblyFinder { get; set; }
+        public IEntityMapperAssemblyFinder MapperAssemblyFinder { get; set; }
 
         /// <summary>
         /// 开始初始化数据库

@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// 实体映射接口

@@ -13,10 +13,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OSharp.Core.Data.Entity.Logging;
+using OSharp.Data.Entity.Logging;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// MySql的log数据库上下文初始化

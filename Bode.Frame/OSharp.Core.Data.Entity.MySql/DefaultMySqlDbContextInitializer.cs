@@ -17,7 +17,7 @@ using EntityFramework;
 using EntityFramework.Batch;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// MySql数据上下文初始化

@@ -15,7 +15,7 @@ using Bode.Services.Core.Dtos.Security;
 using Bode.Services.Core.Models.Identity;
 using Bode.Services.Core.Models.Security;
 using OSharp.Core.Context;
-using OSharp.Core.Data.Entity;
+using OSharp.Data.Entity;
 using OSharp.Core.Security;
 using OSharp.Utility;
 using OSharp.Utility.Data;

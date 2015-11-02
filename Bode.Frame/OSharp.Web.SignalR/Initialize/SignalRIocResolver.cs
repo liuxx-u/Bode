@@ -1,10 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="IocResolver.cs" company="OSharp开源团队">
+//  <copyright file="SignalRIocResolver.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
 //  <site>http://www.osharp.org</site>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-09-23 21:58</last-date>
+//  <last-date>2015-10-06 15:29</last-date>
 // -----------------------------------------------------------------------
 
 using System;

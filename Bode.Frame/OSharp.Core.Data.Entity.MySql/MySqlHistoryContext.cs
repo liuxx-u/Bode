@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// MySql迁移历史上下文，更改<see cref="HistoryRow"/>模型以适应MySql数据库的特性

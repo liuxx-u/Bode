@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OSharp.Core.Data.Entity.Migrations
+namespace OSharp.Data.Entity.Migrations
 {
     /// <summary>
     /// 数据迁移配置基类

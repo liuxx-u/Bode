@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Filters;
 
 using OSharp.Core.Context;
-using OSharp.Core.Exceptions;
+using OSharp.Core.Extensions;
 using OSharp.Core.Logging;
 using OSharp.Core.Security;
 using OSharp.Web.Http.Extensions;
@@ -31,6 +31,11 @@ namespace OSharp.Web.Http.Logging
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class OperateLogFilterAttribute : ActionFilterAttribute
     {
+        /// <summary>
+        /// 获取或设置 服务提供者
+        /// </summary>
+        public IServiceProvider ServiceProvider { get; set; }
+
         /// <summary>
         /// 获取或设置 数据日志缓存
         /// </summary>
@@ -47,7 +52,7 @@ namespace OSharp.Web.Http.Logging
         /// <param name="actionExecutedContext">The action executed context.</param>
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            IFunction function = actionExecutedContext.Request.GetExecuteFunction();
+            IFunction function = actionExecutedContext.Request.GetExecuteFunction(ServiceProvider);
             if (function == null || !function.OperateLogEnabled)
             {
                 return;
@@ -62,7 +67,9 @@ namespace OSharp.Web.Http.Logging
                 ClaimsIdentity user = identity as ClaimsIdentity;
                 if (user != null)
                 {
+                    @operator.UserId = user.GetClaimValue(ClaimTypes.NameIdentifier);
                     @operator.UserName = user.GetClaimValue(ClaimTypes.Name);
+                    //@operator.NickName = user.GetClaimValue(ClaimTypes.GivenName);
                 }
             }
             OperateLog operateLog = new OperateLog()

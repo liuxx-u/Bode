@@ -25,17 +25,17 @@ namespace OSharp.Core.Dependency
     public class TransientDependencyTypeFinder : ITypeFinder
     {
         /// <summary>
-        /// 初始化一个<see cref="SingletonDependencyTypeFinder"/>类型的新实例
+        /// 初始化一个<see cref="TransientDependencyTypeFinder"/>类型的新实例
         /// </summary>
         public TransientDependencyTypeFinder()
         {
-            AssemblyFinder = new CurrentDomainAssemblyFinder();
+            AssemblyFinder = new DirectoryAssemblyFinder();
         }
 
         /// <summary>
         /// 获取或设置 程序集查找器
         /// </summary>
-        public IAssemblyFinder AssemblyFinder { get; set; }
+        public IAllAssemblyFinder AssemblyFinder { get; set; }
 
         /// <summary>
         /// 查找指定条件的项

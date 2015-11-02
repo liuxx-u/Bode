@@ -17,7 +17,7 @@ namespace OSharp.Core.Data
     /// 可持久化到数据库的数据模型基类
     /// </summary>
     /// <typeparam name="TKey">主键数据类型</typeparam>
-    public abstract class EntityBase<TKey> : IEntity<TKey>, IRecycle, ICreatedTime, ITimestamp
+    public abstract class EntityBase<TKey> : IEntity<TKey>, IRecyclable, ICreatedTime, ITimestamp
     {
         /// <summary>
         /// 初始化创建时间
@@ -64,6 +64,10 @@ namespace OSharp.Core.Data
         /// <returns></returns>
         public override bool Equals(object obj)
         {
+            if (obj == null)
+            {
+                return false;
+            }
             EntityBase<TKey> entity = obj as EntityBase<TKey>;
             if (entity == null)
             {

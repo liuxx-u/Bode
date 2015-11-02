@@ -14,25 +14,17 @@ using System.Reflection;
 using OSharp.Core.Reflection;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// 实体映射程序集查找器
     /// </summary>
-    public class EntityMapperAssemblyFinder : IAssemblyFinder
+    public class EntityMapperAssemblyFinder : IEntityMapperAssemblyFinder
     {
-        /// <summary>
-        /// 初始化一个<see cref="EntityMapperAssemblyFinder"/>类型的新实例
-        /// </summary>
-        public EntityMapperAssemblyFinder()
-        {
-            AllAssemblyFinder = new CurrentDomainAssemblyFinder();
-        }
-
         /// <summary>
         /// 获取或设置 所有程序集查找器
         /// </summary>
-        public IAssemblyFinder AllAssemblyFinder { get; set; }
+        public IAllAssemblyFinder AllAssemblyFinder { get; set; }
 
         /// <summary>
         /// 查找指定条件的项

@@ -12,9 +12,10 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSharp.Core.Data;
 
 
-namespace OSharp.Core.Data.Entity.Logging
+namespace OSharp.Data.Entity.Logging
 {
 
     /// <summary>

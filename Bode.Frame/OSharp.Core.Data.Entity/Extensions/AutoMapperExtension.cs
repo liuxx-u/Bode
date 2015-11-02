@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using AutoMapper;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// AutoMapper 辅助扩展方法

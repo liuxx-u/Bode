@@ -68,7 +68,7 @@
   <xs:complexType name="Type_DataLogging">
     <xs:attribute name="enabled" type="xs:string" use="optional" default="true"/>
     <xs:attribute name="level" type="Type_LogLevel" use="optional" default="All"/>
-    <xs:attribute name="type" type="xs:string" use="optional" default="OSharp.Core.Data.Entity.Logging.DatabaseLoggerAdapter, OSharp.Core.Data.Entity"/>
+    <xs:attribute name="type" type="xs:string" use="optional" default="OSharp.Data.Entity.Logging.DatabaseLoggerAdapter, OSharp.Data.Entity"/>
   </xs:complexType>
 
   <xs:complexType name="Type_BasicLogging">

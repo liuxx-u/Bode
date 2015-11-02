@@ -49,11 +49,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Core", "Bode.Frame\O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Utility", "Bode.Frame\OSharp.Utility\OSharp.Utility.csproj", "{946E0A0A-8280-46B3-893E-1B00A554CCAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Core.Data.Entity", "Bode.Frame\OSharp.Core.Data.Entity\OSharp.Core.Data.Entity.csproj", "{D58A373C-1A9C-4BF7-833D-427E4AEF8502}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Data.Entity", "Bode.Frame\OSharp.Core.Data.Entity\OSharp.Data.Entity.csproj", "{D58A373C-1A9C-4BF7-833D-427E4AEF8502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Core.Data.Entity.MySql", "Bode.Frame\OSharp.Core.Data.Entity.MySql\OSharp.Core.Data.Entity.MySql.csproj", "{EF0FECD8-4A75-4D0E-8D98-1AF4218D2618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Data.Entity.MySql", "Bode.Frame\OSharp.Core.Data.Entity.MySql\OSharp.Data.Entity.MySql.csproj", "{EF0FECD8-4A75-4D0E-8D98-1AF4218D2618}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Core.Permissions", "Bode.Frame\OSharp.Core.Permissions\OSharp.Core.Permissions.csproj", "{E34D7585-25DA-4622-9019-89DBC766AD67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Permissions", "Bode.Frame\OSharp.Core.Permissions\OSharp.Permissions.csproj", "{E34D7585-25DA-4622-9019-89DBC766AD67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.Logging.Log4Net", "Bode.Frame\OSharp.Logging.Log4Net\OSharp.Logging.Log4Net.csproj", "{6312040F-2467-4479-A764-46F687DBA66B}"
 EndProject

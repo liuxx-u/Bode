@@ -22,14 +22,17 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using OSharp.Core.Configs;
-using OSharp.Core.Data.Entity.Properties;
+using OSharp.Core.Data;
+using OSharp.Data.Entity.Properties;
 using OSharp.Core.Logging;
 using OSharp.Utility.Exceptions;
 using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
 
+using TransactionalBehavior = OSharp.Core.Data.TransactionalBehavior;
 
-namespace OSharp.Core.Data.Entity
+
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// 数据库上下文基类
@@ -121,6 +124,11 @@ namespace OSharp.Core.Data.Entity
             return _contextConfig ?? (_contextConfig = OSharpConfig.Instance.DataConfig.ContextConfigs
                 .FirstOrDefault(m => m.ContextType == typeof(TDbContext)));
         }
+
+        /// <summary>
+        /// 获取或设置 服务提供者
+        /// </summary>
+        public IServiceProvider ServiceProvider { get; set; }
 
         /// <summary>
         /// 获取或设置 数据日志缓存
@@ -268,7 +276,7 @@ namespace OSharp.Core.Data.Entity
                 List<DataLog> logs = new List<DataLog>();
                 if (DataLoggingEnabled)
                 {
-                    logs = this.GetEntityDataLogs().ToList();
+                    logs = this.GetEntityDataLogs(ServiceProvider).ToList();
                 }
                 int count = 0;
                 try
@@ -314,6 +322,7 @@ namespace OSharp.Core.Data.Entity
             }
         }
 
+#if NET45
 
         /// <summary>
         /// 对数据库执行给定的 DDL/DML 命令。 
@@ -357,7 +366,7 @@ namespace OSharp.Core.Data.Entity
                 List<DataLog> logs = new List<DataLog>();
                 if (DataLoggingEnabled)
                 {
-                    logs = (await this.GetEntityOperateLogsAsync()).ToList();
+                    logs = (await this.GetEntityOperateLogsAsync(ServiceProvider)).ToList();
                 }
                 int count = 0;
                 try
@@ -402,5 +411,7 @@ namespace OSharp.Core.Data.Entity
                 }
             }
         }
+#endif
+
     }
 }

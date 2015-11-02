@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using OSharp.Core.Logging;
 
 
-namespace OSharp.Core.Data.Entity.Logging
+namespace OSharp.Data.Entity.Logging
 {
     /// <summary>
     /// 实体操作明细映射配置

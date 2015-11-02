@@ -8,6 +8,8 @@ using OSharp.Autofac.Http;
 using OSharp.Autofac.Mvc;
 using OSharp.Core;
 using OSharp.Core.Caching;
+using OSharp.Core.Dependency;
+using OSharp.Logging.Log4Net;
 using OSharp.SiteBase.Initialize;
 using OSharp.Web.Http.Caching;
 using OSharp.Web.Http.Handlers;
@@ -53,21 +55,15 @@ namespace Bode.Web
             ICacheProvider provider = new RuntimeMemoryCacheProvider();
             CacheManager.SetProvider(provider, CacheLevel.First);
 
-            //MVC初始化
-            IFrameworkInitializer initializer = new MvcFrameworkInitializer()
-            {
-                BasicLoggingInitializer = new Log4NetLoggingInitializer(),
-                IocInitializer = new MvcAutofacIocInitializer()
-            };
-            initializer.Initialize();
+            IServicesBuilder builder = new ServicesBuilder();
+            IServiceCollection services = builder.Build();
+            services.AddLog4NetServices();
+            services.AddDataServices();
 
-            //WebApi初始化
-            initializer = new WebApiFrameworkInitializer()
-            {
-                BasicLoggingInitializer = new Log4NetLoggingInitializer(),
-                IocInitializer = new WebApiAutofacIocInitializer()
-            };
-            initializer.Initialize();
+            IFrameworkInitializer initializer = new FrameworkInitializer();
+            initializer.Initialize(new MvcAutofacIocBuilder(services));
+            initializer.Initialize(new WebApiAutofacIocBuilder(services));
+            //initializer.Initialize(new SignalRAutofacIocBuilder(services));
         }
     }
 }

@@ -16,8 +16,10 @@ using System.Threading.Tasks;
 
 using MySql.Data.Entity;
 
+using OSharp.Core.Data;
 
-namespace OSharp.Core.Data.Entity
+
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// MySql自动迁移配置类

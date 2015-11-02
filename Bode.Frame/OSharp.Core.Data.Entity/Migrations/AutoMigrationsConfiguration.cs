@@ -5,8 +5,9 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSharp.Core.Data;
 
-namespace OSharp.Core.Data.Entity.Migrations
+namespace OSharp.Data.Entity.Migrations
 {
     /// <summary>
     /// 自动迁移配置

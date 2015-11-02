@@ -85,7 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MvcAutofacIocInitializer.cs" />
+    <Compile Include="AutofacRegistration.cs" />
+    <Compile Include="MvcAutofacIocBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,10 +96,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OSharp.Core.Data.Entity\OSharp.Core.Data.Entity.csproj">
-      <Project>{d58a373c-1a9c-4bf7-833d-427e4aef8502}</Project>
-      <Name>OSharp.Core.Data.Entity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OSharp.Core\OSharp.Core.csproj">
       <Project>{f7c67c95-facb-4160-9a88-cb738e65e034}</Project>
       <Name>OSharp.Core</Name>
@@ -116,7 +113,7 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>

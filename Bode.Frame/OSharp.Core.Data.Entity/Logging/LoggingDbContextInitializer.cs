@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OSharp.Core.Data.Entity.Logging
+namespace OSharp.Data.Entity.Logging
 {
     /// <summary>
     /// 日志上下文初始化操作类

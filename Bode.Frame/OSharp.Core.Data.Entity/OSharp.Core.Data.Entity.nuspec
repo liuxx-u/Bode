@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>OSharp.Core.Data.Entity</id>
+    <id>OSharp.Data.Entity</id>
     <version>$version$</version>
-    <title>OSharp.Core.Data.Entity</title>
+    <title>OSharp.Data.Entity</title>
     <authors>OSharp开源团队</authors>
     <owners>http://www.osharp.org</owners>
     <projectUrl>https://github.com/i66soft/osharp</projectUrl>

@@ -21,7 +21,7 @@ namespace Bode.Services.Core.Contracts
     /// <summary>
     /// 业务契约——功能模块
     /// </summary>
-    public interface ISecurityContract : ILifetimeScopeDependency
+    public interface ISecurityContract : IScopeDependency
     {
         /// <summary>
         /// 获取 角色功能映射信息查询数据集

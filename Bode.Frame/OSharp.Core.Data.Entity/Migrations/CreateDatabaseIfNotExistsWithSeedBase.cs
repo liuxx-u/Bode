@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OSharp.Core.Data.Entity.Migrations
+namespace OSharp.Data.Entity.Migrations
 {
     /// <summary>
     /// 在数据库不存在时使用种子数据创建数据库

@@ -25,7 +25,7 @@ namespace Bode.Services.Core.Contracts
     /// <summary>
     /// 业务契约——身份认证模块
     /// </summary>
-    public interface IIdentityContract : ILifetimeScopeDependency
+    public interface IIdentityContract : IScopeDependency
     {
         /// <summary>
         /// 获取 用户角色映射数据集

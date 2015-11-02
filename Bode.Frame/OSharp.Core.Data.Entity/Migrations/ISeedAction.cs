@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace OSharp.Core.Data.Entity.Migrations
+namespace OSharp.Data.Entity.Migrations
 {
     /// <summary>
     /// 初始化种子数据接口

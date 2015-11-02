@@ -16,12 +16,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-using OSharp.Core.Data.Entity.Properties;
+using OSharp.Core.Data;
+using OSharp.Data.Entity.Properties;
 using OSharp.Utility;
 using OSharp.Utility.Extensions;
 
 
-namespace OSharp.Core.Data.Entity
+namespace OSharp.Data.Entity
 {
     /// <summary>
     /// 数据上下文管理器

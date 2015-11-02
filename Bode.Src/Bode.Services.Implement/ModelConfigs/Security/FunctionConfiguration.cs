@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
-using OSharp.Core.Data.Entity;
+using OSharp.Data.Entity;
 using OSharp.Core.Security;
 
 namespace Bode.Services.Implement.ModelConfigs.Security

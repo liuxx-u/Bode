@@ -97,15 +97,6 @@ namespace OSharp.Utility.Properties {
         }
         
         /// <summary>
-        ///   查找类似 IM组件没有初始化。 的本地化字符串。
-        /// </summary>
-        internal static string IM_NotInitialized {
-            get {
-                return ResourceManager.GetString("IM_NotInitialized", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 创建名称为“{0}”的日志实例时“{1}”返回空实例。 的本地化字符串。
         /// </summary>
         internal static string Logging_CreateLogInstanceReturnNull {
@@ -264,15 +255,6 @@ namespace OSharp.Utility.Properties {
         internal static string Security_RSA_Sign_HashType {
             get {
                 return ResourceManager.GetString("Security_RSA_Sign_HashType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 SMS组件没有初始化。 的本地化字符串。
-        /// </summary>
-        internal static string SMS_NotInitialized {
-            get {
-                return ResourceManager.GetString("SMS_NotInitialized", resourceCulture);
             }
         }
     }

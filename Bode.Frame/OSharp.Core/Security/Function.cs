@@ -28,5 +28,14 @@ namespace OSharp.Core.Security
             Id = CombHelper.NewComb();
         }
 
+        /// <summary>
+        /// 是否是菜单
+        /// </summary>
+        public bool IsMenu { get; set; }
+
+        /// <summary>
+        /// 排序号
+        /// </summary>
+        public int OrderNo { get; set; }
     }
 }

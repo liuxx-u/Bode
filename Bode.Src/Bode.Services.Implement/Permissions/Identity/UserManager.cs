@@ -16,7 +16,7 @@ namespace Bode.Services.Implement.Permissions.Identity
     /// <summary>
     /// 用户管理器
     /// </summary>
-    public class UserManager : UserManager<SysUser, int>, ILifetimeScopeDependency
+    public class UserManager : UserManager<SysUser, int>, IScopeDependency
     {
         /// <summary>
         /// 初始化一个<see cref="UserManager"/>类型的新实例
