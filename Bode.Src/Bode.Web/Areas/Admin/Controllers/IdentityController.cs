@@ -303,7 +303,9 @@ namespace Bode.Web.Areas.Admin.Controllers
             var datas =
                 GetQueryData<Function, Guid>(
                     SecurityContract.Functions.Where(
-                        p => p.Area == controller.Area && p.Controller == controller.Controller && p.Provider == controller.Provider),
+                        p =>
+                            p.Area == controller.Area && p.Controller == controller.Controller &&
+                            p.Provider == controller.Provider),
                     out total, request).Select(m => new
                     {
                         m.Id,
@@ -319,6 +321,7 @@ namespace Bode.Web.Areas.Admin.Controllers
                         m.Action,
                         m.IsController,
                         m.IsAjax,
+                        ControllerId = controllerId,
                         m.IsLocked,
                     });
             return Json(new GridData<object>(datas, total), JsonRequestBehavior.AllowGet);
