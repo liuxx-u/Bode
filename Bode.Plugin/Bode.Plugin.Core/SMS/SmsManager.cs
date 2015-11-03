@@ -1,4 +1,6 @@
-﻿namespace Bode.Plugin.Core.SMS
+﻿using System.IO;
+
+namespace Bode.Plugin.Core.SMS
 {
     public class SmsManager
     {
@@ -23,10 +25,10 @@
         /// <summary>
         /// 获取IM执行实例
         /// </summary>
-        private static readonly ISms _smsInstance = new SmsExecutor();
+        private static ISms _smsInstance;
         public static ISms SmsInstance
         {
-            get { return _smsInstance; }
+            get { return _smsInstance ?? (_smsInstance = new SmsExecutor()); }
         }
     }
 }

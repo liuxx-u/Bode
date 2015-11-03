@@ -3,7 +3,7 @@ using OSharp.Utility.Logging;
 
 namespace Bode.Plugin.Core.SMS
 {
-    public class SmsExecutor:ISms
+    public class SmsExecutor : ISms
     {
         private readonly ISms _instance;
         private static readonly ILogger Logger = LogManager.GetLogger<SmsExecutor>();
