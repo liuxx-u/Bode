@@ -171,7 +171,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OSharp.Core.Data.Entity\OSharp.Data.Entity.csproj">
+    <ProjectReference Include="..\OSharp.Data.Entity\OSharp.Data.Entity.csproj">
       <Project>{D58A373C-1A9C-4BF7-833D-427E4AEF8502}</Project>
       <Name>OSharp.Data.Entity</Name>
     </ProjectReference>

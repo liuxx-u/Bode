@@ -20,7 +20,7 @@ namespace Bode.Services.Implement.Services
 {
     public partial class UserService
     {
-        private static readonly ISms Sms = SmsManager.SmsInstance;
+        public ISms Sms { protected get; set; }
 
         /// <summary>
         /// 获取用户注册验证码

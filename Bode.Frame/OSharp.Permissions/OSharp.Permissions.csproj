@@ -7,8 +7,8 @@
     <ProjectGuid>{E34D7585-25DA-4622-9019-89DBC766AD67}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OSharp.Core</RootNamespace>
-    <AssemblyName>OSharp.Core.Permissions</AssemblyName>
+    <RootNamespace>OSharp.Permissions</RootNamespace>
+    <AssemblyName>OSharp.Permissions</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\OSharp.Permissions.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\OSharp.Permissions.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -101,7 +101,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OSharp.Core.Data.Entity\OSharp.Data.Entity.csproj">
+    <ProjectReference Include="..\OSharp.Data.Entity\OSharp.Data.Entity.csproj">
       <Project>{d58a373c-1a9c-4bf7-833d-427e4aef8502}</Project>
       <Name>OSharp.Data.Entity</Name>
     </ProjectReference>

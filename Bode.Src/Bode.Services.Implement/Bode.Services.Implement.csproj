@@ -103,11 +103,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Bode.Frame\OSharp.Core.Data.Entity\OSharp.Data.Entity.csproj">
+    <ProjectReference Include="..\..\Bode.Frame\OSharp.Data.Entity\OSharp.Data.Entity.csproj">
       <Project>{d58a373c-1a9c-4bf7-833d-427e4aef8502}</Project>
       <Name>OSharp.Data.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Bode.Frame\OSharp.Core.Permissions\OSharp.Permissions.csproj">
+    <ProjectReference Include="..\..\Bode.Frame\OSharp.Permissions\OSharp.Permissions.csproj">
       <Project>{e34d7585-25da-4622-9019-89dbc766ad67}</Project>
       <Name>OSharp.Permissions</Name>
     </ProjectReference>
