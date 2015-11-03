@@ -47,6 +47,9 @@
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -93,11 +96,11 @@
     <Compile Include="Extensions\HttpRequestExtensions.cs" />
     <Compile Include="Filters\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Filters\NonRequireHttpsAttribute.cs" />
-    <Compile Include="Initialize\ControllerTypeFinder.cs" />
-    <Compile Include="Initialize\ActionMethodInfoFinder.cs" />
-    <Compile Include="Initialize\FunctionHandler.cs" />
+    <Compile Include="Initialize\AppBuilderExtensions.cs" />
+    <Compile Include="Initialize\MvcActionMethodInfoFinder.cs" />
+    <Compile Include="Initialize\MvcControllerTypeFinder.cs" />
+    <Compile Include="Initialize\MvcFunctionHandler.cs" />
     <Compile Include="Initialize\MvcIocResolver.cs" />
-    <Compile Include="Initialize\MvcFrameworkInitializer.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Logging\OperateLogFilterAttribute.cs" />
     <Compile Include="Pay\AliPay\AlipayConfig.cs" />
@@ -143,9 +146,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OSharp.Core.Data.Entity\OSharp.Core.Data.Entity.csproj">
+    <ProjectReference Include="..\OSharp.Data.Entity\OSharp.Data.Entity.csproj">
       <Project>{d58a373c-1a9c-4bf7-833d-427e4aef8502}</Project>
-      <Name>OSharp.Core.Data.Entity</Name>
+      <Name>OSharp.Data.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\OSharp.Core\OSharp.Core.csproj">
       <Project>{f7c67c95-facb-4160-9a88-cb738e65e034}</Project>

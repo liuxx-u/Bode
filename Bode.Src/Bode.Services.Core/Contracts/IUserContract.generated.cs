@@ -16,7 +16,7 @@ using Bode.Services.Core.Models.User;
 
 namespace Bode.Services.Core.Contracts
 {
-	public partial interface IUserContract : ILifetimeScopeDependency
+	public partial interface IUserContract : IScopeDependency
 	{
 		                #region FeedBack信息业务
 

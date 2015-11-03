@@ -54,9 +54,6 @@
     <Compile Include="Push\PushExecutor.cs" />
     <Compile Include="Push\PushManager.cs" />
     <Compile Include="SMS\ISms.cs" />
-    <Compile Include="SMS\ISmsAdapter.cs" />
-    <Compile Include="SMS\SmsExecutor.cs" />
-    <Compile Include="SMS\SmsManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

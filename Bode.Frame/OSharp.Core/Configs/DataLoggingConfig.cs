@@ -23,7 +23,7 @@ namespace OSharp.Core.Configs
     /// </summary>
     public class DataLoggingConfig
     {
-        private const string DefaultAdapterTypeName = "OSharp.Core.Data.Entity.Logging.DatabaseLoggerAdapter, OSharp.Core.Data.Entity";
+        private const string DefaultAdapterTypeName = "OSharp.Data.Entity.Logging.DatabaseLoggerAdapter, OSharp.Data.Entity";
 
         /// <summary>
         /// 初始化一个<see cref="DataLoggingConfig"/>类型的新实例

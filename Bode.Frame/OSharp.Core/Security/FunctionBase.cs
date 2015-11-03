@@ -9,6 +9,7 @@
 using System.ComponentModel.DataAnnotations;
 
 using OSharp.Core.Data;
+using OSharp.Core.Initialize;
 
 
 namespace OSharp.Core.Security
@@ -73,14 +74,14 @@ namespace OSharp.Core.Security
         public bool IsCacheSliding { get; set; }
 
         /// <summary>
+        /// 获取或设置 功能提供者，如Mvc，WebApi，SignalR等，用于功能的技术分组
+        /// </summary>
+        public PlatformToken PlatformToken { get; set; }
+
+        /// <summary>
         /// 获取或设置 功能地址
         /// </summary>
         public string Url { get; set; }
-
-        /// <summary>
-        /// 获取或设置 功能提供者，如Mvc，WebApi，SignalR等，用于功能的技术分组
-        /// </summary>
-        public string Provider { get; set; }
 
         /// <summary>
         /// 获取或设置 是否控制器，如果为false，则此记录为action的记录
@@ -91,11 +92,6 @@ namespace OSharp.Core.Security
         /// 获取或设置 是否Ajax记录
         /// </summary>
         public bool IsAjax { get; set; }
-
-        /// <summary>
-        /// 获取或设置 是否是菜单
-        /// </summary>
-        public bool IsMenu { get; set; }
 
         /// <summary>
         /// 获取或设置 是否子功能
@@ -111,11 +107,5 @@ namespace OSharp.Core.Security
         /// 获取或设置 是否自定义功能
         /// </summary>
         public bool IsCustom { get; set; }
-
-        /// <summary>
-        /// 获取或设置 排序号
-        /// </summary>
-        public int OrderNo { get; set; }
     }
-
 }

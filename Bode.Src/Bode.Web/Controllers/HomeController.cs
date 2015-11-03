@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Bode.Plugin.Core.SMS;
 using Bode.Services.Core.Contracts;
 using Bode.Services.Core.Dtos.User;
 using Bode.Services.Core.Models.User;
@@ -20,10 +21,6 @@ namespace Bode.Web.Controllers
     public class HomeController : Controller
     {
         public IUserContract UserContract { get; set; }
-
-        public ILoggingContract LoggingContract { get; set; }
-
-         public ISecurityContract SecurityContract { get; set; }
 
          // GET: Home
 
@@ -43,9 +40,9 @@ namespace Bode.Web.Controllers
                  CodeType = CodeType.用户注册
              };
 
-             await UserContract.SaveValidateCodes(dtos: validate);
+             //await UserContract.SaveValidateCodes(dtos: validate);
 
-             var codes= UserContract.ValidateCodes.ToList();
+             //var codes= UserContract.ValidateCodes.ToList();
              return Content("as");
         }
     }

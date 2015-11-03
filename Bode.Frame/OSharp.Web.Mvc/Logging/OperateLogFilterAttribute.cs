@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Web.Mvc;
 
 using OSharp.Core.Context;
-using OSharp.Core.Exceptions;
+using OSharp.Core.Extensions;
 using OSharp.Core.Logging;
 using OSharp.Core.Security;
 using OSharp.Web.Mvc.Extensions;
@@ -26,6 +26,11 @@ namespace OSharp.Web.Mvc.Logging
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class OperateLogFilterAttribute : ActionFilterAttribute
     {
+        /// <summary>
+        /// 获取或设置 服务提供者
+        /// </summary>
+        public IServiceProvider ServiceProvider { get; set; }
+
         /// <summary>
         /// 获取或设置 数据日志缓存
         /// </summary>
@@ -42,7 +47,7 @@ namespace OSharp.Web.Mvc.Logging
         /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            IFunction function = filterContext.GetExecuteFunction();
+            IFunction function = filterContext.GetExecuteFunction(ServiceProvider);
             if (function == null || !function.OperateLogEnabled)
             {
                 return;

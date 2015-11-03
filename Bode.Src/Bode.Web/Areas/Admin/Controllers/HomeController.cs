@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Bode.Services.Core.Contracts;
 using Bode.Web.Areas.Admin.ViewModes;
+using OSharp.Core.Security;
 using OSharp.Web.Mvc.Security;
 
 namespace Bode.Web.Areas.Admin.Controllers
@@ -30,7 +31,7 @@ namespace Bode.Web.Areas.Admin.Controllers
             };
 
             var functions =
-                SecurityContract.Functions.Where(p => !p.IsLocked && !p.IsCustom && !p.IsAjax && p.Provider == "MVC")
+                SecurityContract.Functions.Where(p => !p.IsLocked && !p.IsCustom && !p.IsAjax && p.PlatformToken == PlatformToken.Mvc)
                     .OrderBy(p => p.OrderNo)
                     .ToList();
 

@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------
 
 using Bode.Services.Core.Models.Security;
-using OSharp.Core.Data.Entity;
+using OSharp.Data.Entity;
 
 namespace Bode.Services.Implement.ModelConfigs.Security
 {

@@ -103,6 +103,7 @@
     <Compile Include="Dynamic\Exposed.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Filter\DataPage.cs" />
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
