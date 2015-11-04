@@ -23,10 +23,10 @@
         /// <summary>
         /// 获取IM执行实例
         /// </summary>
-        private static readonly IIm _imInstance = new ImExecutor();
+        private static IIm _imInstance;
         public static IIm ImInstance
         {
-            get { return _imInstance; }
+            get { return _imInstance ?? (_imInstance = new ImExecutor()); }
         }
     }
 }

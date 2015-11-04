@@ -15,7 +15,7 @@ using Bode.Services.Core.Dtos.Identity;
 using Bode.Services.Core.Models.Identity;
 using Microsoft.AspNet.Identity;
 
-using OSharp.Core.Data.Entity;
+using OSharp.Data.Entity;
 using OSharp.Core.Identity;
 using Bode.Services.Implement.Permissions.Identity;
 using OSharp.Utility;

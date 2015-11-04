@@ -129,9 +129,6 @@
   <data name="Filter_RuleFieldInTypeNotFound" xml:space="preserve">
     <value>指定的属性“{0}”在类型“{1}”中不存在。</value>
   </data>
-  <data name="IM_NotInitialized" xml:space="preserve">
-    <value>IM组件没有初始化。</value>
-  </data>
   <data name="Logging_CreateLogInstanceReturnNull" xml:space="preserve">
     <value>创建名称为“{0}”的日志实例时“{1}”返回空实例。</value>
   </data>
@@ -185,8 +182,5 @@
   </data>
   <data name="Security_RSA_Sign_HashType" xml:space="preserve">
     <value>参数hashType必须为MD5或SHA1</value>
-  </data>
-  <data name="SMS_NotInitialized" xml:space="preserve">
-    <value>SMS组件没有初始化。</value>
   </data>
 </root>

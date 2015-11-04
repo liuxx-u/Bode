@@ -39,8 +39,24 @@
     <AssemblyOriginatorKeyFile>OSharp.Keys.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -102,11 +118,11 @@
     <Compile Include="Authentication\TokenAuthenticationHandlerBase.cs" />
     <Compile Include="Handlers\TraceMessageHandler.cs" />
     <Compile Include="Handlers\UriFormatExtensionHandler.cs" />
-    <Compile Include="Initialize\ActionMethodInfoFinder.cs" />
-    <Compile Include="Initialize\ControllerTypeFinder.cs" />
-    <Compile Include="Initialize\FunctionHandler.cs" />
+    <Compile Include="Initialize\AppBuilderExtensions.cs" />
+    <Compile Include="Initialize\WebApiActionMethodInfoFinder.cs" />
+    <Compile Include="Initialize\WebApiControllerTypeFinder.cs" />
+    <Compile Include="Initialize\WebApiFunctionHandler.cs" />
     <Compile Include="Initialize\WebApiIocResolver.cs" />
-    <Compile Include="Initialize\WebApiFrameworkInitializer.cs" />
     <Compile Include="Internal\EnumerableExtensions.cs" />
     <Compile Include="Internal\HttpHeaderNames.cs" />
     <Compile Include="Internal\IsInExtensions.cs" />
@@ -155,9 +171,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OSharp.Core.Data.Entity\OSharp.Core.Data.Entity.csproj">
+    <ProjectReference Include="..\OSharp.Data.Entity\OSharp.Data.Entity.csproj">
       <Project>{D58A373C-1A9C-4BF7-833D-427E4AEF8502}</Project>
-      <Name>OSharp.Core.Data.Entity</Name>
+      <Name>OSharp.Data.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\OSharp.Core\OSharp.Core.csproj">
       <Project>{F7C67C95-FACB-4160-9A88-CB738E65E034}</Project>

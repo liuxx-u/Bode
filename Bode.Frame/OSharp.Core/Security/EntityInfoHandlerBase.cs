@@ -11,11 +11,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-
 using OSharp.Core.Data;
 using OSharp.Core.Dependency;
 using OSharp.Core.Reflection;
-using OSharp.SiteBase.Security;
 using OSharp.Utility.Collections;
 using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
@@ -32,15 +30,7 @@ namespace OSharp.Core.Security
         where TEntityInfo : EntityInfoBase<TKey>, IEntity<TKey>, new()
     {
         private ILogger _logger;
-
-        /// <summary>
-        /// 初始化一个<see cref="EntityInfoHandlerBase{TEntityInfo, TKey}"/>类型的新实例
-        /// </summary>
-        protected EntityInfoHandlerBase()
-        {
-            EntityTypeFinder = new EntityTypeFinder();
-        }
-
+        
         /// <summary>
         /// 获取 日志对象
         /// </summary>
@@ -50,14 +40,14 @@ namespace OSharp.Core.Security
         }
 
         /// <summary>
-        /// 获取或设置 依赖注入解析器
+        /// 获取或设置 服务提供者
         /// </summary>
-        public IIocResolver IocResolver { get; set; }
+        public IServiceProvider ServiceProvider { get; set; }
 
         /// <summary>
         /// 获取或设置 实体类型查找器
         /// </summary>
-        public ITypeFinder EntityTypeFinder { get; set; }
+        public IEntityTypeFinder EntityTypeFinder { get; set; }
 
         /// <summary>
         /// 获取 所有实体数据集合
@@ -138,8 +128,7 @@ namespace OSharp.Core.Security
         /// <param name="entityInfos">实体信息集合</param>
         protected virtual void UpdateToRepository(TEntityInfo[] entityInfos)
         {
-            IRepository<TEntityInfo, TKey> repository = IocResolver.Resolve<IRepository<TEntityInfo, TKey>>();
-            //DependencyResolver.Current.GetService<IRepository<TEntityInfo, TKey>>();
+            IRepository<TEntityInfo, TKey> repository = ServiceProvider.GetService<IRepository<TEntityInfo, TKey>>();
             TEntityInfo[] items = repository.GetByPredicate(m => true).ToArray();
 
             //删除的实体信息
@@ -206,8 +195,7 @@ namespace OSharp.Core.Security
         /// <returns></returns>
         protected virtual TEntityInfo[] GetLastestEntityInfos()
         {
-            IRepository<TEntityInfo, TKey> repository = IocResolver.Resolve<IRepository<TEntityInfo, TKey>>();
-            //DependencyResolver.Current.GetService<IRepository<TEntityInfo, TKey>>();
+            IRepository<TEntityInfo, TKey> repository = ServiceProvider.GetService<IRepository<TEntityInfo, TKey>>();
             if (repository == null)
             {
                 return new TEntityInfo[0];

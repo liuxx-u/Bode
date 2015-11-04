@@ -258,11 +258,11 @@ namespace Bode.Web.Areas.Admin.Controllers
                 new {value="WebApi",text="WebApi",parentId="0" }
             }.ToList();
 
-            var data = await SecurityContract.Functions.Where(p => p.IsController && (p.Provider == "MVC" || p.Provider == "WEBAPI")).Select(p => new
+            var data = await SecurityContract.Functions.Where(p => p.IsController && (p.PlatformToken == PlatformToken.Mvc || p.PlatformToken == PlatformToken.WebApi)).Select(p => new
             {
                 value = p.Id.ToString(),
                 text = p.Name,
-                parentId = p.Provider == "MVC" ? "Mvc" : "WebApi"
+                parentId = p.PlatformToken == PlatformToken.Mvc ? "Mvc" : "WebApi"
             }).ToListAsync();
             data.AddRange(providers);
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -277,14 +277,14 @@ namespace Bode.Web.Areas.Admin.Controllers
                 p.Id,
                 p.Area,
                 p.Controller,
-                p.Provider
+                p.PlatformToken
             }).ToListAsync();
 
             var actions = SecurityContract.Functions.ToList().Select(p => new
             {
                 p.Id,
                 p.Name,
-                ControllerId = controllers.Single(m => m.Area == p.Area && m.Controller == p.Controller && m.Provider == p.Provider).Id,
+                ControllerId = controllers.Single(m => m.Area == p.Area && m.Controller == p.Controller && m.PlatformToken == p.PlatformToken).Id,
                 IsMenu = !p.IsAjax && p.IsMenu,
                 p.IsController
             }).OrderByDescending(p => p.IsController).ThenByDescending(p => p.IsMenu);
@@ -303,7 +303,7 @@ namespace Bode.Web.Areas.Admin.Controllers
             var datas =
                 GetQueryData<Function, Guid>(
                     SecurityContract.Functions.Where(
-                        p => p.Area == controller.Area && p.Controller == controller.Controller && p.Provider == controller.Provider),
+                        p => p.Area == controller.Area && p.Controller == controller.Controller && p.PlatformToken == controller.PlatformToken),
                     out total, request).Select(m => new
                     {
                         m.Id,
@@ -319,6 +319,7 @@ namespace Bode.Web.Areas.Admin.Controllers
                         m.Action,
                         m.IsController,
                         m.IsAjax,
+                        ControllerId = controllerId,
                         m.IsLocked,
                     });
             return Json(new GridData<object>(datas, total), JsonRequestBehavior.AllowGet);

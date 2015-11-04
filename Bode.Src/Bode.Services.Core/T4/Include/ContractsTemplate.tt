@@ -36,7 +36,7 @@ using Bode.Services.Core.Models.<#=_moduleName #>;
 
 namespace Bode.Services.Core.Contracts
 {
-	public partial interface I<#=_moduleName #>Contract : ILifetimeScopeDependency
+	public partial interface I<#=_moduleName #>Contract : IScopeDependency
 	{
 		<#+
             foreach(var item in _innerModelTypes)

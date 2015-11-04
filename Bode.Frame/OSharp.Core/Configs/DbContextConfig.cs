@@ -42,6 +42,7 @@ namespace OSharp.Core.Configs
             Enabled = element.Enabled;
             DataLoggingEnabled = element.DataLoggingEnabled;
             ConnectionStringName = element.ConnectionStringName;
+            ReadConnectionStringNames = element.ReadConnectionStringNames.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
             ContextType = Type.GetType(element.ContextTypeName);
             InitializerConfig = new DbContextInitializerConfig(element.DbContextInitializer);
         }
@@ -65,6 +66,11 @@ namespace OSharp.Core.Configs
         /// 获取或设置 数据库连接串名称
         /// </summary>
         public string ConnectionStringName { get; set; }
+
+        /// <summary>
+        /// 获取或设置 读库连接串集合
+        /// </summary>
+        public string[] ReadConnectionStringNames { get; set; }
 
         /// <summary>
         /// 获取或设置 数据上下文类型

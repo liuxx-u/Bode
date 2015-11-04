@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------
 
 using Bode.Services.Core.Models.Identity;
-using OSharp.Core.Data.Entity;
+using OSharp.Data.Entity;
 
 namespace Bode.Services.Implement.ModelConfigs.Identity
 {

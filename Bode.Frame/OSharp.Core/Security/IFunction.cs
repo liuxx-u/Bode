@@ -6,12 +6,15 @@
 //  <last-date>2015-06-16 22:10</last-date>
 // -----------------------------------------------------------------------
 
+using OSharp.Core.Data;
+
+
 namespace OSharp.Core.Security
 {
     /// <summary>
     /// 功能接口，最小功能信息
     /// </summary>
-    public interface IFunction
+    public interface IFunction : ILockable
     {
         /// <summary>
         /// 获取或设置 功能名称
@@ -59,14 +62,9 @@ namespace OSharp.Core.Security
         bool IsCacheSliding { get; set; }
 
         /// <summary>
-        /// 获取或设置 是否锁定
-        /// </summary>
-        bool IsLocked { get; set; }
-
-        /// <summary>
         /// 获取或设置 功能提供者，如Mvc，WebApi，SignalR等，用于功能的技术分组
         /// </summary>
-        string Provider { get; set; }
+        PlatformToken PlatformToken { get; set; }
 
         /// <summary>
         /// 获取或设置 功能地址

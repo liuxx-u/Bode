@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-using OSharp.Core.Data.Entity;
+using OSharp.Data.Entity;
 using Bode.Services.Core.Models.User;
 
 

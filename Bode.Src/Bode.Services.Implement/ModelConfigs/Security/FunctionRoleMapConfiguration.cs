@@ -7,7 +7,7 @@
 //  <last-date>2015-08-04 15:15</last-date>
 // -----------------------------------------------------------------------
 
-using OSharp.Core.Data.Entity;
+using OSharp.Data.Entity;
 using Bode.Services.Core.Models.Security;
 
 namespace Bode.Services.Implement.ModelConfigs.Security

@@ -103,12 +103,14 @@
     <Compile Include="Dynamic\Exposed.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Filter\DataPage.cs" />
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
     <Compile Include="Helper\LatLngHelper.cs" />
     <Compile Include="Helper\MathHelper.cs" />
     <Compile Include="Helper\OrderNoHelper.cs" />
+    <Compile Include="Helper\RetryHelper.cs" />
     <Compile Include="Helper\SerializeHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Office\ExcelHandler.cs" />
