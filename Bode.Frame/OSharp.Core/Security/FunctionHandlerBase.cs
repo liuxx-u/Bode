@@ -254,6 +254,16 @@ namespace OSharp.Core.Security
                     item.IsAjax = function.IsAjax;
                     isUpdate = true;
                 }
+                if (!item.IsTypeChanged && item.IsMenu != function.IsMenu)
+                {
+                    item.IsMenu = function.IsMenu;
+                    isUpdate = true;
+                }
+                if (!item.IsTypeChanged && item.OrderNo != function.OrderNo)
+                {
+                    item.OrderNo = function.OrderNo;
+                    isUpdate = true;
+                }
                 if (!item.IsTypeChanged && item.FunctionType != function.FunctionType)
                 {
                     item.FunctionType = function.FunctionType;

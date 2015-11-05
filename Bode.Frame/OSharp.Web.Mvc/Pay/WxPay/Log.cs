@@ -17,7 +17,7 @@ namespace WxPayAPI
          */
         public static void Debug(string className, string content)
         {
-            if(WxPayConfig.LOG_LEVENL >= 3)
+            if(WxPayConfig.LogLevenl >= 3)
             {
                 WriteLog("DEBUG", className, content);
             }
@@ -30,7 +30,7 @@ namespace WxPayAPI
         */
         public static void Info(string className, string content)
         {
-            if (WxPayConfig.LOG_LEVENL >= 2)
+            if (WxPayConfig.LogLevenl >= 2)
             {
                 WriteLog("INFO", className, content);
             }
@@ -43,7 +43,7 @@ namespace WxPayAPI
         */
         public static void Error(string className, string content)
         {
-            if(WxPayConfig.LOG_LEVENL >= 1)
+            if(WxPayConfig.LogLevenl >= 1)
             {
                 WriteLog("ERROR", className, content);
             }

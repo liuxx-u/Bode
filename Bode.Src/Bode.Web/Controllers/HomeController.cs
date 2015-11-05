@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +15,7 @@ using Bode.Services.Core.Models.User;
 using OSharp.Core.Data;
 using OSharp.Utility.Develop.T4;
 using OSharp.Utility.Extensions;
+using OSharp.Utility.Secutiry;
 
 namespace Bode.Web.Controllers
 {
@@ -42,7 +44,7 @@ namespace Bode.Web.Controllers
 
              //await UserContract.SaveValidateCodes(dtos: validate);
 
-             //var codes= UserContract.ValidateCodes.ToList();
+             var codes= await UserContract.ValidateCodes.ToListAsync();
              return Content("as");
         }
     }
