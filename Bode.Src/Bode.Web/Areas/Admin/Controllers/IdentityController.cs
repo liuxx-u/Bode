@@ -2,16 +2,12 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Data.Entity;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Bode.Services.Core.Contracts;
 using Bode.Services.Core.Dtos.Identity;
 using Bode.Services.Core.Dtos.Security;
 using Bode.Services.Core.Models.Identity;
-using OSharp.Core.Data;
-using OSharp.Core.Data.Extensions;
-using OSharp.Core.Logging;
 using OSharp.Core.Security;
 using OSharp.Utility;
 using OSharp.Utility.Data;
@@ -19,19 +15,17 @@ using OSharp.Utility.Extensions;
 using OSharp.Utility.Filter;
 using OSharp.Web.Mvc.Security;
 using OSharp.Web.Mvc.UI;
-using OSharp.Web.Mvc.Extensions;
 using OSharp.Web.Mvc;
 
 namespace Bode.Web.Areas.Admin.Controllers
 {
+    //[Authorize]
     [Description("权限管理")]
     public class IdentityController : AdminBaseController
     {
         public IIdentityContract IdentityContract { get; set; }
 
         public ISecurityContract SecurityContract { get; set; }
-
-        public IRepository<OperateLog, int> OperateLogRepo { get; set; }
 
         #region Ajax功能
 
@@ -184,7 +178,7 @@ namespace Bode.Web.Areas.Admin.Controllers
 
         #region 用户
 
-        //[AjaxOnly]
+        [AjaxOnly]
         [Description("获取用户数据")]
         public ActionResult GetUserData()
         {
@@ -195,6 +189,7 @@ namespace Bode.Web.Areas.Admin.Controllers
                 m.Id,
                 m.UserName,
                 m.NickName,
+                Password = m.PasswordHash,
                 m.Email,
                 m.IsLocked,
                 m.CreatedTime,
@@ -253,18 +248,20 @@ namespace Bode.Web.Areas.Admin.Controllers
         [Description("获取控制器数据")]
         public async Task<ActionResult> GetControllers()
         {
-            var providers = new[]{
-                new { value="Mvc",text="Mvc",parentId="0"},
-                new {value="WebApi",text="WebApi",parentId="0" }
-            }.ToList();
+            var areas = await SecurityContract.Functions.Select(p => new
+            {
+                value = p.Area == null || p.Area == "" ? "Home" : p.Area,
+                text = p.Area == null || p.Area == "" ? "Home" : p.Area,
+                parentId = "0"
+            }).Distinct().ToListAsync();
 
             var data = await SecurityContract.Functions.Where(p => p.IsController && (p.PlatformToken == PlatformToken.Mvc || p.PlatformToken == PlatformToken.WebApi)).Select(p => new
             {
                 value = p.Id.ToString(),
                 text = p.Name,
-                parentId = p.PlatformToken == PlatformToken.Mvc ? "Mvc" : "WebApi"
+                parentId = p.Area == null || p.Area == "" ? "Home" : p.Area,
             }).ToListAsync();
-            data.AddRange(providers);
+            data.AddRange(areas);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -303,7 +300,9 @@ namespace Bode.Web.Areas.Admin.Controllers
             var datas =
                 GetQueryData<Function, Guid>(
                     SecurityContract.Functions.Where(
-                        p => p.Area == controller.Area && p.Controller == controller.Controller && p.PlatformToken == controller.PlatformToken),
+                        p =>
+                            p.Area == controller.Area && p.Controller == controller.Controller &&
+                            p.PlatformToken == controller.PlatformToken),
                     out total, request).Select(m => new
                     {
                         m.Id,
@@ -312,15 +311,14 @@ namespace Bode.Web.Areas.Admin.Controllers
                         m.FunctionType,
                         m.OperateLogEnabled,
                         m.DataLogEnabled,
-                        m.CacheExpirationSeconds,
-                        m.IsCacheSliding,
                         m.Area,
                         m.Controller,
                         m.Action,
                         m.IsController,
-                        m.IsAjax,
                         ControllerId = controllerId,
+                        m.IsAjax,
                         m.IsLocked,
+                        m.IsMenu
                     });
             return Json(new GridData<object>(datas, total), JsonRequestBehavior.AllowGet);
         }
@@ -353,7 +351,6 @@ namespace Bode.Web.Areas.Admin.Controllers
         [Description("获取实体数据")]
         public ActionResult GetEntityInfoData()
         {
-
             int total;
             GridRequest request = new GridRequest(Request);
             if (request.PageCondition.SortConditions.Length == 0)
@@ -363,11 +360,15 @@ namespace Bode.Web.Areas.Admin.Controllers
                     new SortCondition("ClassName")
                 };
             }
-            Expression<Func<EntityInfo, bool>> predicate = FilterHelper.GetExpression<EntityInfo>(request.FilterGroup);
-            var page = SecurityContract.EntityInfos.ToPage(predicate,
-                request.PageCondition,
-                m => new { m.Id, m.Name, m.ClassName, m.DataLogEnabled });
-            return Json(page.ToGridData(), JsonRequestBehavior.AllowGet);
+            var datas = GetQueryData<EntityInfo, Guid>(SecurityContract.EntityInfos,
+                    out total, request).Select(m => new
+                    {
+                        m.Id,
+                        m.Name,
+                        m.ClassName,
+                        m.DataLogEnabled
+                    });
+            return Json(new GridData<object>(datas, total), JsonRequestBehavior.AllowGet);
         }
 
         [AjaxOnly]

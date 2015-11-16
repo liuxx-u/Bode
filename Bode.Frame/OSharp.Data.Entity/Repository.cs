@@ -141,7 +141,7 @@ namespace OSharp.Data.Entity
         public int Recycle(TEntity entity)
         {
             entity.CheckNotNull("entity");
-            //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
+            entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
             return Update(entity);
         }
 
@@ -179,7 +179,7 @@ namespace OSharp.Data.Entity
             entities = entities as TEntity[] ?? entities.ToArray();
             foreach (TEntity entity in entities)
             {
-                //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
+                entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
                 ((DbContext)UnitOfWork).Update<TEntity, TKey>(entity);
             }
             return SaveChanges();
@@ -193,7 +193,7 @@ namespace OSharp.Data.Entity
         public int Restore(TEntity entity)
         {
             entity.CheckNotNull("entity");
-            //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
+            entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
             return Update(entity);
         }
 
@@ -231,7 +231,7 @@ namespace OSharp.Data.Entity
             entities = entities as TEntity[] ?? entities.ToArray();
             foreach (TEntity entity in entities)
             {
-                //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
+                entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
                 ((DbContext)UnitOfWork).Update<TEntity, TKey>(entity);
             }
             return SaveChanges();
@@ -275,7 +275,7 @@ namespace OSharp.Data.Entity
         }
 
         /// <summary>
-        /// 批量删除删除实体
+        /// 批量删除实体
         /// </summary>
         /// <param name="entities">实体对象集合</param>
         /// <returns>操作影响的行数</returns>
@@ -573,7 +573,7 @@ namespace OSharp.Data.Entity
         public async Task<int> RecycleAsync(TEntity entity)
         {
             entity.CheckNotNull("entity");
-            //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
+            entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
             return await UpdateAsync(entity);
         }
 
@@ -611,7 +611,7 @@ namespace OSharp.Data.Entity
             entities = entities as TEntity[] ?? entities.ToArray();
             foreach (TEntity entity in entities)
             {
-                //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
+                entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.LogicDelete);
                 ((DbContext)UnitOfWork).Update<TEntity, TKey>(entity);
             }
             return await SaveChangesAsync();
@@ -625,7 +625,7 @@ namespace OSharp.Data.Entity
         public async Task<int> RestoreAsync(TEntity entity)
         {
             entity.CheckNotNull("entity");
-            //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
+            entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
             return await UpdateAsync(entity);
         }
 
@@ -663,7 +663,7 @@ namespace OSharp.Data.Entity
             entities = entities as TEntity[] ?? entities.ToArray();
             foreach (TEntity entity in entities)
             {
-                //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
+                entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.Restore);
                 ((DbContext)UnitOfWork).Update<TEntity, TKey>(entity);
             }
             return await SaveChangesAsync();

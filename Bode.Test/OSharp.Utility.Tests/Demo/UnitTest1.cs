@@ -74,5 +74,15 @@ namespace OSharp.Utility.Tests.Demo
             sb.Append(md5Price);
             return sb.ToString();
         }
+
+
+        [TestMethod]
+        public void PinYinTest()
+        {
+            string ch =
+                "http://211.149.210.62/UploadFile/CarModelPic/阿斯顿·马丁/阿斯顿·马丁/阿斯顿·马丁DB9/2014款/ 6.0L Volante百年纪念版.jpg";
+
+            string piny = StringHelper.GetChineseSpell(ch);
+        }
     }
 }

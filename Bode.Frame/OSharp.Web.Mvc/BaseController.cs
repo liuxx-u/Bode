@@ -30,6 +30,19 @@ namespace OSharp.Web.Mvc
         }
 
         /// <summary>
+        /// 获取当前操作者Id
+        /// </summary>
+        protected int OperatorId
+        {
+            get
+            {
+                int operatorId = 0;
+                int.TryParse(User.Identity.Name, out operatorId);
+                return operatorId;
+            }
+        }
+
+        /// <summary>
         /// 序列化字符串
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>

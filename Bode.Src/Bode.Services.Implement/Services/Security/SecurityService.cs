@@ -48,5 +48,10 @@ namespace Bode.Services.Implement.Services
         {
             get { return FunctionRoleMapRepository.Entities; }
         }
+
+        /// <summary>
+        /// 获取或设置 服务提供者
+        /// </summary>
+        public IServiceProvider ServiceProvider { get; set; }
     }
 }

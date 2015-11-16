@@ -31,6 +31,7 @@
             var tabArea = $(".page-body>.row>div");
             tabArea.attr("class", "col-xs-8 col-md-9 col-lg-10");
             tabArea.before($("#tree"));
+            $("#tree .widget-body").height(document.body.scrollHeight - 140);
 
             //UITree.init();
             var tree = new $.osharp.Treeview("#treeContent", {
@@ -63,7 +64,7 @@
                     </a>
                 </div>
             </div>
-            <div class="widget-body">
+            <div class="widget-body" style="overflow-y: auto;">
                 <div id="treeContent" class="tree tree-solid-line">
 
                 </div>

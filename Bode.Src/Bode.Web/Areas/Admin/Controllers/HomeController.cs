@@ -27,11 +27,11 @@ namespace Bode.Web.Areas.Admin.Controllers
             var icons = new[]
             {
                 "fa-th", "fa-desktop", "fa-table", "fa-bar-chart-o", "fa-pencil-square-o", "fa-picture-o", "fa-calendar",
-                "fa-credit-card", "fa-hdd-o", "fa-tasks"
+                "fa-credit-card","fa-laptop", "fa-hdd-o", "fa-tasks"," fa-list-alt"
             };
 
             var functions =
-                SecurityContract.Functions.Where(p => !p.IsLocked && !p.IsCustom && !p.IsAjax && p.PlatformToken == PlatformToken.Mvc)
+                SecurityContract.Functions.Where(p => !p.IsLocked && !p.IsCustom && !p.IsAjax && p.PlatformToken == PlatformToken.Mvc && p.Controller != "Home")
                     .OrderBy(p => p.OrderNo)
                     .ToList();
 

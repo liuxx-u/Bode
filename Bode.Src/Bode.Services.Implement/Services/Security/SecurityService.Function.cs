@@ -20,6 +20,7 @@ using OSharp.Core.Security;
 using OSharp.Utility;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
+using OSharp.Core.Dependency;
 
 namespace Bode.Services.Implement.Services
 {
@@ -108,6 +109,9 @@ namespace Bode.Services.Implement.Services
                     return new OperationResult(OperationResultType.QueryNull);
                 }
                 FunctionType oldType = entity.FunctionType;
+                bool oldIsMenu = entity.IsMenu;
+                int oldOrderNo = entity.OrderNo;
+
                 if (dto.DataLogEnabled && !dto.OperateLogEnabled && !entity.OperateLogEnabled && !entity.DataLogEnabled)
                 {
                     dto.OperateLogEnabled = true;
@@ -121,7 +125,7 @@ namespace Bode.Services.Implement.Services
                 {
                     entity.Url = null;
                 }
-                if (oldType != entity.FunctionType)
+                if (oldType != entity.FunctionType || oldIsMenu != entity.IsMenu || oldOrderNo != entity.OrderNo)
                 {
                     entity.IsTypeChanged = true;
                 }
@@ -134,7 +138,8 @@ namespace Bode.Services.Implement.Services
                 : new OperationResult(OperationResultType.NoChanged);
             if (result.ResultType == OperationResultType.Success)
             {
-                OSharpContext.Current.FunctionHandler.RefreshCache();
+                IFunctionHandler handler = ServiceProvider.GetService<IFunctionHandler>();
+                handler.RefreshCache();
             }
             return result;
         }
@@ -147,7 +152,7 @@ namespace Bode.Services.Implement.Services
         public async Task<OperationResult> DeleteFunctions(params Guid[] ids)
         {
             ids.CheckNotNull("ids");
-            List<string>names = new List<string>();
+            List<string> names = new List<string>();
             FunctionRepository.UnitOfWork.TransactionEnabled = true;
             foreach (Guid id in ids)
             {
@@ -169,7 +174,8 @@ namespace Bode.Services.Implement.Services
                 : new OperationResult(OperationResultType.NoChanged);
             if (result.ResultType == OperationResultType.Success)
             {
-                OSharpContext.Current.FunctionHandler.RefreshCache();
+                IFunctionHandler handler = ServiceProvider.GetService<IFunctionHandler>();
+                handler.RefreshCache();
             }
             return result;
         }

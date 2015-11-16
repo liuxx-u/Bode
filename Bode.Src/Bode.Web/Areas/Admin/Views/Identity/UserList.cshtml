@@ -116,32 +116,66 @@
                 var roleId = parseInt($(this).val());
                 roleIdMap[roleId]["Checked"] = $(this).is(":checked");
             });
+            //$('#btSave').click(function () {
+            //    var dto= {
+            //        Id: $("#Id").val(),
+            //        UserName: $("#UserName").val(),
+            //        NickName: $("#NickName").val(),
+            //        Password: $("#PasswordHash").val(),
+            //        Email: $("#Email").val(),
+            //        IsLocked: $("#IsLocked").val()
+            //}
+            //});
         }
 
         columns = [
-            { data: "Id", title: "编号" },
-            { data: "UserName", title: "用户名称", type: "datepicker",editor: {}, validation: { required: true } },
-            { data: "NickName", title: "用户昵称", type: "text", search: true, editor: {} },
-            { data: "Email", title: "电子邮箱", type: "text", search: true, editor: {} },
-            { data: "IsLocked", title: "是否锁定", type: "switch", search: true, editor: {} },
+        { data: "Id", title: "编号" },
+        { data: "UserName", title: "用户名称", type: "text", search: true, editor: {}, validation: { required: true } },
+        { data: "NickName", title: "用户昵称", type: "text", search: true, editor: {} },
+         { data: "Password", title: "用户密码", type: "text", search: true, editor: {} },
+        {
+            data: "Email", title:
+            "电子邮箱", type:
+            "text", search:
+            true, editor:
             {
-                data: "CreatedTime",
-                title: "创建时间",
-                type: "datepicker",
-                search: true,
-                format: function(d) {
-                    return $.osharp.tools.formatDate(d);
-                },
-                isformatval: true
-            },
-            {
-                data: "Id",
-                title: "操作选项",
-                type: "opt",
-                format: function(id) {
-                    return '<a href="javascript:setRole(' + id + ')">设置角色</a>';
-                }
             }
+        },
+        {
+            data: "IsLocked", title:
+            "是否锁定", type:
+            "switch", search:
+            true, editor:
+            {
+            }
+        },
+        {
+            data: "CreatedTime",
+                title:
+            "创建时间",
+                type:
+            "datepicker",
+                search:
+            true,
+                format:
+
+            function(d) {
+                return $.osharp.tools.formatDate(d);
+            },
+            isformatval: true
+        },
+        {
+            data: "Id",
+                title:
+            "操作选项",
+                type:
+            "opt",
+                format:
+
+            function(id) {
+                return '<a href="javascript:setRole(' + id + ')">设置角色</a>';
+            }
+        }
         ];
     </script>
 }
