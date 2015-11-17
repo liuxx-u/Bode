@@ -12,6 +12,7 @@
         this.parentField = conf.textField || "parentId";
         this.initialValue = conf.initialValue || 0;
         this.itemSelect = conf.itemSelect || function (d) { };
+        this.loadCompleted = conf.loadCompleted || function () { }
         this.itemCancel = conf.itemCancel || function (d) { },
         this.folderSelectEnable = conf.folderSelectEnable || false;
         this.multiSelectEnable = conf.multiSelectEnable || false;
@@ -27,9 +28,11 @@
                 $.get(this.conf.ajax, {}, function (d) {
                     tree.conf.source = d;
                     tree.initData();
+                    tree.loadCompleted();
                 });
             } else {
                 this.initData();
+                this.loadCompleted();
             }
         };
 

@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bode.Doc", "Bode.Doc", "{19
 		Bode.Doc\OSharp日志模块示图.vsd = Bode.Doc\OSharp日志模块示图.vsd
 		Bode.Doc\OSharp权限系统设计.png = Bode.Doc\OSharp权限系统设计.png
 		Bode.Doc\OSharp权限系统设计.vsd = Bode.Doc\OSharp权限系统设计.vsd
+		Bode.Doc\OSharp读写分离支持.docx = Bode.Doc\OSharp读写分离支持.docx
 		Bode.Doc\操作数据日志.vsd = Bode.Doc\操作数据日志.vsd
 	EndProjectSection
 EndProject

@@ -150,7 +150,8 @@ namespace Bode.Services.Implement.Services
                 public async Task<OperationResult> Delete<#=item.Name #>s(params int[] ids)
                 {
                     ids.CheckNotNull("ids");
-                    return await Task.Run(() => <#=item.Name #>Repo.Delete(ids));
+                    await <#=item.Name #>Repo.RecycleAsync(p=>ids.Contains(p.Id));
+                    return new OperationResult(OperationResultType.Success, "删除成功");
                 }
 
                 #endregion

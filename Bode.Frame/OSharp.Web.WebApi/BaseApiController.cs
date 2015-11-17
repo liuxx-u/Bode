@@ -10,7 +10,6 @@ namespace OSharp.Web.Http
     /// WebAPI的控制器基类
     /// </summary>
     [MvcStyleBinding]
-    //[CustomAuthorize]
     public abstract class BaseApiController : ApiController
     {
         /// <summary>

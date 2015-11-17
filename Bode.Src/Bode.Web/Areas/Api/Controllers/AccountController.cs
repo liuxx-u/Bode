@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Bode.Services.Core.Contracts;
@@ -8,19 +8,17 @@ using Bode.Services.Core.Models.User;
 using OSharp.Core.Context;
 using OSharp.Utility.Data;
 using OSharp.Utility.Extensions;
-using OSharp.Web.Http;
-using OSharp.Web.Http.Authentication;
-using OSharp.Web.Http.Caching;
 using OSharp.Web.Http.Messages;
+using OSharp.Web.Http;
+using System.ComponentModel;
+using OSharp.Web.Http.Authentication;
 
 namespace Bode.Web.Areas.Api.Controllers
 {
-    [Description("账户相关接口")]
+    [Description("账户接口")]
     public class AccountController : BaseApiController
     {
         public IUserContract UserContract { get; set; }
-
-        public IOnlineUserStore OnlineUserStore { protected get; set; }
 
         #region 账户相关业务
 
@@ -53,12 +51,6 @@ namespace Bode.Web.Areas.Api.Controllers
             string clientVersion, string registKey = "")
         {
             var result = await UserContract.Login(phoneNo, password, registKey, loginDevice, clientVersion);
-
-            //if (result.ResultType == OperationResultType.Success)
-            //{
-            //    OnlineUserStore.ResetLastOperationTime(phoneNo);
-            //}
-
             return Json(result.ToApiResult());
         }
 
@@ -75,7 +67,6 @@ namespace Bode.Web.Areas.Api.Controllers
         }
 
         [HttpPost]
-        [TokenAuth]
         [Description("重置密码")]
         public async Task<IHttpActionResult> ResetPassword(string phoneNo, string newPsw, string validateCode)
         {
@@ -104,11 +95,15 @@ namespace Bode.Web.Areas.Api.Controllers
         [HttpPost]
         [TokenAuth]
         [Description("编辑用户信息")]
-        public async Task<IHttpActionResult> EditUserInfo(string data)
+        public async Task<IHttpActionResult> EditUserInfo(UserInfoEditDto dto)
         {
-            var dto = JsonToEntity<UserInfoEditDto>(data);
+            if (dto.Id != OperatorId)
+            {
+                return Json(new ApiResult(OperationResultType.ValidError, "身份信息错误"));
+            }
+
             var result = await UserContract.EditUserInfos(dto);
-            return Json(new ApiResult(result.ResultType, "信息更新成功"));
+            return Json(result.ToApiResult());
         }
 
         [HttpPost]

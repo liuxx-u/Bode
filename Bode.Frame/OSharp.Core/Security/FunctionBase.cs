@@ -107,5 +107,15 @@ namespace OSharp.Core.Security
         /// 获取或设置 是否自定义功能
         /// </summary>
         public bool IsCustom { get; set; }
+
+        /// <summary>
+        /// 是否是菜单
+        /// </summary>
+        public bool IsMenu { get; set; }
+
+        /// <summary>
+        /// 排序号
+        /// </summary>
+        public int OrderNo { get; set; }
     }
 }

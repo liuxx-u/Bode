@@ -31,6 +31,7 @@ namespace OSharp.Utility.Secutiry
                 encoding = Encoding.ASCII;
             }
             byte[] bytes = encoding.GetBytes(value);
+
             return GetMd5(bytes);
         }
 

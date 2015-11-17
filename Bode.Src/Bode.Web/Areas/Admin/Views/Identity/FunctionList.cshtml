@@ -38,19 +38,20 @@
             { data: "Action", title: "方法", type: "text" },
             { data: "OperateLogEnabled", title: "操作日志", type: "switch", search: true, editor: {} },
             { data: "DataLogEnabled", title: "数据日志", type: "switch", search: true, editor: {} },
-            { data: "CacheExpirationSeconds", title: "缓存秒数", type: "number", search: true, editor: {} },
-            { data: "IsCacheSliding", title: "缓存过期", type: "switch", search: true, editor: {} },
             { data: "IsLocked", title: "已锁定", type: "switch", search: true, editor: {} },
             { data: "IsAjax", title: "Ajax方法", type: "switch", search: true },
             { data: "IsController", title: "控制器", type: "switch", search: true },
             { data: "ControllerId", title: "控制器Id", type: "hide"},
-            { data: "OrderNo", title: "排序号", type: "number", search: true, editor: {} }
+            { data: "OrderNo", title: "排序号", type: "number", search: true, editor: {} },
+            { data: "IsMenu", title: "是否菜单", type: "switch", search: true, editor: {} }
         ];
 
         startfunction = function () {
             var tabArea = $(".page-body>.row>div");
             tabArea.attr("class", "col-xs-8 col-md-9 col-lg-10");
             tabArea.before($("#tree"));
+            
+            $("#tree .widget-body").height(document.body.scrollHeight - 140);
 
             //UITree.init();
             var tree = new $.osharp.Treeview("#treeContent", {
@@ -59,7 +60,9 @@
                 initialValue:"0",
                 itemSelect: function (item) {
                     dataTable.conf.ajax = "@Url.Action("GetFunctionData")" + "?controllerId=" + item.value;
-
+                    dataTable.beforeEdit = function(index, row) {
+                        row.ControllerId = item.value;
+                    }
                     dataTable.reload();
                 }
             });
@@ -81,7 +84,7 @@
                     </a>
                 </div>
             </div>
-            <div class="widget-body">
+            <div class="widget-body" style="overflow-y: auto;">
                 <div id="treeContent" class="tree tree-solid-line">
 
                 </div>

@@ -28,7 +28,7 @@
         this.getCurrent = function () {
             return this.tab.find(".tr-selected");
         };
-        this.beforeEdit = this.conf.beforeEdit || function(index, row) {};
+        this.beforeEdit = this.conf.beforeEdit || function (index, row) { };
         this.beforeInit = this.conf.beforeInit || function () { };
         this.initComplete = this.conf.initComplete || function () { };
         this.ajaxComplete = this.conf.initComplete || function () { };
@@ -137,7 +137,32 @@
                         $(jqTds[i]).empty().append(comboObj);
                         comboObj.select2({ minimumResultsForSearch: -1 });
                     }
-                    else if (colType === "datepicker") {
+                    else if (colType === "img") {
+                        jqTds[i].innerHTML = '<img src="' + data[dataKey] + '" style="width:120px;height:80px;"/><input id="uploadify_' + i + '" type="file" />';
+
+                        var imgAjax = this.conf.imgAjax || "";
+
+                        $(jqTds[i]).find("input:file").uploadify({
+                            swf: '../../../../Content/js/uploadify/uploadify.swf',
+                            uploader: imgAjax,
+                            buttonText: "选择文件",
+                            height: 32,
+                            width: 75,
+                            fileTypeDesc: 'Image Files',
+                            fileTypeExts: '*.jpg; *.jpeg; *.png; *.bmp',
+                            fileSizeLimit: '10MB',
+                            auto: true,
+                            multi: false,
+                            onFallback: function () {
+                                Notify("当前浏览器未安装flash,请安装或更换浏览器。", 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                            },
+                            onUploadSuccess: function (file, data, response) {
+                                var result = eval('(' + data + ')');
+                                $("#" + this.settings.button_placeholder_id).prev("img").attr("src", result.ReturnData);
+                            }
+                        });
+
+                    } else if (colType === "datepicker") {
                         jqTds[i].innerHTML = '<input class="input-sm date-picker" data-vv="' + data[dataKey] + '" type="text" style="width:90%;" value="' + data[dataKey] + '" readonly>';
 
                         $('.date-picker').datetimepicker({
@@ -146,8 +171,7 @@
                             weekStart: 1,
                             autoclose: 1
                         });
-                    }
-                    else {
+                    } else {
                         jqTds[i].innerHTML = '<input type="text" data-vv="' + data[dataKey] + '" class="input-sm" style="width:95%;" value="' + data[dataKey] + '">';
                     }
                 }
@@ -178,6 +202,9 @@
                     ov = td.find("select").select2("val");
                     td.html(this.tool.sourceFormat(ov, this.columns[i]["source"], f));
 
+                } else if (colType === "img") {
+                    ov = td.find("img").attr("src");
+                    td.html('<img src="' + ov + '" style="width:120px;height:80px;"/>');
                 } else if (colType === "number") {
                     ov = td.find("input").val();
                     var reg = /^(-?\d+)(\.\d+)?$/;
@@ -226,6 +253,8 @@
                     var colType = this.columns[j]["type"];
                     if (colType === "combobox" || colType === "switch") {
                         row.find("td:eq(" + j + ")").html(this.tool.sourceFormat(ov, this.columns[j]["source"], f));
+                    } else if (colType === "img") {
+                        row.find("td:eq(" + j + ")").html('<img src="' + ov + '" style="width:120px;height:80px;"/>');
                     } else {
                         row.find("td:eq(" + j + ")").html(this.tool.format(ov, f));
                     }
@@ -333,6 +362,8 @@
                         var source = this.columns[j].source;
                         $('<td data-ov="' + ov + '">' + this.tool.sourceFormat(ov, source, this.columns[j]["format"]) + '</td>').appendTo(tr);
 
+                    } else if (colType === "img") {
+                        $('<td data-ov="' + ov + '"><img src="' + ov + '" style="width:120px;height:80px;"/></td>').appendTo(tr);
                     } else {
                         var display = colType === "hide" ? 'style="display:none;"' : '';
                         $('<td ' + display + ' data-ov="' + ov + '">' + this.tool.format(ov, f) + '</td>').appendTo(tr);
@@ -345,7 +376,7 @@
             this.tool.addRowEvent(this, this.tab.find("tbody>tr"));
         }
 
-        this.initHead = function() {
+        this.initHead = function () {
             var tab = this;
             //初始化columnHash与表头
             for (var i = 0, n = this.columns.length; i < n; i++) {
@@ -363,7 +394,7 @@
                 this.columnsHash[this.columns[i].data] = this.columns[i];
                 var display = colType === "hide" ? 'style="display:none;"' : '';
                 var sortHtml = this.columns[i].sortDisable ? '' : ' class="sorting"';
-                $('<th ' + display + sortHtml + ' data-key="' + this.columns[i].data + '" style="width: 251px;">' + this.columns[i].title + '</th>').click(function() {
+                $('<th ' + display + sortHtml + ' data-key="' + this.columns[i].data + '" style="width: 251px;">' + this.columns[i].title + '</th>').click(function () {
                     if (typeof ($(this).attr("class")) == "undefined") return;
                     tab.queryParams.sortField = $(this).attr("data-key");
                     tab.queryParams.sortOrder = $(this).attr("class") === "sorting_asc" ? "desc" : "asc";

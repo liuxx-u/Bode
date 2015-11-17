@@ -187,33 +187,15 @@
     <Content Include="Content\images\head_bg.jpg" />
     <Content Include="Content\images\hotel_banner.jpg" />
     <Content Include="Content\images\hotel_bg.png" />
-    <Content Include="Content\images\hotel_btn.png" />
     <Content Include="Content\images\hotel_mouth.png" />
     <Content Include="Content\images\hotel_prev.png" />
-    <Content Include="Content\images\icon001.png" />
-    <Content Include="Content\images\icon002.png" />
-    <Content Include="Content\images\icon003.png" />
-    <Content Include="Content\images\icon004.png" />
-    <Content Include="Content\images\icon005.png" />
     <Content Include="Content\images\ico_day.png" />
     <Content Include="Content\images\ico_reply.png" />
     <Content Include="Content\images\ico_search.png" />
     <Content Include="Content\images\ico_select.png" />
     <Content Include="Content\images\ico_sex.png" />
     <Content Include="Content\images\ico_views.png" />
-    <Content Include="Content\images\img\._center_car.jpg" />
-    <Content Include="Content\images\img\._face.jpg" />
-    <Content Include="Content\images\img\._jd_pic.jpg" />
-    <Content Include="Content\images\img\._sd_details.jpg" />
-    <Content Include="Content\images\img\._yj_pic.jpg" />
-    <Content Include="Content\images\img\center_car.jpg" />
-    <Content Include="Content\images\img\face.jpg" />
-    <Content Include="Content\images\img\jd_pic.jpg" />
-    <Content Include="Content\images\img\sd_details.jpg" />
-    <Content Include="Content\images\img\yj_pic.jpg" />
     <Content Include="Content\images\jquery.minicolors.png" />
-    <Content Include="Content\images\login\._logo.jpg" />
-    <Content Include="Content\images\login\logo.jpg" />
     <Content Include="Content\images\logo-inverted.png" />
     <Content Include="Content\images\logo-rtl.png" />
     <Content Include="Content\images\logo.png" />
@@ -227,14 +209,10 @@
     <Content Include="Content\images\sort_both.png" />
     <Content Include="Content\images\sort_desc.png" />
     <Content Include="Content\images\sort_desc_disabled.png" />
-    <Content Include="Content\images\s_logo.jpg" />
     <Content Include="Content\images\user.jpg" />
     <Content Include="Content\images\user.png" />
-    <Content Include="Content\images\weibo.jpg" />
     <Content Include="Content\images\weixin.png" />
     <Content Include="Content\images\weixin_big.jpg" />
-    <Content Include="Content\images\xinlang.jpg" />
-    <Content Include="Content\images\zhi.jpg" />
     <Content Include="Content\js\angular\angular-animate.js" />
     <Content Include="Content\js\angular\angular-animate.min.js" />
     <Content Include="Content\js\angular\angular-aria.js" />
@@ -1096,6 +1074,7 @@
     <Compile Include="Areas\Admin\ViewModels\TreeNode.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Api\Controllers\BasicInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1149,6 +1128,7 @@
     <Content Include="Content\js\angular\angular.min.js.map" />
     <Content Include="Content\js\angular\errors.json" />
     <Content Include="Content\js\angular\version.json" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
