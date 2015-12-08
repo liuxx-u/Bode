@@ -22,6 +22,7 @@ namespace OSharp.Core.Context
     public class OSharpContext : Dictionary<string, object>
     {
         private const string OperatorKey = "__OSharp_Context_Operator";
+        private const string CultureKey = "__OSharp_Context_Culture";
         private static readonly Lazy<OSharpContext> ContextLazy = new Lazy<OSharpContext>(() => new OSharpContext());
 
         private OSharpContext()
@@ -53,6 +54,25 @@ namespace OSharp.Core.Context
                 this[OperatorKey] = value;
             }
         }
+        
+        /// <summary>
+        /// 当前国际化区域
+        /// </summary>
+        public string Culture
+        {
+            get
+            {
+                if (!ContainsKey(CultureKey))
+                {
+                    this[CultureKey] = string.Empty;
+                }
+                return this[CultureKey] as string;
+            }
+            private set
+            {
+                this[CultureKey] = value;
+            }
+        }
 
         /// <summary>
         /// 设置当前操作者信息
@@ -70,6 +90,15 @@ namespace OSharp.Core.Context
         {
             user.CheckNotNull("user");
             Operator = user;
+        }
+
+        /// <summary>
+        /// 设置当前国际化区域
+        /// </summary>
+        /// <param name="culture"></param>
+        public void SetCulture(string culture)
+        {
+            Culture = culture;
         }
 
         /// <summary>

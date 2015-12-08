@@ -105,6 +105,7 @@
     <Compile Include="Formattings\CSVMediaTypeFormatter.cs" />
     <Compile Include="Formattings\PlainTextFormatter.cs" />
     <Compile Include="Authentication\BasicAuthenticationHandlerBase.cs" />
+    <Compile Include="Handlers\CultureInitHandler.cs" />
     <Compile Include="Handlers\EncodingHandler.cs" />
     <Compile Include="Handlers\ETagHandler.cs" />
     <Compile Include="Handlers\HeadMessageHandler.cs" />

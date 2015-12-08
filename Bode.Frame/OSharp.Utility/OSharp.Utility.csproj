@@ -113,6 +113,7 @@
     <Compile Include="Helper\RetryHelper.cs" />
     <Compile Include="Helper\SerializeHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="Net\Mail\MailSender.cs" />
     <Compile Include="Office\ExcelHandler.cs" />
     <Compile Include="Reflection\FastInvokeHandler.cs" />
     <Compile Include="Dynamic\MetaObject.cs" />
@@ -171,9 +172,7 @@
     <Compile Include="Windows\SystemInfoHandler.cs" />
     <Compile Include="Windows\WMIPath.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Net\Mail\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

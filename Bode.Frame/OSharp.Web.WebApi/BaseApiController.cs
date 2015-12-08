@@ -37,6 +37,14 @@ namespace OSharp.Web.Http
         }
 
         /// <summary>
+        /// 获取当前请求的国际化区域信息
+        /// </summary>
+        protected string CurrentCulture
+        {
+            get { return OSharpContext.Current.Culture; }
+        }
+
+        /// <summary>
         /// 获取App每页数量
         /// </summary>
         protected int AppPageSize = 10;
