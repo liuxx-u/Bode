@@ -98,7 +98,8 @@ namespace OSharp.Web.Mvc.Initialize
                 PlatformToken = PlatformToken,
                 IsController = false,
                 IsAjax = method.HasAttribute<AjaxOnlyAttribute>(),
-                IsMenu = !method.HasAttribute<AjaxOnlyAttribute>() && !method.HasAttribute<HttpPostAttribute>(),//非Ajax的Get方法默认为菜单
+                //非Ajax且方法名不是Edit开头的Get方法默认为菜单
+                IsMenu = !method.HasAttribute<AjaxOnlyAttribute>() && !method.HasAttribute<HttpPostAttribute>() && !method.Name.StartsWith("Edit"),
                 IsChild = method.HasAttribute<ChildActionOnlyAttribute>()
             };
             return function;

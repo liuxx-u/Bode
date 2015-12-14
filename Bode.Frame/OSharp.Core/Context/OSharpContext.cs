@@ -56,25 +56,6 @@ namespace OSharp.Core.Context
         }
         
         /// <summary>
-        /// 当前国际化区域
-        /// </summary>
-        public string Culture
-        {
-            get
-            {
-                if (!ContainsKey(CultureKey))
-                {
-                    this[CultureKey] = string.Empty;
-                }
-                return this[CultureKey] as string;
-            }
-            private set
-            {
-                this[CultureKey] = value;
-            }
-        }
-
-        /// <summary>
         /// 设置当前操作者信息
         /// </summary>
         public void SetOperator(ClaimsPrincipal user)
@@ -91,16 +72,7 @@ namespace OSharp.Core.Context
             user.CheckNotNull("user");
             Operator = user;
         }
-
-        /// <summary>
-        /// 设置当前国际化区域
-        /// </summary>
-        /// <param name="culture"></param>
-        public void SetCulture(string culture)
-        {
-            Culture = culture;
-        }
-
+        
         /// <summary>
         /// 获取或设置 功能信息处理器
         /// </summary>

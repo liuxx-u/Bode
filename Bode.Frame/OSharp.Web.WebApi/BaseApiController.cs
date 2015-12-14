@@ -1,6 +1,7 @@
 ﻿using OSharp.Core.Context;
 using OSharp.Utility.Extensions;
 using OSharp.Web.Http.ModelBinders;
+using System.Threading;
 using System.Web.Http;
 
 
@@ -39,9 +40,22 @@ namespace OSharp.Web.Http
         /// <summary>
         /// 获取当前请求的国际化区域信息
         /// </summary>
+        private string _currentCulture;
         protected string CurrentCulture
         {
-            get { return OSharpContext.Current.Culture; }
+            get
+            {
+                if (_currentCulture.IsNullOrWhiteSpace())
+                {
+                    _currentCulture = Thread.CurrentThread.CurrentCulture.Name;
+                }
+                return _currentCulture;
+            }
+        }
+
+        protected bool IsDefaultCulture
+        {
+            get { return CurrentCulture == "zh-CN"; }
         }
 
         /// <summary>

@@ -245,7 +245,6 @@ namespace OSharp.Data.Entity
         public int Delete(TEntity entity)
         {
             entity.CheckNotNull("entity");
-            //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.PhysicalDelete);
             _dbSet.Remove(entity);
             return SaveChanges();
         }
@@ -282,10 +281,6 @@ namespace OSharp.Data.Entity
         public int Delete(IEnumerable<TEntity> entities)
         {
             entities = entities as TEntity[] ?? entities.ToArray();
-            foreach (TEntity entity in entities)
-            {
-                //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.PhysicalDelete);
-            }
             _dbSet.RemoveRange(entities);
             return SaveChanges();
         }
@@ -313,7 +308,6 @@ namespace OSharp.Data.Entity
                 {
                     entity = deleteFunc(entity);
                 }
-                //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.PhysicalDelete);
                 _dbSet.Remove(entity);
 
                 string name = GetNameValue(entity);
@@ -677,7 +671,6 @@ namespace OSharp.Data.Entity
         public async Task<int> DeleteAsync(TEntity entity)
         {
             entity.CheckNotNull("entity");
-            //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.PhysicalDelete);
             _dbSet.Remove(entity);
             return await SaveChangesAsync();
         }
@@ -714,10 +707,6 @@ namespace OSharp.Data.Entity
         public async Task<int> DeleteAsync(IEnumerable<TEntity> entities)
         {
             entities = entities as TEntity[] ?? entities.ToArray();
-            foreach (TEntity entity in entities)
-            {
-                //entity.CheckIRecycle<TEntity, TKey>(RecycleOperation.PhysicalDelete);
-            }
             _dbSet.RemoveRange(entities);
             return await SaveChangesAsync();
         }

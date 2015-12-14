@@ -2,6 +2,7 @@
 using OSharp.Web.Http.Internal;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -27,9 +28,13 @@ namespace OSharp.Web.Http.Handlers
             {
                 return base.SendAsync(request, cancellationToken);
             }
-            string culture = request.Headers.GetValues(HttpHeaderNames.OSharpCultureKey).FirstOrDefault();
-            OSharpContext.Current.SetCulture(culture);
 
+            string culture = request.Headers.GetValues(HttpHeaderNames.OSharpCultureKey).FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(culture))
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
+            }
             return base.SendAsync(request, cancellationToken);
         }
     }
