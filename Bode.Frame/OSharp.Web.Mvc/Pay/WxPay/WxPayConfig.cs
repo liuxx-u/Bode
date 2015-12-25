@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
 
-namespace WxPayAPI
+namespace OSharp.Web.Mvc.Pay.WxPay
 {
     /**
     * 	配置账号信息

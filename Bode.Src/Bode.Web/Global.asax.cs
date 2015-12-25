@@ -17,6 +17,7 @@ using OSharp.Web.Http.Initialize;
 using OSharp.Web.Mvc.Initialize;
 using OSharp.Web.Mvc.Routing;
 using Bode.Sms.Md;
+using Bode.Services.Implement;
 
 namespace Bode.Web
 {
@@ -60,12 +61,12 @@ namespace Bode.Web
             IServiceCollection services = builder.Build();
             services.AddLog4NetServices();
             services.AddDataServices();
+            services.AddImplementServices();
             services.AddMdSmsServices();
 
             IFrameworkInitializer initializer = new FrameworkInitializer();
             initializer.Initialize(new MvcAutofacIocBuilder(services));
             initializer.Initialize(new WebApiAutofacIocBuilder(services));
-            //initializer.Initialize(new SignalRAutofacIocBuilder(services));
         }
     }
 }

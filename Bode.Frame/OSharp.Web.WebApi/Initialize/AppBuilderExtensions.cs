@@ -38,5 +38,24 @@ namespace OSharp.Web.Http.Initialize
             initializer.Initialize(iocBuilder);
             return app;
         }
+
+        /// <summary>
+        /// 初始化WebApi
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IAppBuilder ConfigureWebApi(this IAppBuilder app)
+        {
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+
+            config.Filters.Add(new ExceptionHandlingAttribute());
+            config.Formatters.Clear();
+            config.Formatters.Add(new JsonMediaTypeFormatter());
+
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.EnsureInitialized();
+            return app;
+        }
     }
 }

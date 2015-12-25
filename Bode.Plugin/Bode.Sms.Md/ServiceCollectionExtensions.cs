@@ -15,7 +15,7 @@ namespace Bode.Sms.Md
         public static void AddMdSmsServices(this IServiceCollection services)
         {
             services.CheckNotNull("services");
-            services.AddSingleton<ISms, MdSms>();
+            services.AddScoped<ISms, MdSms>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OSharp.Core.Context;
 using OSharp.Utility.Extensions;
+using OSharp.Web.Http.Filters;
 using OSharp.Web.Http.ModelBinders;
 using System.Threading;
 using System.Web.Http;
@@ -11,6 +12,7 @@ namespace OSharp.Web.Http
     /// WebAPI的控制器基类
     /// </summary>
     [MvcStyleBinding]
+    [ExceptionHandling]
     public abstract class BaseApiController : ApiController
     {
         /// <summary>

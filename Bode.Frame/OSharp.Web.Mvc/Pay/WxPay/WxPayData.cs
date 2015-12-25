@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using OSharp.Utility.Extensions;
 
-namespace WxPayAPI
+namespace OSharp.Web.Mvc.Pay.WxPay
 {
     /// <summary>
     /// 微信支付协议接口数据类，所有的API接口通信都依赖这个数据结构，
@@ -130,7 +130,7 @@ namespace WxPayAPI
             try
             {
 				//2015-06-29 错误是没有签名
-				if(m_values["return_code"] != "SUCCESS")
+				if(m_values["return_code"].ToString() != "SUCCESS")
 				{
 					return m_values;
 				}

@@ -5,7 +5,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 
-namespace WxPayAPI
+namespace OSharp.Web.Mvc.Pay.WxPay
 {
     public class WxPayApi
     {
