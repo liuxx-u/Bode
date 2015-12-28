@@ -1065,7 +1065,9 @@
     <Content Include="Content\tpls\admin\tab.html" />
     <Content Include="Content\tpls\admin\tree.html" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -1078,6 +1080,7 @@
     <Compile Include="Areas\Api\Controllers\BasicInfoController.cs" />
     <Compile Include="Areas\Api\Controllers\TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1142,6 +1145,7 @@
     <Folder Include="Content\js\angular\i18n\ngLocale\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Bode.Frame\OSharp.Autofac.Mvc\OSharp.Autofac.Mvc.csproj">

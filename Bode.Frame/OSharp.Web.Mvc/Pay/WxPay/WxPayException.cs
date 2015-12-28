@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace WxPayAPI
+namespace OSharp.Web.Mvc.Pay.WxPay
 {
     public class WxPayException : Exception 
     {

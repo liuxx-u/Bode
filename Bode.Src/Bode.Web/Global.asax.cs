@@ -10,14 +10,12 @@ using OSharp.Core;
 using OSharp.Core.Caching;
 using OSharp.Core.Dependency;
 using OSharp.Logging.Log4Net;
-using OSharp.SiteBase.Initialize;
 using OSharp.Web.Http.Caching;
 using OSharp.Web.Http.Handlers;
-using OSharp.Web.Http.Initialize;
-using OSharp.Web.Mvc.Initialize;
 using OSharp.Web.Mvc.Routing;
 using Bode.Sms.Md;
 using OSharp.Web.Http.Context;
+using Bode.Services.Implement;
 
 namespace Bode.Web
 {
@@ -62,12 +60,12 @@ namespace Bode.Web
             IServiceCollection services = builder.Build();
             services.AddLog4NetServices();
             services.AddDataServices();
+            services.AddImplementServices();
             services.AddMdSmsServices();
 
             IFrameworkInitializer initializer = new FrameworkInitializer();
             initializer.Initialize(new MvcAutofacIocBuilder(services));
             initializer.Initialize(new WebApiAutofacIocBuilder(services));
-            //initializer.Initialize(new SignalRAutofacIocBuilder(services));
         }
     }
 }

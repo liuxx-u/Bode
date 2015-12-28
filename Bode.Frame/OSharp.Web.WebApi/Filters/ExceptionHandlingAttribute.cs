@@ -61,13 +61,7 @@ namespace OSharp.Web.Http.Filters
             string msg = "User:{0}，IP:{1}，Message:{2}".FormatWith(user, ip, exception.Message);
             Logger.Error(msg, exception);
 
-            /*if (actionExecutedContext.Exception is HttpException)
-            {
-                HttpException httpException = (HttpException)exception;
-                actionExecutedContext.Response =
-                    request.CreateResponse((HttpStatusCode)httpException.GetHttpCode(), new Error { Message = exception.Message });
-            }
-            else*/ if (Mappings.ContainsKey(exception.GetType()))
+            if (Mappings.ContainsKey(exception.GetType()))
             {
                 HttpStatusCode httpStatusCode = Mappings[exception.GetType()];
                 actionExecutedContext.Response =

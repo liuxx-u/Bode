@@ -225,7 +225,7 @@ namespace OSharp.Utility.Extensions
             source.CheckNotNull("source");
             propertyName.CheckNotNullOrEmpty("propertyName");
 
-            return CollectionPropertySorter<T>.OrderBy(source, propertyName, sortDirection);
+            return CollectionPropertySorter<T>.OrderBy(source, propertyName, sortDirection); 
         }
 
         /// <summary>

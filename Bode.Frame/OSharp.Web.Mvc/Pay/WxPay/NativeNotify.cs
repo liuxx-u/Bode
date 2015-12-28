@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace WxPayAPI
+namespace OSharp.Web.Mvc.Pay.WxPay
 {
     /// <summary>
     /// App支付模式一回调处理类
