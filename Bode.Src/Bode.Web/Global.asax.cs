@@ -17,6 +17,7 @@ using OSharp.Web.Http.Initialize;
 using OSharp.Web.Mvc.Initialize;
 using OSharp.Web.Mvc.Routing;
 using Bode.Sms.Md;
+using OSharp.Web.Http.Context;
 
 namespace Bode.Web
 {
@@ -48,6 +49,7 @@ namespace Bode.Web
         private static void DelegatingHandlerRegister(HttpConfiguration config)
         {
             // Web API 配置和服务
+            config.MessageHandlers.Add(new RequestInitHandler());
             config.MessageHandlers.Add(new ThrottlingHandler(new InMemoryThrottleStore(), id => 60, TimeSpan.FromMinutes(1)));
         }
 

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using OSharp.Core.Security;
 using OSharp.Utility;
-
+using OSharp.Core.Dependency;
 
 namespace OSharp.Core.Context
 {

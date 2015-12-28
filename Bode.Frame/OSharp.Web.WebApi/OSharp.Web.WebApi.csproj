@@ -96,6 +96,7 @@
     <Compile Include="Caching\TimedEntityTagHeaderValue.cs" />
     <Compile Include="Content\CompressedContent.cs" />
     <Compile Include="Content\CompressHandler.cs" />
+    <Compile Include="Context\OSharpWebApiContext.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ContentNegotiationExtensions.cs" />
     <Compile Include="Extensions\HttpMessageExtensions.cs" />
@@ -153,6 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Context\RequestInitHandler.cs" />
     <Compile Include="Routing\StartsWithConstraint.cs" />
     <Compile Include="Security\ClientCryptoDelegatingHandler.cs" />
     <Compile Include="Security\HostCryptoDelegatingHandler.cs" />
