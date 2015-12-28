@@ -1,17 +1,12 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="OSharpContext.cs" company="OSharp开源团队">
+//  <copyright file="OSharpWebApiContext.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
-//  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-07-28 0:41</last-date>
+//  <last-editor>liuxx001</last-editor>
+//  <last-date>2015-12-29 1:09</last-date>
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using OSharp.Core.Security;
-using OSharp.Utility;
-using OSharp.Core.Dependency;
 using System.Web.Http.Dependencies;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Permissions;
@@ -19,16 +14,13 @@ using System.Security.Permissions;
 namespace OSharp.Web.Http.Context
 {
     /// <summary>
-    /// OSharp框架上下文，用于构造OSharp框架运行环境
+    /// OSharp框架Webapi上下文，用于获取当前HttpRequestMessage
     /// </summary>
     [Serializable]
-    public class OSharpWebApiContext : Dictionary<string, object>
-    {
-        private const string ScopeKey = "__OSharp_WebApi_Context_DependencyScope";
-        private static readonly Lazy<OSharpWebApiContext> ContextLazy = new Lazy<OSharpWebApiContext>(() => new OSharpWebApiContext());
-        
+    public class OSharpWebApiContext
+    {        
         /// <summary>
-        /// 获取 当前上下文
+        /// 获取 当前请求上下文
         /// </summary>
         public static OSharpWebApiContext Current
         {
@@ -43,30 +35,19 @@ namespace OSharp.Web.Http.Context
             }
         }
 
+        private IDependencyScope _dependencyScope;
         /// <summary>
-        /// 获取 当前操作者
+        /// 获取 设置当前请求的依赖注入容器
         /// </summary>
         public IDependencyScope DependencyScope
         {
             get
             {
-                if (!ContainsKey(ScopeKey)) return null;
-                return this[ScopeKey] as IDependencyScope;
+                return _dependencyScope;
             }
-            private set
+            set
             {
-                this[ScopeKey] = value;
-            }
-        }
-
-        /// <summary>
-        /// 设置当前请求依赖注入容器
-        /// </summary>
-        public void SetDependencyScope(IDependencyScope scope)
-        {
-            if (!ContainsKey(ScopeKey))
-            {
-                this[ScopeKey] = scope;
+                _dependencyScope = value;
             }
         }
     }
