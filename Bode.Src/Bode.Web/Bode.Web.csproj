@@ -1188,6 +1188,10 @@
       <Project>{258224a8-32f8-48ef-a5b6-50448f006aa1}</Project>
       <Name>Bode.Plugin.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Bode.Plugin\Bode.Push.Jpush\Bode.Push.Jpush.csproj">
+      <Project>{3eff7f89-cb12-4813-a0ec-ed95badde4ef}</Project>
+      <Name>Bode.Push.Jpush</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Bode.Plugin\Bode.Sms.Md\Bode.Sms.Md.csproj">
       <Project>{40a42ade-d8ca-4296-807a-a1987b4e5b70}</Project>
       <Name>Bode.Sms.Md</Name>

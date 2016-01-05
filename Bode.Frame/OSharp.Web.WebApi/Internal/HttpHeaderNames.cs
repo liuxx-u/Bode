@@ -20,6 +20,6 @@ namespace OSharp.Web.Http.Internal
         public const string OSharpClientPublicKey = "OSharp_ClientPublicKey";
 
         public const string OSharpCultureKey = "BodeCulture";
-        public const string OSharpAuthenticationToken = "BodeAuth";
+        public const string OSharpAuthenticationToken = "OSharp_AuthenticationToken";
     }
 }
