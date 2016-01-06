@@ -25,7 +25,7 @@ namespace OSharp.Web.Mvc.UI
         {
             string content = result.Message ?? result.ResultType.ToDescription();
             AjaxResultType type = result.ResultType.ToAjaxResultType();
-            return new AjaxResult(content, type);
+            return new AjaxResult(content, type, result.Data);
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Web;
+using System.Web.Hosting;
 
 namespace OSharp.Web.Mvc.Upload
 {
@@ -49,41 +50,7 @@ namespace OSharp.Web.Mvc.Upload
             }
             return theList;
         }
-
-        /// <summary>
-        /// 以文件流的形式保存文件
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="suffix"></param>
-        /// <param name="afterPath"></param>
-        /// <returns></returns>
-        public static string Upload(Stream stream, string suffix, string afterPath = "")
-        {
-            string path = UploadRoot + afterPath;
-
-            if (stream.Length == 0) return string.Empty;
-
-            string filePath = HttpContext.Current.Server.MapPath(path);
-            string fileName = Guid.NewGuid().ToString() + "." + suffix;
-
-            if (!Directory.Exists(filePath))
-            {
-                Directory.CreateDirectory(filePath);
-            }
-
-            using (FileStream fs = new FileStream(filePath + fileName, FileMode.OpenOrCreate, FileAccess.Write))
-            {
-                byte[] buffer = new byte[stream.Length];
-                stream.Read(buffer, 0, buffer.Length);     //将流的内容读到缓冲区 
-                fs.Write(buffer, 0, buffer.Length);
-                fs.Flush();
-            }
-            return (path + fileName).Replace("~/", ServerHost); ;
-        }
-
-        #endregion
-
-        #region WebApi
+        
 
         /// <summary>
         /// 文件上传
@@ -91,13 +58,13 @@ namespace OSharp.Web.Mvc.Upload
         /// <param name="hfc">客户端上传文件流</param>
         /// <param name="afterPath">类似：aaaa/bbb/子文件夹</param>
         /// <returns></returns>
-        public static List<string> ApiUpload(HttpFileCollection hfc, string afterPath = "")
+        public static List<string> MvcUpload(HttpFileCollection hfc, string afterPath = "")
         {
             string path = string.Format("{0}{1}{2}/", UploadRoot, afterPath, DateTime.Today.ToString("yyyyMMdd"));
 
             List<string> theList = new List<string>();
 
-            string filePath = HttpContext.Current.Server.MapPath(path);
+            string filePath = HostingEnvironment.MapPath(path);
             if (!Directory.Exists(filePath))
             {
                 Directory.CreateDirectory(filePath);

@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 using OSharp.Core.Data;
 using OSharp.Core.Initialize;
-
+using System.Collections;
 
 namespace OSharp.Core.Security
 {

@@ -106,6 +106,7 @@
     <Compile Include="Filter\DataPage.cs" />
     <Compile Include="Helper\CombHelper.cs" />
     <Compile Include="Helper\DateTimeHelper.cs" />
+    <Compile Include="Helper\ImageHelper.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
     <Compile Include="Helper\LatLngHelper.cs" />
     <Compile Include="Helper\MathHelper.cs" />
