@@ -68,7 +68,22 @@ namespace Bode.Push.Umeng
             string d = string.Format("${0}${1}${2}${3}", method, url, body, UmengConfig.AppSecret);
             return HashHelper.GetMd5(d, Encoding.UTF8);
         }
-        
+
+        public bool PushByAlias(List<string> alias, string tiker, string title, string text, Dictionary<string, object> objs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PushByTagWithinAnd(string tag, string tiker, string title, string text, Dictionary<string, object> objs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PushByTagWithinOr(string tag, string tiker, string title, string text, Dictionary<string, object> objs)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
