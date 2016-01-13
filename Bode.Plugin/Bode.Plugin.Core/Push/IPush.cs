@@ -37,7 +37,7 @@ namespace Bode.Plugin.Core.Push
         bool PushByAlias(List<string> alias, string tiker, string title, string text, Dictionary<string, object> objs);
 
         /// <summary>
-        /// 推送用户
+        /// 推送指定用户
         /// </summary>
         /// <param name="tag">标签</param>
         /// <param name="tiker">通知栏提示文字</param>
@@ -48,7 +48,7 @@ namespace Bode.Plugin.Core.Push
         bool PushByTagWithinAnd(string tag, string tiker, string title, string text, Dictionary<string, object> objs);
 
         /// <summary>
-        /// 推送用户
+        /// 推送指定用户
         /// </summary>
         /// <param name="tag">标签</param>
         /// <param name="tiker">通知栏提示文字</param>
