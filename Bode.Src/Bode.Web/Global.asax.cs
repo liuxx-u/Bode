@@ -16,6 +16,7 @@ using OSharp.Web.Mvc.Routing;
 using Bode.Sms.Md;
 using OSharp.Web.Http.Context;
 using Bode.Services.Implement;
+using Bode.Push.Jpush;
 
 namespace Bode.Web
 {
@@ -66,6 +67,7 @@ namespace Bode.Web
             services.AddDataServices();
             services.AddImplementServices();
             services.AddMdSmsServices();
+            services.AddJPushServices();
 
             IFrameworkInitializer initializer = new FrameworkInitializer();
             initializer.Initialize(new MvcAutofacIocBuilder(services));
