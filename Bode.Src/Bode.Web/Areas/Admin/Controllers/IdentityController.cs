@@ -141,27 +141,26 @@ namespace Bode.Web.Areas.Admin.Controllers
 
         [AjaxOnly]
         [Description("获取所有角色简要信息")]
-        public async Task<ActionResult> GetAllRoleBriefs(int? organizationId)
+        public ActionResult GetAllRoleBriefs(int? organizationId)
         {
-            var data = await IdentityContract.Roles.Select(p => new
+            var data = IdentityContract.Roles.Select(p => new
             {
                 p.Id,
                 p.Name,
                 OrganizationId = p.Organization == null ? 0 : p.Organization.Id
-            }).ToListAsync();
+            }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [AjaxOnly]
         [Description("获取角色功能Id")]
-        public async Task<ActionResult> GetRoleFuncIds(int roleId)
+        public ActionResult GetRoleFuncIds(int roleId)
         {
-            var funcIds =
-                await
-                    SecurityContract.FunctionRoleMaps.Where(p => p.Role.Id == roleId)
-                        .Include(p => p.Function)
-                        .Select(p => p.Function.Id)
-                        .ToListAsync();
+            var funcIds = SecurityContract
+                .FunctionRoleMaps.Where(p => p.Role.Id == roleId)
+                .Include(p => p.Function)
+                .Select(p => p.Function.Id)
+                .ToList();
             return Json(funcIds, JsonRequestBehavior.AllowGet);
         }
 
@@ -184,7 +183,7 @@ namespace Bode.Web.Areas.Admin.Controllers
         {
             int total;
             GridRequest request = new GridRequest(Request);
-            var datas = GetQueryData<SysUser, int>(IdentityContract.Users, out total, request).Select(m => new
+            var datas = GetQueryData<SysUser, int>(IdentityContract.Users.Where(p => p.UserType == UserType.系统用户), out total, request).Select(m => new
             {
                 m.Id,
                 m.UserName,
@@ -219,14 +218,13 @@ namespace Bode.Web.Areas.Admin.Controllers
 
         [AjaxOnly]
         [Description("获取用户角色Id")]
-        public async Task<ActionResult> GetUserRoleIds(int userId)
+        public ActionResult GetUserRoleIds(int userId)
         {
-            var roleIds =
-                await
-                    IdentityContract.UserRoleMaps.Where(p => p.User.Id == userId)
-                        .Include(p => p.Role)
-                        .Select(p => p.Role.Id)
-                        .ToListAsync();
+            var roleIds = IdentityContract.UserRoleMaps
+                .Where(p => p.User.Id == userId)
+                .Include(p => p.Role)
+                .Select(p => p.Role.Id)
+                .ToList();
             return Json(roleIds, JsonRequestBehavior.AllowGet);
         }
 
@@ -246,36 +244,36 @@ namespace Bode.Web.Areas.Admin.Controllers
 
         [AjaxOnly]
         [Description("获取控制器数据")]
-        public async Task<ActionResult> GetControllers()
+        public ActionResult GetControllers()
         {
-            var areas = await SecurityContract.Functions.Select(p => new
+            var areas = SecurityContract.Functions.Select(p => new
             {
                 value = p.Area == null || p.Area == "" ? "Home" : p.Area,
                 text = p.Area == null || p.Area == "" ? "Home" : p.Area,
                 parentId = "0"
-            }).Distinct().ToListAsync();
+            }).Distinct().ToList();
 
-            var data = await SecurityContract.Functions.Where(p => p.IsController && (p.PlatformToken == PlatformToken.Mvc || p.PlatformToken == PlatformToken.WebApi)).Select(p => new
+            var data = SecurityContract.Functions.Where(p => p.IsController && (p.PlatformToken == PlatformToken.Mvc || p.PlatformToken == PlatformToken.WebApi)).Select(p => new
             {
                 value = p.Id.ToString(),
                 text = p.Name,
                 parentId = p.Area == null || p.Area == "" ? "Home" : p.Area,
-            }).ToListAsync();
+            }).ToList();
             data.AddRange(areas);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [AjaxOnly]
         [Description("获取所有功能简要")]
-        public async Task<ActionResult> GetAllActionBriefs()
+        public ActionResult GetAllActionBriefs()
         {
-            var controllers = await SecurityContract.Functions.Where(p => p.IsController).Select(p => new
+            var controllers = SecurityContract.Functions.Where(p => p.IsController).Select(p => new
             {
                 p.Id,
                 p.Area,
                 p.Controller,
                 p.PlatformToken
-            }).ToListAsync();
+            }).ToList();
 
             var actions = SecurityContract.Functions.ToList().Select(p => new
             {
@@ -293,7 +291,7 @@ namespace Bode.Web.Areas.Admin.Controllers
         [Description("获取功能数据")]
         public async Task<ActionResult> GetFunctionData(Guid controllerId)
         {
-            var controller = await SecurityContract.Functions.SingleAsync(p => p.Id == controllerId) ?? new Function();
+            var controller = await SecurityContract.Functions.SingleOrDefaultAsync(p => p.Id == controllerId) ?? new Function();
 
             int total;
             GridRequest request = new GridRequest(Request);

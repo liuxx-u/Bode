@@ -48,11 +48,15 @@ namespace Bode.Web
         {
             // Web API 配置和服务
             config.MessageHandlers.Add(new RequestInitHandler());
-            config.MessageHandlers.Add(new ThrottlingHandler(new InMemoryThrottleStore(), id => 60, TimeSpan.FromMinutes(1)));
+            config.MessageHandlers.Add(new ThrottlingHandler(new InMemoryThrottleStore(), id => 100, TimeSpan.FromMinutes(1)));
+
+            //config.MessageHandlers.Add(new SignValidateHandler());
+            //config.MessageHandlers.Add(new CultureInitHandler());
         }
 
         private static void Initialize()
         {
+
             ICacheProvider provider = new RuntimeMemoryCacheProvider();
             CacheManager.SetProvider(provider, CacheLevel.First);
 
@@ -66,6 +70,7 @@ namespace Bode.Web
             IFrameworkInitializer initializer = new FrameworkInitializer();
             initializer.Initialize(new MvcAutofacIocBuilder(services));
             initializer.Initialize(new WebApiAutofacIocBuilder(services));
+            //initializer.Initialize(new SignalRAutofacIocBuilder(services));
         }
     }
 }

@@ -16,5 +16,6 @@ namespace Bode.Services.Implement.ModelConfigs.Security
     /// 实体映射类——功能角色映射信息
     /// </summary>
     public class FunctionRoleMapConfiguration : EntityConfigurationBase<FunctionRoleMap, int>
-    { }
+    {
+    }
 }

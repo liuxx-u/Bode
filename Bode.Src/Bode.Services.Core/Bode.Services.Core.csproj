@@ -75,6 +75,7 @@
     <Compile Include="Dtos\User\UserInfoRegistDto.cs" />
     <Compile Include="Dtos\User\UserTokenDto.cs" />
     <Compile Include="Dtos\User\ValidateCodeDto.generated.cs" />
+    <Compile Include="Models\BannerEntityBase.cs" />
     <Compile Include="Models\Identity\SysOrganization.cs" />
     <Compile Include="Models\Identity\SysRole.cs" />
     <Compile Include="Models\Identity\SysUser.cs" />

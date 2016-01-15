@@ -68,13 +68,13 @@
             },
             //深拷贝
             deepClone: function (source) {
-                var result={};
+                var result = {};
                 for (var key in source) {
                     if (source.hasOwnProperty(key)) {
                         result[key] = typeof (source[key]) === 'object' ? $.osharp.tools.data.deepClone(source[key]) : source[key];
                     }
                 }
-                return result; 
+                return result;
             }
         },
         //集合操作
@@ -90,8 +90,24 @@
                 return result.substring(0, result.length - separator.length);
             }
         },
+        formatDiscount: function (oObj) {
+            oObj.keyup(function () {
+                var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+                var txt = '';
+                if (reg != null) {
+                    txt = reg[0];
+                }
+                $(this).val(txt);
+            }).change(function () {
+                $(this).keypress();
+                var v = $(this).val();
+                if (/\.$/.test(v)) {
+                    $(this).val(v.substr(0, v.length - 1));
+                }
+            });
+        },
         //时间格式化
-        formatDate:function(value, format) {
+        formatDate: function (value, format) {
             if (!value) return "2000-01-01 00:00";
             if (value.indexOf('(') < 0) return value;
 

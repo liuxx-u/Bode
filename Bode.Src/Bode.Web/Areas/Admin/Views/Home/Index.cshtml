@@ -7,15 +7,15 @@
         height: 40px;
     }
 
-        .nav-tabs li {
+        .nav-tabs > li {
             height: 40px;
         }
 
-            .nav-tabs li a i {
-                margin: 0 -10px 0 5px;
-                cursor: pointer;
-                display: none;
-            }
+        .nav-tabs li a i {
+            margin: 0 -10px 0 5px;
+            cursor: pointer;
+            display: none;
+        }
 
         .nav-tabs .active {
             border-top: 0;
@@ -45,252 +45,22 @@
                 <div class="navbar-account">
                     <ul class="account-area">
                         <li>
-                            <a class=" dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
-                                <i class="icon fa fa-warning"></i>
-                            </a>
-                            <!--Notification Dropdown-->
-                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <div class="notification-icon">
-                                                <i class="fa fa-phone bg-themeprimary white"></i>
-                                            </div>
-                                            <div class="notification-body">
-                                                <span class="title">Skype meeting with Patty</span>
-                                                <span class="description">01:00 pm</span>
-                                            </div>
-                                            <div class="notification-extra">
-                                                <i class="fa fa-clock-o themeprimary"></i>
-                                                <span class="description">office</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <div class="notification-icon">
-                                                <i class="fa fa-check bg-darkorange white"></i>
-                                            </div>
-                                            <div class="notification-body">
-                                                <span class="title">Uncharted break</span>
-                                                <span class="description">03:30 pm - 05:15 pm</span>
-                                            </div>
-                                            <div class="notification-extra">
-                                                <i class="fa fa-clock-o darkorange"></i>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <div class="notification-icon">
-                                                <i class="fa fa-gift bg-warning white"></i>
-                                            </div>
-                                            <div class="notification-body">
-                                                <span class="title">Kate birthday party</span>
-                                                <span class="description">08:30 pm</span>
-                                            </div>
-                                            <div class="notification-extra">
-                                                <i class="fa fa-calendar warning"></i>
-                                                <i class="fa fa-clock-o warning"></i>
-                                                <span class="description">at home</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <div class="notification-icon">
-                                                <i class="fa fa-glass bg-success white"></i>
-                                            </div>
-                                            <div class="notification-body">
-                                                <span class="title">Dinner with friends</span>
-                                                <span class="description">10:30 pm</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="dropdown-footer ">
-                                    <span>
-                                        Today, March 28
-                                    </span>
-                                    <span class="pull-right">
-                                        10°c
-                                        <i class="wi wi-cloudy"></i>
-                                    </span>
-                                </li>
-                            </ul>
-                            <!--/Notification Dropdown-->
-                        </li>
-                        <li>
-                            <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
-                                <i class="icon fa fa-envelope"></i>
-                                <span class="badge">3</span>
-                            </a>
-                            <!--Messages Dropdown-->
-                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
-                                <li>
-                                    <a href="#">
-                                        <img src="~/Content/images/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">
-                                        <div class="message">
-                                            <span class="message-sender">
-                                                Divyia Austin
-                                            </span>
-                                            <span class="message-time">
-                                                2 minutes ago
-                                            </span>
-                                            <span class="message-subject">
-                                                Here's the recipe for apple pie
-                                            </span>
-                                            <span class="message-body">
-                                                to identify the sending application when the senders image is shown for the main icon
-                                            </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="~/Content/images/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">
-                                        <div class="message">
-                                            <span class="message-sender">
-                                                Bing.com
-                                            </span>
-                                            <span class="message-time">
-                                                Yesterday
-                                            </span>
-                                            <span class="message-subject">
-                                                Bing Newsletter: The January Issue‏
-                                            </span>
-                                            <span class="message-body">
-                                                Discover new music just in time for the Grammy® Awards.
-                                            </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="~/Content/images/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">
-                                        <div class="message">
-                                            <span class="message-sender">
-                                                Nicolas
-                                            </span>
-                                            <span class="message-time">
-                                                Friday, September 22
-                                            </span>
-                                            <span class="message-subject">
-                                                New 4K Cameras
-                                            </span>
-                                            <span class="message-body">
-                                                The 4K revolution has come over the horizon and is reaching the general populous
-                                            </span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <!--/Messages Dropdown-->
-                        </li>
-
-                        <li>
-                            <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
-                                <i class="icon fa fa-tasks"></i>
-                                <span class="badge">4</span>
-                            </a>
-                            <!--Tasks Dropdown-->
-                            <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">
-                                <li class="dropdown-header bordered-darkorange">
-                                    <i class="fa fa-tasks"></i>
-                                    4 Tasks In Progress
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Account Creation</span>
-                                            <span class="pull-right">65%</span>
-                                        </div>
-
-                                        <div class="progress progress-xs">
-                                            <div style="width:65%" class="progress-bar"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Profile Data</span>
-                                            <span class="pull-right">35%</span>
-                                        </div>
-
-                                        <div class="progress progress-xs">
-                                            <div style="width:35%" class="progress-bar progress-bar-success"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Updating Resume</span>
-                                            <span class="pull-right">75%</span>
-                                        </div>
-
-                                        <div class="progress progress-xs">
-                                            <div style="width:75%" class="progress-bar progress-bar-darkorange"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Adding Contacts</span>
-                                            <span class="pull-right">10%</span>
-                                        </div>
-
-                                        <div class="progress progress-xs">
-                                            <div style="width:10%" class="progress-bar progress-bar-warning"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li class="dropdown-footer">
-                                    <a href="#">
-                                        See All Tasks
-                                    </a>
-                                    <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>
-                                </li>
-                            </ul>
-                            <!--/Tasks Dropdown-->
-                        </li>
-                        <li>
                             <a class="login-area dropdown-toggle" data-toggle="dropdown">
-                                <div class="avatar" title="View your public profile">
-                                    <img src="~/Content/images/avatars/adam-jansen.jpg">
+                                <div class="avatar" title="View your public profile" style="border-left-width:0;margin-right:5px;">
+                                    <img src="/Content/images/user.png" />
                                 </div>
-                                <section>
-                                    <h2><span class="profile"><span>David Stevenson</span></span></h2>
+                                <section style="margin-top: 6px;">
+                                    <h2><span class="profile"><span>@ViewBag.User.UserName</span></span></h2>
                                 </section>
                             </a>
                             <!--Login Area Dropdown-->
                             <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
-                                <li class="username"><a>David Stevenson</a></li>
-                                <li class="email"><a>David.Stevenson@live.com</a></li>
+                                <li class="username"><a>@ViewBag.User.UserName</a></li>
+                                <li class="email"><a>@ViewBag.User.Email</a></li>
                                 <!--Avatar Area-->
-                                <li>
-                                    <div class="avatar-area">
-                                        <img src="~/Content/images/avatars/adam-jansen.jpg" class="avatar">
-                                        <span class="caption">Change Photo</span>
-                                    </div>
-                                </li>
                                 <!--Avatar Area-->
                                 <li class="edit">
-                                    <a href="profile.html" class="pull-left">简介</a>
-                                    <a href="#" class="pull-right">设置</a>
+                                    <a href="javascript:changePassword()" class="pull-right">修改密码</a>
                                 </li>
                                 <!--Theme Selector Area-->
                                 <li class="theme-area">
@@ -311,7 +81,7 @@
                                 </li>
                                 <!--/Theme Selector Area-->
                                 <li class="dropdown-footer">
-                                    <a href="login.html">
+                                    <a href="@Url.Action("SignOut")">
                                         退出登录
                                     </a>
                                 </li>
@@ -335,9 +105,6 @@
         <div class="page-sidebar" id="sidebar">
             <!-- Page Sidebar Header-->
             <div class="sidebar-header-wrapper">
-                <input type="text" class="searchinput" />
-                <i class="searchicon fa fa-search"></i>
-                <div class="searchhelper">搜索用户、日志、订单。</div>
             </div>
             <!-- /Page Sidebar Header -->
             <!-- Sidebar Menu -->
@@ -363,10 +130,40 @@
                                                 首页
                                             </a>
                                         </li>
+                                        <li class="dropdown" style="float:right">
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                                操作选项
+                                                <b class="caret" style="margin-bottom: 4px;"></b>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-info">
+                                                <li>
+                                                    <a href="javascript:refresh()">刷新当前页</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:closeLeft()">关闭左侧</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:closeRight()">关闭右侧</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:closeAll()">关闭全部</a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                     <div id="content" class="tab-content tabs-flat" style="background: #eee;padding:0">
                                         <div id="Index" class="tab-pane in active">
-                                            <iframe frameborder="0" src="@Url.Action("Welcome")" style="width:100%; height: 100%;"></iframe>
+                                            @{
+                                                if (ViewBag.User.UserType == Bode.Services.Core.Models.Identity.UserType.系统用户)
+                                                {
+                                                    <iframe frameborder="0" src="@Url.Action("Welcome", "Home", new {area = "Admin"})" style="width: 100%; height: 100%;"></iframe>
+                                                }
+                                                else
+                                                {
+                                                    <iframe frameborder="0" src="@Url.Action("Welcome", "Home", new {area = "Channel"})" style="width: 100%; height: 100%;"></iframe>
+                                                }
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -377,21 +174,6 @@
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                 </div>
             </div>
-
-            <!-- Page Breadcrumb -->
-            @*<div class="page-breadcrumbs">
-                        <ul class="breadcrumb">
-                            <li>
-                                <i class="fa fa-home"></i>
-                                <a href="#">主页</a>
-                            </li>
-                            <li>
-                                <a href="#">权限管理</a>
-                            </li>
-                            <li class="active">用户管理</li>
-                        </ul>
-                </div>
-                <iframe id="frameContent" frameborder="0" src="@Url.Action("Welcome")" style="width:85%; height: 95%; position: fixed;"></iframe>*@
         </div>
         <!-- /Page Content -->
     </div>
@@ -399,8 +181,49 @@
     <!-- Main Container -->
 
 </div>
+<div id="modal" style="display:none;">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div id="horizontal-form">
+                <form class="form-horizontal" role="form" id="form1"
+                      data-bv-message="This value is not valid"
+                      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                    <div class="form-group">
+                        <label for="oldPassword" class="col-sm-2 control-label no-padding-right">原密码：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="oldPassword" name="oldPassword"
+                                   data-bv-notempty="true" data-bv-notempty-message="原密码不能为空">
+                        </div>
+                    </div>
+                    <hr class="wide" />
+                    <div class="form-group">
+                        <label for="newPassword" class="col-sm-2 control-label no-padding-right">新密码：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="newPassword" name="newPassword"
+                                   data-bv-notempty="true" data-bv-notempty-message="新密码不能为空">
+                        </div>
+                    </div>
+                    <hr class="wide" />
+                    <div class="form-group">
+                        <label for="confirmPassword" class="col-sm-2 control-label no-padding-right">确认密码：</label>
+                        <div class="col-sm-10" id="area">
+                            <input type="text" class="form-control" id="confirmPassword" name="confirmPassword"
+                                   data-bv-notempty="true" data-bv-notempty-message="确认密码不能为空"
+                                   data-bv-identical="true" data-bv-identical-field="newPassword" data-bv-identical-message="两次输入密码不一致">
+                        </div>
+                    </div>
+                </form>
 
+            </div>
+        </div>
+    </div>
+</div>
 @section footer{
+    <script type="text/javascript" src="~/Content/js/toastr/toastr.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootbox/bootbox.js"></script>
+    <script type="text/javascript" src="~/Content/js/validation/bootstrapValidator.js"></script>
     <script type="text/javascript">
         //浏览器窗口变化时改变frame的宽高
         window.onresize = function () {
@@ -408,6 +231,92 @@
             $("#content").children("div").height(document.body.scrollHeight - 85 - 5);
         }
 
+        function refresh() {
+            var activeFrame = $("#content .active iframe");
+            activeFrame.attr('src', activeFrame.attr('src'));
+            return false;
+        }
+
+        function closeLeft() {
+            var index = $("#tab .active").index();
+            $("#tab>li:lt(" + index + ")").each(function (i, e) {
+                if (i == 0) return true;
+                var target = $(e).children("a").attr("href");
+                $(e).remove();
+                $(target).remove();
+            });
+        }
+
+        function closeRight() {
+            var index = $("#tab .active").index();
+            $("#tab>li:gt(" + index + ")").each(function (i, e) {
+                if ($(e).hasClass("dropdown")) return true;
+                var target = $(e).children("a").attr("href");
+                $(e).remove();
+                $(target).remove();
+            });
+        }
+
+        function closeAll() {
+            $("#tab>li").each(function (i, e) {
+                if ($(e).hasClass("dropdown") || i == 0) return true;
+                var target = $(e).children("a").attr("href");
+                $(e).remove();
+                $(target).remove();
+            });
+            $("#tab>li:eq(0)>a").tab("show");
+        }
+
+        //修改密码弹出框
+        function changePassword() {
+            //弹出框F
+            bootbox.dialog({
+                message: $("#modal").html(),
+                title: "更改密码",
+                className: "modal-blue",
+                buttons: {
+                    success: {
+                        label: "保存",
+                        className: "btn-blue",
+                        callback: function () {
+                            var oldPassword = $(".modal-dialog").find("input:eq(0)").val();
+                            var newPassword = $(".modal-dialog").find("input:eq(1)").val();
+                            var newPasswordcomfirm = $(".modal-dialog").find("input:eq(2)").val();
+
+                            if (oldPassword === "") {
+                                alert("原密码不能为空");
+                                return false;
+                            }
+                            if (newPassword === "") {
+                                alert("新密码不能为空");
+                                return false;
+                            }
+                            if (newPassword === newPasswordcomfirm) {
+                                $.post("@Url.Action("UpdatePassword")", { oldPassword: oldPassword, newPassword: newPassword }, function (data) {
+                                    if (data.Type === "Success") {
+                                        Notify(data.Content, 'bottom-right', '5000', 'info', 'fa-envelope', true);
+                                    } else {
+                                        Notify(data.Content, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
+                                    }
+                                });
+                            } else {
+                                alert("两次密码输入不一致");
+                                return false;
+                            }
+
+                        }
+                    },
+                    "取消": {
+                        className: "btn-danger",
+                        callback: function () { }
+                    }
+                }
+            });
+
+            $('.modal-dialog form').bootstrapValidator({
+                excluded: [':disabled']
+            });
+        }
         //关闭当前tab
         function closeTab(oObj) {
             //获取前一个tab的序号
@@ -438,10 +347,8 @@
 
         $(function () {
             //重写内容页的宽高
-            $("#content").children("div").width(document.body.clientWidth - 500);
+            $("#content").children("div").width(document.body.clientWidth - 224);
             $("#content").children("div").height(document.body.scrollHeight - 85 - 5);
-
-
 
             $.post("@Url.Action("GetMenus")", {}, function (data) {
                 //添加菜单栏
@@ -478,8 +385,8 @@
                     });
                 });
 
-                $("#navMenus .submenu").find("a[data-href]").each(function() {
-                    $(this).click(function() {
+                $("#navMenus .submenu").find("a[data-href]").each(function () {
+                    $(this).click(function () {
                         $("#navMenus .active").removeClass("active");
                         $(this).closest("li").addClass("active");
 
@@ -490,9 +397,14 @@
                             var tab = $("#tab").find("li:eq(" + index + ")");
                             tab.click();
                             tab.find("a").tab("show");
+                            var tabFrame = $(tab.find("a").attr("href")).find("iframe");
+                            //如果frame有跳转，点击菜单刷新frame
+                            if (tabFrame.get(0).contentWindow.location.href.indexOf($(this).attr("data-href"))===-1) {
+                                tabFrame.attr("src", $(this).attr("data-href"));
+                            }
                         } else {
                             var newTab = $('<li onclick="tabClick(this)" ><a data-toggle="tab" href="#' + menuId + '">' + $(this).text() + '</a></li>');
-                            newTab.appendTo($("#tab"));
+                            $("#tab").find(".dropdown").before(newTab);
 
                             $('<div id="' + menuId + '" class="tab-pane"><iframe frameborder="0" src="' + $(this).attr("data-href") + '" style="width: 100%; height: 100%;"></iframe></div>')
                                 .width(document.body.clientWidth - 224).height(document.body.scrollHeight - 85 - 5).appendTo($("#content"));
@@ -501,12 +413,11 @@
                         }
                         return false;
                     });
+
+                    //打开第一个菜单
+                    $("#navMenus .active .submenu").slideDown();
+                    $("#navMenus .active").addClass("open");
                 });
-
-
-                //打开第一个菜单
-                $("#navMenus .active .submenu").slideDown();
-                $("#navMenus .active").addClass("open");
             });
         });
     </script>

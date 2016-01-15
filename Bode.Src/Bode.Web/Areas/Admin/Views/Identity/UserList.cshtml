@@ -13,9 +13,9 @@
         var roles = [], organizations = [], organizRoleMap = {}, roleIdMap = {};
         var curUserId = 0;
 
-        $(function() {
+        $(function () {
             //获取所有角色数据
-            $.get("@Url.Action("GetAllRoleBriefs")", {}, function(data) {
+            $.get("@Url.Action("GetAllRoleBriefs")", {}, function (data) {
                 roles = data;
 
                 for (var i = 0, n = roles.length; i < n; i++) {
@@ -35,14 +35,14 @@
                 }
             });
             //获取所有组织机构数据
-            $.get("@Url.Action("GetOrganizationTree")", {}, function(data) {
+            $.get("@Url.Action("GetOrganizationTree")", {}, function (data) {
                 organizations = data;
             });
         });
 
         //根据roles的状态初始化复选框
         function initRoleSelect() {
-            $('.modal-dialog :checkbox').each(function() {
+            $('.modal-dialog :checkbox').each(function () {
                 var roleId = parseInt($(this).val());
                 $(this).attr("checked", roleIdMap[roleId]["Checked"]);
             });
@@ -59,12 +59,12 @@
                     success: {
                         label: "保存",
                         className: "btn-blue",
-                        callback: function() {
+                        callback: function () {
                             var roleIds = [];
-                            $('.modal-dialog :checkbox:checked').each(function() {
+                            $('.modal-dialog :checkbox:checked').each(function () {
                                 roleIds.push(parseInt($(this).val()));
                             });
-                            $.post("@Url.Action("SetUserRoles")", { userId: userId, strRoleIds: JSON.stringify(roleIds) }, function(data) {
+                            $.post("@Url.Action("SetUserRoles")", { userId: userId, strRoleIds: JSON.stringify(roleIds) }, function (data) {
                                 if (data.Type === "Error") {
                                     Notify(data.Content, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
                                 } else {
@@ -75,7 +75,7 @@
                     },
                     "取消": {
                         className: "btn-danger",
-                        callback: function() {}
+                        callback: function () { }
                     }
                 }
             });
@@ -87,7 +87,7 @@
                     roles[i]["Checked"] = false;
                 }
 
-                $.get("@Url.Action("GetUserRoleIds")", { userId: userId }, function(data) {
+                $.get("@Url.Action("GetUserRoleIds")", { userId: userId }, function (data) {
                     for (var i = 0, n = data.length; i < n; i++) {
                         roleIdMap[data[i]]["Checked"] = true;
                     }
@@ -102,7 +102,7 @@
             var tree = new $.osharp.Treeview(".modal-dialog .col-xs-4 .widget-body .tree", {
                 folderSelectEnable: true,
                 source: organizations,
-                itemSelect: function(item) {
+                itemSelect: function (item) {
                     $('.modal-dialog').find(".widget-body .col-md-3").hide();
                     var curRoles = organizRoleMap[item.value] || [];
                     for (var i = 0, n = curRoles.length; i < n; i++) {
@@ -112,70 +112,26 @@
             });
 
             //添加复选框点击事件
-            $('.modal-dialog :checkbox').click(function() {
+            $('.modal-dialog :checkbox').click(function () {
                 var roleId = parseInt($(this).val());
                 roleIdMap[roleId]["Checked"] = $(this).is(":checked");
             });
-            //$('#btSave').click(function () {
-            //    var dto= {
-            //        Id: $("#Id").val(),
-            //        UserName: $("#UserName").val(),
-            //        NickName: $("#NickName").val(),
-            //        Password: $("#PasswordHash").val(),
-            //        Email: $("#Email").val(),
-            //        IsLocked: $("#IsLocked").val()
-            //}
-            //});
         }
 
         columns = [
-        { data: "Id", title: "编号" },
-        { data: "UserName", title: "用户名称", type: "text", search: true, editor: {}, validation: { required: true } },
-        { data: "NickName", title: "用户昵称", type: "text", search: true, editor: {} },
-         { data: "Password", title: "用户密码", type: "text", search: true, editor: {} },
-        {
-            data: "Email", title:
-            "电子邮箱", type:
-            "text", search:
-            true, editor:
+            { data: "Id", title: "编号" },
+            { data: "UserName", title: "用户名称", type: "text", search: true, editor: {}, validation: { required: true } },
+            { data: "NickName", title: "用户昵称", type: "text", search: true, editor: {} },
+             { data: "Password", title: "用户密码", type: "text", editor: {} },
+            { data: "Email", title: "电子邮箱", type: "hide" },
+            { data: "IsLocked", title: "是否锁定", type: "switch", search: true, editor: {} },
+            { data: "CreatedTime", title: "创建时间", type: "timepicker", search: true, format: function (d) { return $.osharp.tools.formatDate(d); }, isformatval: true },
             {
+                data: "Id", title: "操作选项", type: "opt",
+                format: function (id) {
+                    return '<a href="javascript:setRole(' + id + ')">设置角色</a>';
+                }
             }
-        },
-        {
-            data: "IsLocked", title:
-            "是否锁定", type:
-            "switch", search:
-            true, editor:
-            {
-            }
-        },
-        {
-            data: "CreatedTime",
-                title:
-            "创建时间",
-                type:
-            "datepicker",
-                search:
-            true,
-                format:
-
-            function(d) {
-                return $.osharp.tools.formatDate(d);
-            },
-            isformatval: true
-        },
-        {
-            data: "Id",
-                title:
-            "操作选项",
-                type:
-            "opt",
-                format:
-
-            function(id) {
-                return '<a href="javascript:setRole(' + id + ')">设置角色</a>';
-            }
-        }
         ];
     </script>
 }
@@ -204,7 +160,7 @@
                     </div>
                     <div class="widget-body">
                         <div id="roleContent" class="row">
-                            
+
                         </div>
                     </div>
                 </div>

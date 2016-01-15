@@ -31,21 +31,6 @@ namespace Bode.Services.Implement.Services
                     get { return FeedBackRepo.Entities.Where(p => !p.IsDeleted); }
                 }
 
-                
-                /// <summary>
-                /// 检查FeedBack信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的FeedBack编号</param>
-                /// <returns>FeedBack信息是否存在</returns>
-                public async Task<bool> CheckFeedBackExists(Expression<Func<FeedBack, bool>> predicate, int id = 0)
-                {
-                    return await Task.Run(() =>
-                    {
-                        return FeedBackRepo.CheckExists(predicate, id);
-                    });
-                }
-
                 /// <summary>
                 /// 保存FeedBack信息(新增/更新)
                 /// </summary>
@@ -96,7 +81,8 @@ namespace Bode.Services.Implement.Services
                 public async Task<OperationResult> DeleteFeedBacks(params int[] ids)
                 {
                     ids.CheckNotNull("ids");
-                    return await Task.Run(() => FeedBackRepo.Delete(ids));
+                    await FeedBackRepo.RecycleAsync(p=>ids.Contains(p.Id));
+                    return new OperationResult(OperationResultType.Success, "删除成功");
                 }
 
                 #endregion
@@ -108,21 +94,6 @@ namespace Bode.Services.Implement.Services
                 public IQueryable<UserInfo> UserInfos
                 {
                     get { return UserInfoRepo.Entities.Where(p => !p.IsDeleted); }
-                }
-
-                
-                /// <summary>
-                /// 检查UserInfo信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的UserInfo编号</param>
-                /// <returns>UserInfo信息是否存在</returns>
-                public async Task<bool> CheckUserInfoExists(Expression<Func<UserInfo, bool>> predicate, int id = 0)
-                {
-                    return await Task.Run(() =>
-                    {
-                        return UserInfoRepo.CheckExists(predicate, id);
-                    });
                 }
 
                 /// <summary>
@@ -141,15 +112,7 @@ namespace Bode.Services.Implement.Services
 
                         UserInfoRepo.UnitOfWork.TransactionEnabled = true;
 
-                        Action<UserInfoDto> checkAction=dto =>
-                        {
-                            
-                            if (UserInfoRepo.CheckExists(p => p.PhoneNo == dto.PhoneNo,dto.Id))
-                            {
-                                throw new Exception("“{0}”已被使用".FormatWith("手机号"));
-                            }
-
-                                                };
+                        Action<UserInfoDto> checkAction=null;
                         Func<UserInfoDto, UserInfo, UserInfo> updateFunc=(dto, entity) => 
                         {
                             if(dto.Id==0||updateForeignKey)
@@ -183,7 +146,8 @@ namespace Bode.Services.Implement.Services
                 public async Task<OperationResult> DeleteUserInfos(params int[] ids)
                 {
                     ids.CheckNotNull("ids");
-                    return await Task.Run(() => UserInfoRepo.Delete(ids));
+                    await UserInfoRepo.RecycleAsync(p=>ids.Contains(p.Id));
+                    return new OperationResult(OperationResultType.Success, "删除成功");
                 }
 
                 #endregion
@@ -195,21 +159,6 @@ namespace Bode.Services.Implement.Services
                 public IQueryable<ValidateCode> ValidateCodes
                 {
                     get { return ValidateCodeRepo.Entities.Where(p => !p.IsDeleted); }
-                }
-
-                
-                /// <summary>
-                /// 检查ValidateCode信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的ValidateCode编号</param>
-                /// <returns>ValidateCode信息是否存在</returns>
-                public async Task<bool> CheckValidateCodeExists(Expression<Func<ValidateCode, bool>> predicate, int id = 0)
-                {
-                    return await Task.Run(() =>
-                    {
-                        return ValidateCodeRepo.CheckExists(predicate, id);
-                    });
                 }
 
                 /// <summary>
@@ -255,7 +204,8 @@ namespace Bode.Services.Implement.Services
                 public async Task<OperationResult> DeleteValidateCodes(params int[] ids)
                 {
                     ids.CheckNotNull("ids");
-                    return await Task.Run(() => ValidateCodeRepo.Delete(ids));
+                    await ValidateCodeRepo.RecycleAsync(p=>ids.Contains(p.Id));
+                    return new OperationResult(OperationResultType.Success, "删除成功");
                 }
 
                 #endregion

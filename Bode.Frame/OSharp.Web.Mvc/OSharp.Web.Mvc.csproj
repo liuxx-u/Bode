@@ -124,6 +124,9 @@
     <Compile Include="Pay\YeePay\AES\AESUtil.cs" />
     <Compile Include="Pay\YeePay\config\APIURLConfig.cs" />
     <Compile Include="Pay\YeePay\config\YeePayConfig.cs" />
+    <Compile Include="Pay\YeePay\Entity\PayRequestJson.cs" />
+    <Compile Include="Pay\YeePay\Entity\PayResultJson.cs" />
+    <Compile Include="Pay\YeePay\Entity\RegisterRequestJson.cs" />
     <Compile Include="Pay\YeePay\Entity\RespondJson.cs" />
     <Compile Include="Pay\YeePay\HMAC\Digest.cs" />
     <Compile Include="Pay\YeePay\HMAC\HmacMD5.cs" />

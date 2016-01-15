@@ -5,6 +5,9 @@
 @section header{
     <link href="~/Content/css/dataTables.bootstrap.css" rel="stylesheet" />
     <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <style>
+        .form-inline .radio input[type=radio], .form-inline .checkbox input[type=checkbox] {position:absolute;}
+    </style>
 }
 
 @section footer{
@@ -20,10 +23,13 @@
 
     <script type="text/javascript">
         var dataTable;
+        var pageSize = 15;
         var columns = [];
+        var isBatch = false;
 
         var startfunction = function () { };
         var endfunction = function () { };
+        var loadDataComplete = function (data) { };
         var addObject = function () {
             return {};
         };
@@ -38,29 +44,32 @@
             @if (!toolbarItem.Contains("add"))
             {
                 @:$("#btAdd").remove(),
-                                            }
+                                }
             @if (!toolbarItem.Contains("edit"))
             {
                 @:$("#btEdit").remove(),
-                                            }
+                                }
             @if (!toolbarItem.Contains("save"))
             {
                 @:$("#btSave").remove(),
-                                             }
+                                 }
             @if (!toolbarItem.Contains("cancel"))
             {
                 @:$("#btCancel").remove(),
-                                             }
+                                 }
             @if (!toolbarItem.Contains("delete"))
             {
                 @:$("#btDelete").remove(),
-                                            }
+                                }
 
             //初始化数据
             dataTable = new $.osharp.Datatable("#dataTable", {
                 ajax: "@ViewBag.GridDataUrl",
                 imgAjax: '@string.Format("http://{0}/Api/BasicInfo/UploadPic", Request.Url.Authority)',
-                columns: columns
+                columns: columns,
+                pageSize: pageSize,
+                isBatch: isBatch,
+                loadDataComplete: loadDataComplete
             });
 
 
@@ -76,6 +85,8 @@
                         Value: $(this).find(".query-input").val()
                     });
                 });
+
+                dataTable.queryParams.pageIndex = 1;
                 dataTable.queryParams.where = JSON.stringify(filter);
                 dataTable.query();
             });
@@ -88,7 +99,7 @@
             $("#btEdit").click(function (e) {
                 e.preventDefault();
                 var selectRow = dataTable.getCurrent();
-                if (typeof (selectRow) == "undefined") {
+                if (selectRow.length === 0) {
                     Notify("请选择要编辑的行", 'bottom-right', '5000', 'warning', 'fa-warning', true);
                     return;
                 }
@@ -139,7 +150,7 @@
                     var opraArr = dataTable.searchOperators.common.concat([]);
 
                     //改变操作选项
-                    if (type === "decimal" || type === "datepicker") {
+                    if (type === "decimal" || type === "datepicker" || type === "timepicker") {
                         opraArr = opraArr.concat(dataTable.searchOperators.struct);
                     }
                     if (type === "text" || type === "textarea") {
@@ -151,14 +162,23 @@
                         $('<option value="' + opraArr[i].val + '">' + opraArr[i].text + '</option>').appendTo(oprateSelect);
                     }
                     oprateSelect.select2("val", opraArr[0].val);
+
+                    //移除值下拉选择框
+                    if ($(this).closest("div").find(".select2-container").length == 3) {
+                        $(this).closest("div").find(".select2-container").eq(2).remove();
+                    }
+                    //去掉日期选择事件
+                    dataInput.datetimepicker('remove');
+
                     //对switch与combobox选项的值进行处理
                     if (type === "combobox" || type === "switch") {
-                        var source = dataTable.columnsHash[e.target.value].source;
+                        var source = tab.columnsHash[e.target.value].source;
                         var valueFiled = source.valueField || "val";
                         var textField = source.textField || "text";
 
                         dataInput.hide();
-                        var dataSelect = $('<select data-type="combobox" style="width:30%;margin-left:4px;margin-right:4px;"></select>').on("change", function () {
+                        var dataSelect = $('<select data-type="combobox" style="width:30%;margin-right:4px;"></select>').on("change", function () {
+                            //值存到input框中
                             $(this).closest("div").find(".query-input").val($(this).select2("val"));
                         });
 
@@ -166,10 +186,22 @@
                             $('<option value="' + source.data[i][valueFiled] + '">' + source.data[i][textField] + '</option>').appendTo(dataSelect);
                         }
                         $(this).closest("div").find("a.btn").before(dataSelect);
-                        dataSelect.select2();
-                        dataSelect.change();
-                    } else {
-                        $(this).closest("div").find(".select2-container").eq(2).remove();
+                        dataSelect.select2().change();
+                    }
+                    else if (type === "datepicker" || type === "timepicker") {
+                        dataInput.val("").show();
+                        var minView = type === "datepicker" ? 2 : 1;
+                        var format = type === "datepicker" ? "yyyy-MM-dd" : "yyyy-MM-dd hh:ii";
+                        dataInput.datetimepicker({
+                            minView: minView,
+                            todayBtn: 1,
+                            language: 'zh-CN',
+                            format: format,
+                            weekStart: 1,
+                            autoclose: 1
+                        });
+                    }
+                    else {
                         dataInput.val("").show();
                     }
                 });
@@ -197,9 +229,12 @@
 
             $("#btDelete").click(function (e) {
                 e.preventDefault();
-
+                
                 var selectRow = dataTable.getCurrent();
-                if (typeof (selectRow) == "undefined" || selectRow.length === 0) {
+                var checkedBox = dataTable.tab.find("tbody>tr").find("td:eq(0) input:checkbox:checked");
+                var validate=isBatch?checkedBox.length>0:selectRow.length>0;
+
+                if (!validate) {
                     Notify("请选择要删除的行", 'bottom-right', '5000', 'warning', 'fa-warning', true);
                     return;
                 }
@@ -207,8 +242,16 @@
                 bootbox.confirm("是否要删除所有选中的行？此操作是不可恢复的。", function (result) {
                     if (result) {
                         var ids = [];
-                        var data = dataTable.getRowData(selectRow);
-                        ids.push(data["Id"]);
+                        if (isBatch) {
+                            checkedBox.each(function (i, e) {
+                                ids.push($(e).val());
+                            });
+                        }
+                        else {
+                            var data = dataTable.getRowData(selectRow);
+                            ids.push(data["Id"]);
+                        }
+                        
                         $.post("@ViewBag.DeleteUrl", { ids: ids }, function (data) {
                             if (data.Type === "Error") {
                                 Notify(data.Content, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
@@ -257,14 +300,6 @@
                 <div class="widget flat radius-bordered">
                     <div class="widget-header bg-info">
                         <span class="widget-caption"><strong>@ViewBag.Title</strong></span>
-                        <div class="widget-buttons">
-                            <a href="#" data-toggle="collapse">
-                                <i class="fa fa-minus"></i>
-                            </a>
-                            <a href="#" data-toggle="dispose">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
                     </div>
                     <div class="widget-body">
                         <div role="grid" id="editabledatatable_wrapper" class="dataTables_wrapper form-inline no-footer">

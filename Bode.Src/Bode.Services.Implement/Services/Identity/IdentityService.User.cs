@@ -37,10 +37,89 @@ namespace Bode.Services.Implement.Services
             get { return UserRepository.Entities; }
         }
 
+
+        /// <summary>
+        /// 冻结/解冻用户
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <returns>业务操作结果</returns>
+        public async Task<OperationResult> LockUserOrNot(int userId)
+        {
+            SysUser user = UserRepository.GetByKey(userId);
+            return await LockUserOrNot(user);
+        }
+
+        /// <summary>
+        /// 冻结/解冻用户
+        /// </summary>
+        /// <param name="user">系统用户</param>
+        /// <returns>业务操作结果</returns>
+        public async Task<OperationResult> LockUserOrNot(SysUser user)
+        {
+            user.CheckNotNull("user");
+
+            user.IsLocked = !user.IsLocked;
+            await UserRepository.UpdateAsync(user);
+            return new OperationResult(OperationResultType.Success, "操作成功");
+        }
+
         /// <summary>
         /// 获取或设置 用户管理器
         /// </summary>
         public UserManager UserManager { get; set; }
+
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">登录密码</param>
+        /// <returns>业务操作结果</returns>
+        public async Task<OperationResult> Login(string userName, string password)
+        {
+            userName.CheckNotNullOrEmpty("userName");
+            password.CheckNotNullOrEmpty("password");
+            SysUser sUser = await UserManager.FindByNameAsync(userName);
+            if (sUser == null || sUser.IsDeleted || sUser.UserType == UserType.App用户)
+            {
+                return new OperationResult(OperationResultType.ValidError, "用户不存在");
+            }
+            else if (sUser.IsLocked)
+            {
+                return new OperationResult(OperationResultType.ValidError, "账户被锁定，请联系管理员");
+            }
+            else
+            {
+                var check = await UserManager.CheckPasswordAsync(sUser, password);
+                return check
+                    ? new OperationResult(OperationResultType.Success, "登录成功")
+                    : new OperationResult(OperationResultType.ValidError, "用户名或密码错误");
+            }
+        }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="oldPsw">原密码</param>
+        /// <param name="newPsw">新密码</param>
+        /// <returns>业务操作结果</returns>
+        public async Task<OperationResult> ResetPassword(string userName, string oldPsw,string newPsw)
+        {
+            userName.CheckNotNullOrEmpty("userName");
+            userName.CheckNotNullOrEmpty("password");
+
+            var sUser = await UserManager.FindByNameAsync(userName);
+            var check = await UserManager.CheckPasswordAsync(sUser, oldPsw);
+            if (!check)
+            {
+                return new OperationResult(OperationResultType.ValidError, "原密码错误");
+            }
+            
+            sUser.PasswordHash = UserManager.PasswordHasher.HashPassword(newPsw);
+            await UserRepository.UpdateAsync(sUser);
+            return new OperationResult(OperationResultType.Success, "密码设置成功");
+        }
 
         /// <summary>
         /// 保存用户信息信息
@@ -64,6 +143,7 @@ namespace Bode.Services.Implement.Services
                     }
                 }
                 user = dto.MapTo(user);
+                user.UserType = UserType.系统用户;
                 //密码单独处理
                 if (!dto.Password.IsNullOrEmpty())
                 {

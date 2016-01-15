@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "系统用户列表";
+    ViewBag.Title = "操作日志列表";
     Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
     ViewBag.ToolbarItem = "delete";
     ViewBag.GridDataUrl = Url.Action("GetOperateLogData");
@@ -19,20 +19,6 @@
                 operatingTypes[typeArray[i]["val"]] = typeArray[i]["text"];
             }
         });
-
-        function initDataLog() {
-            var dataLogTree = new $.osharp.Treeview(".modal-dialog .tree", {
-                source: treeDatas,
-                itemSelect: function(item) {
-                    //to do something...
-                    var tab = $(".modal-dialog tbody");
-                    var dataItems = dataItemHash[item.value];
-                    for (var i = 0, n = dataItems.length; i < n; i++) {
-                        $('<tr><td>' + dataItems[i]["Field"] + '</td><td>' + dataItems[i]["FieldName"] + '</td><td>' + dataItems[i]["OriginalValue"] + '</td><td>' + dataItems[i]["NewValue"] + '</td><td>' + dataItems[i]["DataType"] + '</td></tr>').appendTo(tab);
-                    }
-                }
-            });
-        }
 
         //设置角色点击事件
         function getDataLog(operateId) {
@@ -71,12 +57,24 @@
                             dataItemHash[data[i].Id] = data[i].LogItems;
                         }
                     }
-                    initDataLog();
+                    var dataLogTree = new $.osharp.Treeview(".modal-dialog .tree", {
+                        source: treeDatas,
+                        itemSelect: function(item) {
+                            //to do something...
+                            var tab = $(".modal-dialog tbody");
+                            var dataItems = dataItemHash[item.value];
+                            for (var i = 0, n = dataItems.length; i < n; i++) {
+                                $('<tr><td>'+dataItems[i]["Field"]+'</td><td>'+dataItems[i]["FieldName"]+'</td><td>'+dataItems[i]["OriginalValue"]+'</td><td>'+dataItems[i]["NewValue"]+'</td><td>'+dataItems[i]["DataType"]+'</td></tr>').appendTo(tab);
+                            }
+                        }
+                    });
+
                 });
+
                 curOperateId = operateId;
-            } else {
-                initDataLog();
             }
+
+
         }
 
         columns = [
@@ -87,7 +85,7 @@
             {
                 data: "CreatedTime",
                 title: "创建时间",
-                type: "datepicker",
+                type: "timepicker",
                 search: true,
                 format: function(d) {
                     return $.osharp.tools.formatDate(d);

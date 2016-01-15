@@ -37,7 +37,7 @@ namespace Bode.Web.Controllers
 
              ValidateCodeDto validate = new ValidateCodeDto()
              {
-                 PhoneNo = "15884517874",
+                 CodeKey = "15884517874",
                  Code = "123456",
                  CodeType = CodeType.用户注册
              };

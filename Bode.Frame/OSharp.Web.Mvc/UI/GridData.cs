@@ -31,6 +31,7 @@ namespace OSharp.Web.Mvc.UI
         {
             Rows = rows;
             Total = total;
+            UserDatas = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -42,5 +43,10 @@ namespace OSharp.Web.Mvc.UI
         /// 获取或设置 数据行数
         /// </summary>
         public int Total { get; set; }
+
+        /// <summary>
+        /// 用户自定义数据
+        /// </summary>
+        public Dictionary<string, object> UserDatas { get; set; }
     }
 }

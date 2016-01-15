@@ -17,6 +17,5 @@ namespace Bode.Services.Implement.ModelConfigs.Security
     /// </summary>
     public class FunctionConfiguration : EntityConfigurationBase<Function, Guid>
     {
-
     }
 }

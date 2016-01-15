@@ -20,6 +20,9 @@ namespace OSharp.Web.Mvc.Pay.YeePay
             //移动终端网页收银台支付地址 https://o2o.yeepay.com/zgt-api/api/pay
             webpayURI = "/zgt-api/api/pay";
 
+            //子账户注册地址 https://o2o.yeepay.com/zgt-api/api/register
+            registerURI = "/zgt-api/api/register";
+
             //提现请求url地址 https://ok.yeepay.com/payapi/api/tzt/withdraw
             withdrwURI = "/payapi/api/tzt/withdraw";
 
@@ -34,7 +37,6 @@ namespace OSharp.Web.Mvc.Pay.YeePay
 
             //银行卡绑定信息查询 https://ok.yeepay.com/payapi/api/bankcard/check
             queryBankCardURI = "/payapi/api/bankcard/check";
-
 
             //支付结果查询接口
             queryPayResultURI = "/api/query/order";
@@ -60,85 +62,76 @@ namespace OSharp.Web.Mvc.Pay.YeePay
         /// <summary>
         /// 一键支付前缀
         /// </summary>
-        public static string mobilePrefix
-        { get; set; }
+        public static string mobilePrefix { get; set; }
 
         /// <summary>
         /// 商户地址前缀
         /// </summary>
-        public static string merchantPrefix
-        { get; set; }
+        public static string merchantPrefix { get; set; }
 
         /// <summary>
         /// 网页一键支付地址
         /// </summary>
-        public static string webpayURI
-        { get; set; }
+        public static string webpayURI { get; set; }
+
+        /// <summary>
+        /// 子账户注册地址
+        /// </summary>
+        public static string registerURI { get; set; }
 
         /// <summary>
         /// 提现接口地址
         /// </summary>
-        public static string withdrwURI
-        { get; set; }
+        public static string withdrwURI { get; set; }
 
         /// <summary>
         /// 提现结果查询
         /// </summary>
-        public static string drawRecordURI
-        { get; set; }
+        public static string drawRecordURI { get; set; }
 
         /// <summary>
         /// 绑卡列表查看
         /// </summary>
         public static string bankCardListURI { get; set; }
-
-
+        
         /// <summary>
         /// 查询银行卡信息接口
         /// </summary>
         public static string queryBankCardURI { get; set; }
-
-
+        
         /// <summary>
         /// 银行卡解绑
         /// </summary>
         public static string unbindBankCardURI { get; set; }
-
-
+        
         /// <summary>
         /// 查询支付结果
         /// </summary>
-        public static string queryPayResultURI
-        { get; set; }
+        public static string queryPayResultURI { get; set; }
 
         /// <summary>
         /// 直接退款
         /// </summary>
-        public static string directFundURI
-        { get; set; }
+        public static string directFundURI { get; set; }
 
         /// <summary>
         /// 订单支付接口
         /// </summary>
-        public static string queryOrderURI
-        { get; set; }
+        public static string queryOrderURI { get; set; }
 
         /// <summary>
         /// 退款订单查询
         /// </summary>
-        public static string queryRefundURI
-        { get; set; }
+        public static string queryRefundURI { get; set; }
 
         /// <summary>
         /// 获取消费清算对账单
         /// </summary>
-        public static string clearPayDataURI
-        { get; set; }
+        public static string clearPayDataURI { get; set; }
 
         /// <summary>
         /// 获取退款账单
         /// </summary>
-        public static string clearRefundDataURI
-        { get; set; }
+        public static string clearRefundDataURI { get; set; }
     }
 }

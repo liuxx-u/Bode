@@ -14,7 +14,7 @@ namespace Bode.Services.Core.Models.Identity
     /// 实体类——组织机构
     /// </summary>
     [Description("认证-组织机构")]
-    public class SysOrganization : EntityBase<int>, ICreatedTime
+    public class SysOrganization : EntityBase<int>
     {
         /// <summary>
         /// 初始化一个<see cref="SysOrganization"/>类型的新实例
@@ -68,11 +68,6 @@ namespace Bode.Services.Core.Models.Identity
         /// 获取或设置 角色信息集合
         /// </summary>
         public virtual ICollection<SysRole> Roles { get; set; }
-
-        /// <summary>
-        /// 获取设置 信息创建时间
-        /// </summary>
-        public DateTime CreatedTime { get; set; }
 
     }
 }

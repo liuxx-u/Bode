@@ -19,6 +19,14 @@ namespace Bode.Services.Core.Contracts
         Task<OperationResult> GetSmsValidateCode(string phoneNo, CodeType codeType);
 
         /// <summary>
+        /// 获取邮箱验证码
+        /// </summary>
+        /// <param name="email">邮箱地址</param>
+        /// <param name="codeType">验证码类型</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> GetEmailValidateCode(string email, CodeType codeType);
+
+        /// <summary>
         /// 验证用户注册
         /// </summary>
         /// <param name="dto">注册信息</param>
@@ -29,13 +37,13 @@ namespace Bode.Services.Core.Contracts
         /// <summary>
         /// 用户登录
         /// </summary>
-        /// <param name="phoneNo">手机号</param>
+        /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>
         /// <param name="registKey">极光注册Key</param>
         /// <param name="loginDevice">登录设备</param>
         /// <param name="clientVersion">客户端当前版本</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> Login(string phoneNo, string password, string registKey, LoginDevice loginDevice, string clientVersion);
+        Task<OperationResult> Login(string userName, string password, string registKey, LoginDevice loginDevice, string clientVersion);
 
 
         /// <summary>
@@ -48,33 +56,33 @@ namespace Bode.Services.Core.Contracts
         Task<OperationResult> ResetToken(UserInfo user, LoginDevice loginDevice, string clientVersion);
 
         /// <summary>
-        /// 更改手机号
+        /// 更改用户名
         /// </summary>
-        /// <param name="phoneNo">原手机号</param>
-        /// <param name="newPhoneNo">新手机号</param>
+        /// <param name="userName">原用户名</param>
+        /// <param name="newUserName">新用户名</param>
         /// <param name="password">登录密码</param>
         /// <param name="validateCode">验证码</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> ChangePhoneNo(string phoneNo, string newPhoneNo, string password, string validateCode);
+        Task<OperationResult> ChangeUserName(string userName, string newUserName, string password, string validateCode);
 
 
         /// <summary>
         /// 修改密码
         /// </summary>
-        /// <param name="phoneNo">手机号</param>
+        /// <param name="userName">用户名</param>
         /// <param name="oldPsw">原密码</param>
         /// <param name="newPsw">新密码</param>
         /// <returns></returns>
-        Task<OperationResult> ChangePassword(string phoneNo, string oldPsw, string newPsw);
+        Task<OperationResult> ChangePassword(string userName, string oldPsw, string newPsw);
 
         /// <summary>
         /// 重置密码
         /// </summary>
-        /// <param name="phoneNo">电话号码</param>
+        /// <param name="userName">电话号码</param>
         /// <param name="newPsw">新密码</param>
         /// <param name="validateCode">验证码</param>
         /// <returns></returns>
-        Task<OperationResult> ResetPassword(string phoneNo, string newPsw, string validateCode);
+        Task<OperationResult> ResetPassword(string userName, string newPsw, string validateCode);
 
         #endregion
 

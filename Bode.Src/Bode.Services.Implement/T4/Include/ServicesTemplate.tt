@@ -61,21 +61,6 @@ namespace Bode.Services.Implement.Services
                     get { return <#=item.Name #>Repo.Entities.Where(p => !p.IsDeleted); }
                 }
 
-                
-                /// <summary>
-                /// 检查<#=item.Name #>信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的<#=item.Name #>编号</param>
-                /// <returns><#=item.Name #>信息是否存在</returns>
-                public async Task<bool> Check<#=item.Name #>Exists(Expression<Func<<#=item.Name #>, bool>> predicate, int id = 0)
-                {
-                    return await Task.Run(() =>
-                    {
-                        return <#=item.Name #>Repo.CheckExists(predicate, id);
-                    });
-                }
-
                 /// <summary>
                 /// 保存<#=item.Name #>信息(新增/更新)
                 /// </summary>

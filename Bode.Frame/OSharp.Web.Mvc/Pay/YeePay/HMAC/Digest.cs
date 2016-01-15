@@ -1,19 +1,20 @@
-using System;
+锘縰sing System;
 using System.Text;
 using System.Web;
 
 namespace OSharp.Web.Mvc.Pay.YeePay
 {
     /// <summary>
-    /// Digest 类 
+    /// Digest 
     /// </summary>
     public abstract class Digest
     {
         public Digest() { }
 
+        #region 鑾峰彇HMAC
 
         /// <summary>
-        /// 支付请求签名
+        /// 鑾峰彇鏀粯HMAC
         /// </summary>
         /// <param name="customernumber"></param>
         /// <param name="requestid"></param>
@@ -30,19 +31,82 @@ namespace OSharp.Web.Mvc.Pay.YeePay
         /// <param name="memo"></param>
         /// <param name="hmacKey"></param>
         /// <returns></returns>
-        public static string GetHMAC(string customernumber, string requestid, string amount, string assure, string productname, string productcat, string productdesc, string divideinfo, string callbackurl, string webcallbackurl, string bankid, string period, string memo, string hmacKey)
+        public static string GetHMAC(
+            string customernumber, 
+            string requestid, 
+            string amount, 
+            string assure, 
+            string productname, 
+            string productcat, 
+            string productdesc, 
+            string divideinfo, 
+            string callbackurl, 
+            string webcallbackurl, 
+            string bankid, 
+            string period, 
+            string memo, 
+            string hmacKey)
         {
             string sign = "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}";
-
-
             sign = string.Format(sign, customernumber, requestid, amount, assure, productname, productcat, productdesc, divideinfo, callbackurl, webcallbackurl, bankid, period, memo);
 
             return HmacSign(sign, hmacKey);
         }
 
+        /// <summary>
+        /// 鑾峰彇娉ㄥ唽瀛愯处鎴稨MAC
+        /// </summary>
+        /// <param name="customernumber"></param>
+        /// <param name="requestid"></param>
+        /// <param name="bindmobile"></param>
+        /// <param name="customertype"></param>
+        /// <param name="signedname"></param>
+        /// <param name="linkman"></param>
+        /// <param name="idcard"></param>
+        /// <param name="businesslicence"></param>
+        /// <param name="legalperson"></param>
+        /// <param name="minsettleamount"></param>
+        /// <param name="riskreserveday"></param>
+        /// <param name="bankaccountnumber"></param>
+        /// <param name="bankname"></param>
+        /// <param name="accountname"></param>
+        /// <param name="bankaccounttype"></param>
+        /// <param name="bankprovince"></param>
+        /// <param name="bankcity"></param>
+        /// <param name="hmacKey"></param>
+        /// <returns></returns>
+        public static string GetRegisterHMAC(
+            string customernumber, 
+            string requestid, 
+            string bindmobile, 
+            string customertype, 
+            string signedname, 
+            string linkman,
+            string idcard, 
+            string businesslicence, 
+            string legalperson, 
+            string minsettleamount, 
+            string riskreserveday, 
+            string bankaccountnumber, 
+            string bankname, 
+            string accountname, 
+            string bankaccounttype, 
+            string bankprovince, 
+            string bankcity, 
+            string hmacKey)
+        {
+            string sign = "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}";
+            sign = string.Format(sign, customernumber, requestid, bindmobile, customertype, signedname, linkman, idcard, businesslicence, legalperson, minsettleamount, riskreserveday, bankaccountnumber, bankname, accountname, bankaccounttype, bankprovince, bankcity);
+
+            return HmacSign(sign, hmacKey);
+        }
+
+        #endregion
+
+        #region 楠岃瘉HMAC
 
         /// <summary>
-        /// 支付请求回调验签
+        /// 鏀粯璇锋眰HMAC楠岃瘉
         /// </summary>
         /// <param name="customernumber"></param>
         /// <param name="requestid"></param>
@@ -74,7 +138,7 @@ namespace OSharp.Web.Mvc.Pay.YeePay
 
 
         /// <summary>
-        /// 支付成功回调结果验签
+        /// 鏀粯缁撴灉HMAC楠岃瘉
         /// </summary>
         /// <param name="customernumber"></param>
         /// <param name="requestid"></param>
@@ -104,8 +168,11 @@ namespace OSharp.Web.Mvc.Pay.YeePay
             }
         }
 
+        #endregion
 
-        public static string HmacSign(string aValue, string aKey)
+        #region 绉佹湁鏂规硶
+
+        private static string HmacSign(string aValue, string aKey)
         {
             byte[] k_ipad = new byte[64];
             byte[] k_opad = new byte[64];
@@ -139,7 +206,7 @@ namespace OSharp.Web.Mvc.Pay.YeePay
             return toHex(dg);
         }
 
-        public static string toHex(byte[] input)
+        private static string toHex(byte[] input)
         {
             if (input == null)
                 return null;
@@ -156,5 +223,7 @@ namespace OSharp.Web.Mvc.Pay.YeePay
 
             return output.ToString();
         }
+
+        #endregion
     }
 }

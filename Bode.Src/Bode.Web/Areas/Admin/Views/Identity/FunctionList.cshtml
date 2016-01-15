@@ -2,7 +2,7 @@
     ViewBag.Title = "功能列表";
     Layout = "~/Areas/Admin/Views/Shared/_DataGridLayout.cshtml";
     ViewBag.ToolbarItem = "edit,save,cancel";
-    ViewBag.GridDataUrl = Url.Action("GetFunctionData", new{controllerId = new Guid()});
+    ViewBag.GridDataUrl = Url.Action("GetFunctionData", new{ controllerId = new Guid()});
     ViewBag.SaveUrl = Url.Action("EditFunctionData");
     ViewBag.DeleteUrl = Url.Action("DeleteFunctions");
 }
@@ -16,31 +16,15 @@
         columns = [
             { data: "Id", title: "编号", type: "hide" },
             { data: "Name", title: "名称", type: "text", search: true },
-            {
-                data: "FunctionType",
-                title: "功能类型",
-                type: "combobox",
-                search: true,
-                editor: {},
-                source: { data: functionTypes },
-                format: function(d) {
-                    var sceneryId = d["FunctionType"] || d;
-                    for (var i = 0; i < functionTypes.length; i++) {
-                        if (functionTypes[i]["val"].toString() === sceneryId.toString()) {
-                            return functionTypes[i]["text"];
-                        }
-                    }
-                    return sceneryId;
-                }
-            },
-            { data: "Area", title: "区域", type: "text" },
-            { data: "Controller", title: "控制器", type: "text" },
-            { data: "Action", title: "方法", type: "text" },
+            {data: "FunctionType",title: "功能类型",type: "combobox",search: true,editor: {},source: { data: functionTypes }},
+            { data: "Area", title: "区域", type: "hide" },
+            { data: "Controller", title: "控制器", type: "hide" },
+            { data: "Action", title: "方法", type: "hide" },
             { data: "OperateLogEnabled", title: "操作日志", type: "switch", search: true, editor: {} },
             { data: "DataLogEnabled", title: "数据日志", type: "switch", search: true, editor: {} },
-            { data: "IsLocked", title: "已锁定", type: "switch", search: true, editor: {} },
-            { data: "IsAjax", title: "Ajax方法", type: "switch", search: true },
-            { data: "IsController", title: "控制器", type: "switch", search: true },
+            { data: "IsLocked", title: "已锁定", type: "hide"},
+            { data: "IsAjax", title: "Ajax方法", type: "hide" },
+            { data: "IsController", title: "控制器", type: "hide" },
             { data: "ControllerId", title: "控制器Id", type: "hide"},
             { data: "OrderNo", title: "排序号", type: "number", search: true, editor: {} },
             { data: "IsMenu", title: "是否菜单", type: "switch", search: true, editor: {} }
@@ -75,14 +59,6 @@
         <div class="widget flat radius-bordered">
             <div class="widget-header bg-info">
                 <span class="widget-caption">控制器</span>
-                <div class="widget-buttons">
-                    <a href="#" data-toggle="collapse">
-                        <i class="fa fa-minus"></i>
-                    </a>
-                    <a href="#" data-toggle="dispose">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
             </div>
             <div class="widget-body" style="overflow-y: auto;">
                 <div id="treeContent" class="tree tree-solid-line">

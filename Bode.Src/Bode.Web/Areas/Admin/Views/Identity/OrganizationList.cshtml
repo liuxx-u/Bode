@@ -17,7 +17,7 @@
             {
                 data: "CreatedTime",
                 title: "创建时间",
-                type: "datepicker",
+                type: "timepicker",
                 search: true,
                 format: function (d) {
                     return $.osharp.tools.formatDate(d);
@@ -55,14 +55,6 @@
         <div class="widget flat radius-bordered">
             <div class="widget-header bg-info">
                 <span class="widget-caption">组织机构</span>
-                <div class="widget-buttons">
-                    <a href="#" data-toggle="collapse">
-                        <i class="fa fa-minus"></i>
-                    </a>
-                    <a href="#" data-toggle="dispose">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
             </div>
             <div class="widget-body" style="overflow-y: auto;">
                 <div id="treeContent" class="tree tree-solid-line">

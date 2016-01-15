@@ -11,12 +11,14 @@ using System.Web.Mvc;
 using OSharp.Utility.Extensions;
 using OSharp.Utility.Logging;
 using OSharp.Web.Mvc.UI;
+using OSharp.Web.Mvc.Logging;
 
 namespace OSharp.Web.Mvc
 {
     /// <summary>
     /// MVC控制器基类
     /// </summary>
+    [OperateLogFilter]
     public abstract class BaseController : Controller
     {
         private readonly ILogger _logger;

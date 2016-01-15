@@ -98,7 +98,7 @@
     <Compile Include="Content\CompressedContent.cs" />
     <Compile Include="Content\CompressHandler.cs" />
     <Compile Include="Upload\ApiUploadHelper.cs" />
-    <Compile Include="Upload\RenamingMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Upload\CustomMultipartFormDataStreamProvider.cs" />
     <Compile Include="Context\OSharpWebApiContext.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="Extensions\ContentNegotiationExtensions.cs" />

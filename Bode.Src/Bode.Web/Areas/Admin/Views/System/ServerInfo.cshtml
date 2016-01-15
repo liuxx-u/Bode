@@ -1,8 +1,68 @@
 ﻿
 @{
-    ViewBag.Title = "ServerInfo";
+    ViewBag.Title = "服务器信息";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<div class="page-container">
+    <div class="page-body">
+        <div class="col-md-8,col-sm-12">
+            <div class="widget flat radius-bordered">
+                <div class="widget-header bg-info">
+                    <span class="widget-caption">@ViewBag.Title</span>
+                </div>
+                <div class="widget-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td style="width:200px;">运行环境：</td>
+                                <td>.net framework4.5</td>
+                            </tr>
+                            <tr>
+                                <td style="width:100px;">数据库：</td>
+                                <td>MSSQl2008</td>
+                            </tr>
+                            <tr>
+                                <td>CPU型号：</td>
+                                <td>@ViewBag.SystemInfo.CpuName</td>
+                            </tr>
+                            <tr>
+                                <td>主板型号：</td>
+                                <td>@ViewBag.SystemInfo.BoardName</td>
+                            </tr>
+                            <tr>
+                                <td>硬盘型号：</td>
+                                <td>@ViewBag.SystemInfo.DiskName</td>
+                            </tr>
+                            <tr>
+                                <td>操作系统名称：</td>
+                                <td>@ViewBag.SystemInfo.OSName</td>
+                            </tr>
+                            <tr>
+                                <td>操作系统版本：</td>
+                                <td>@ViewBag.SystemInfo.OSVersion</td>
+                            </tr>
+                            <tr>
+                                <td>操作系统补丁版本：</td>
+                                <td>@ViewBag.SystemInfo.OSCsdVersion</td>
+                            </tr>
+                            <tr>
+                                <td>是否64位操作系统：</td>
+                                <td>@ViewBag.SystemInfo.OSIs64Bit</td>
+                            </tr>
+                            <tr>
+                                <td>总物理内存：</td>
+                                <td>@ViewBag.SystemInfo.PhysicalMemoryTotal<span>  MB</span></td>
+                            </tr>
+                            <tr>
+                                <td>可用物理内存：</td>
+                                <td>@ViewBag.SystemInfo.PhysicalMemoryFree<span>  MB</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>ServerInfo</h2>
 

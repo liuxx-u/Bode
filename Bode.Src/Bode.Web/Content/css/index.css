@@ -170,7 +170,6 @@ a{ text-decoration:none;  color:#252525; font-size:12px;}
 
 
 
-
 /***登陆注册*************/
 .hidden { display: none !important;}
 .show { display: block !important;}
@@ -186,3 +185,6 @@ a{ text-decoration:none;  color:#252525; font-size:12px;}
 .logion p span { float: right;}
 .logion p span a { color: #bb3232;}
 .logion p.cor { color:#bb3232; line-height: 20px;}
+
+
+

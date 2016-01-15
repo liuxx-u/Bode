@@ -23,14 +23,6 @@ namespace Bode.Services.Core.Contracts
                 IQueryable<FeedBack> FeedBacks { get; }
 
                 /// <summary>
-                /// 检查FeedBack信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的FeedBack编号</param>
-                /// <returns>FeedBack信息是否存在</returns>
-                Task<bool> CheckFeedBackExists(Expression<Func<FeedBack, bool>> predicate, int id = 0);
-                
-                /// <summary>
                 /// 保存FeedBack信息(新增/更新)
                 /// </summary>
                 /// <param name="updateForeignKey">更新时是否更新外键信息</param>
@@ -52,14 +44,6 @@ namespace Bode.Services.Core.Contracts
                 IQueryable<UserInfo> UserInfos { get; }
 
                 /// <summary>
-                /// 检查UserInfo信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的UserInfo编号</param>
-                /// <returns>UserInfo信息是否存在</returns>
-                Task<bool> CheckUserInfoExists(Expression<Func<UserInfo, bool>> predicate, int id = 0);
-                
-                /// <summary>
                 /// 保存UserInfo信息(新增/更新)
                 /// </summary>
                 /// <param name="updateForeignKey">更新时是否更新外键信息</param>
@@ -80,14 +64,6 @@ namespace Bode.Services.Core.Contracts
 
                 IQueryable<ValidateCode> ValidateCodes { get; }
 
-                /// <summary>
-                /// 检查ValidateCode信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的ValidateCode编号</param>
-                /// <returns>ValidateCode信息是否存在</returns>
-                Task<bool> CheckValidateCodeExists(Expression<Func<ValidateCode, bool>> predicate, int id = 0);
-                
                 /// <summary>
                 /// 保存ValidateCode信息(新增/更新)
                 /// </summary>

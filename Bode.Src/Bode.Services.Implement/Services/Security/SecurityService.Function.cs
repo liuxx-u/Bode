@@ -99,10 +99,10 @@ namespace Bode.Services.Implement.Services
             FunctionRepository.UnitOfWork.TransactionEnabled = true;
             foreach (FunctionDto dto in dtos)
             {
-                if (FunctionRepository.CheckExists(m => m.Name == dto.Name, dto.Id))
-                {
-                    return new OperationResult(OperationResultType.Error, "名称为“{0}”的功能信息已存在".FormatWith(dto.Name));
-                }
+                //if (FunctionRepository.CheckExists(m => m.Name == dto.Name, dto.Id))
+                //{
+                //    return new OperationResult(OperationResultType.Error, "名称为“{0}”的功能信息已存在".FormatWith(dto.Name));
+                //}
                 Function entity = FunctionRepository.GetByKey(dto.Id);
                 if (entity == null)
                 {
@@ -152,7 +152,7 @@ namespace Bode.Services.Implement.Services
         public async Task<OperationResult> DeleteFunctions(params Guid[] ids)
         {
             ids.CheckNotNull("ids");
-            List<string> names = new List<string>();
+            List<string>names = new List<string>();
             FunctionRepository.UnitOfWork.TransactionEnabled = true;
             foreach (Guid id in ids)
             {

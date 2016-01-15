@@ -47,14 +47,6 @@ namespace Bode.Services.Core.Contracts
                 IQueryable<<#=item.Name #>> <#=item.Name #>s { get; }
 
                 /// <summary>
-                /// 检查<#=item.Name #>信息是否存在
-                /// </summary>
-                /// <param name="predicate">检查谓语表达式</param>
-                /// <param name="id">更新的<#=item.Name #>编号</param>
-                /// <returns><#=item.Name #>信息是否存在</returns>
-                Task<bool> Check<#=item.Name #>Exists(Expression<Func<<#=item.Name #>, bool>> predicate, int id = 0);
-                
-                /// <summary>
                 /// 保存<#=item.Name #>信息(新增/更新)
                 /// </summary>
                 /// <param name="updateForeignKey">更新时是否更新外键信息</param>

@@ -71,8 +71,8 @@
     <Compile Include="ModelConfigs\Security\FunctionRoleMapConfiguration.cs" />
     <Compile Include="ModelConfigs\Security\FunctionUserMapConfiguration.cs" />
     <Compile Include="ModelConfigs\User\FeedBackConfiguration.cs" />
-    <Compile Include="ModelConfigs\User\FunctionUserMapConfiguration.cs" />
     <Compile Include="ModelConfigs\User\UserInfoConfiguration.cs" />
+    <Compile Include="ModelConfigs\User\ValidateCodeConfiguration.cs" />
     <Compile Include="Permissions\Identity\RoleStore.cs" />
     <Compile Include="Permissions\Identity\UserManager.cs" />
     <Compile Include="Permissions\Identity\UserStore.cs" />

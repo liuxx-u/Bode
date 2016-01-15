@@ -8,6 +8,7 @@
         this.tab = $(selector);
 
         this.conf = conf || "";
+        this.isBatch = conf.isBatch || false;
         this.columnsHash = {};
         this.columns = conf.columns || [];
         this.originData = this.conf.data || [];
@@ -20,7 +21,7 @@
         this.searchOperators = {
             common: [{ val: "equal", text: "等于" }, { val: "notequal", text: "不等于" }],
             struct: [{ val: "less", text: "小于" }, { val: "lessorequal", text: "小于等于" }, { val: "greater", text: "大于" }, { val: "greaterorequal", text: "大于等于" }],
-            text: [{ val: "contains", text: "包含" }, { val: "beginwith", text: "开始于" }, { val: "endwith", text: "结束于" }]
+            text: [{ val: "contains", text: "包含" }, { val: "startswith", text: "开始于" }, { val: "endswith", text: "结束于" }]
         };
 
 
@@ -31,7 +32,7 @@
         this.beforeEdit = this.conf.beforeEdit || function (index, row) { };
         this.beforeInit = this.conf.beforeInit || function () { };
         this.initComplete = this.conf.initComplete || function () { };
-        this.ajaxComplete = this.conf.initComplete || function () { };
+        this.loadDataComplete = this.conf.loadDataComplete || function (data) { };
 
         //表格操作相关
         this.editingRow = null;
@@ -54,6 +55,7 @@
         this.getRowData = function (row) {
             var data = {};
             this.tab.find("thead>tr:eq(0)>th").each(function (i, e) {
+                if (this.isBatch && i == 0) return true;
                 var dataKey = $(e).attr("data-key");
                 var td = row.find("td:eq(" + i + ")");
                 data[dataKey] = td.attr("data-ov") || td.text();
@@ -112,7 +114,8 @@
             this.beforeEdit(index, data);
 
             var jqTds = $('>td', cRow);
-            for (var i = 0, n = jqTds.length; i < n; i++) {
+
+            for (var i = this.isBatch?1:0, n = jqTds.length; i < n; i++) {
                 var dataKey = this.tab.find("thead>tr:eq(0)>th:eq(" + i + ")").attr("data-key");
                 var editor = this.columnsHash[dataKey]["editor"];
                 var colType = this.columnsHash[dataKey]["type"];
@@ -131,7 +134,7 @@
 
                         var comboObj = $('<select class="input-sm" style="width:95%;margin-top: -6px;">');
                         for (var j = 0, m = source.data.length; j < m; j++) {
-                            var selectHtml = source.data[j][valueField] === data[dataKey].toString() ? 'selected="selected"' : '';
+                            var selectHtml = source.data[j][valueField].toString() === data[dataKey].toString() ? 'selected="selected"' : '';
                             $('<option ' + selectHtml + ' value="' + source.data[j][valueField] + '">' + source.data[j][textField] + '</option>').appendTo(comboObj);
                         }
                         $(jqTds[i]).empty().append(comboObj);
@@ -162,18 +165,30 @@
                             }
                         });
 
-                    } else if (colType === "datepicker") {
+                    } else if (colType === "datepicker"||colType==="timepicker") {
                         jqTds[i].innerHTML = '<input class="input-sm date-picker" data-vv="' + data[dataKey] + '" type="text" style="width:90%;" value="' + data[dataKey] + '" readonly>';
 
+                        var minView = colType === "datepicker" ? 2 : 1;
+                        var format = colType === "datepicker"?"yyyy-MM-dd":"yyyy-MM-dd hh:ii";
                         $('.date-picker').datetimepicker({
+                            minView: minView,
+                            todayBtn: 1,
                             language: 'zh-CN',
-                            format: "yyyy-MM-dd hh:ii",
+                            format: format,
                             weekStart: 1,
                             autoclose: 1
                         });
-                    } else {
+                    } else if (colType === "number") {
+                        jqTds[i].innerHTML = '<input type="text" data-vv="' + data[dataKey] + '" class="input-sm" style="width:95%;" value="' + data[dataKey] + '">';
+                        $.osharp.tools.formatDiscount($(jqTds[i]).find("input:text"));
+                    }
+                    else {
                         jqTds[i].innerHTML = '<input type="text" data-vv="' + data[dataKey] + '" class="input-sm" style="width:95%;" value="' + data[dataKey] + '">';
                     }
+                }
+                //执行编辑列处理事件
+                if (typeof (editor["eaction"]) == "function") {
+                    editor["eaction"](jqTds[i], data[dataKey]);
                 }
             }
 
@@ -182,25 +197,30 @@
                 this.editedRows.push({ row: cRow, originData: data });
             }
 
-
             //更新正在编辑的行
             this.editingRow = cRow;
         };
 
         //保存单行数据
         this.saveRow = function (row) {
-            for (var i = 0, cN = this.columns.length; i < cN; i++) {
-                var editor = this.columns[i].editor;
-                if (typeof (editor) == "undefined" || this.columns[i]["data"] === "Id") continue;
+            var i = 0, cN = this.columns.length;
+            if (this.isBatch)
+            {
+                i++; cN++;
+            }
+            while (i< cN) {
+                var colIndex = this.isBatch ? i - 1 : i;
+                var editor = this.columns[colIndex].editor;
+                if (typeof (editor) == "undefined" || this.columns[colIndex]["data"] === "Id") { i++; continue; }
 
                 var ov;
-                var f = this.columns[i].format;
+                var f = this.columns[colIndex].format;
                 var td = row.find("td:eq(" + i + ")");
 
-                var colType = this.columns[i]["type"];
+                var colType = this.columns[colIndex]["type"];
                 if (colType === "combobox" || colType === "switch") {
                     ov = td.find("select").select2("val");
-                    td.html(this.tool.sourceFormat(ov, this.columns[i]["source"], f));
+                    td.html(this.tool.sourceFormat(ov, this.columns[colIndex]["source"], f));
 
                 } else if (colType === "img") {
                     ov = td.find("img").attr("src");
@@ -213,19 +233,20 @@
                         if (prev === "") prev = "0";
                         ov = prev;
                     }
-                    td.html(this.tool.format(ov, f));
+                    td.html(this.tool.format(ov, null, f));
                 } else {
                     ov = td.find("input").val();
-                    var validation = this.columns[i].validation;
+                    var validation = this.columns[colIndex].validation;
                     if (validation) {
                         if (validation.required && ov === "") {
-                            ov = this.columns[i]["type"] === "datepicker" ? "2000-01-01 00:00" : " ";
+                            ov = this.columns[colIndex]["type"] === "datepicker" ? "2000-01-01 00:00" : " ";
                         }
                     }
-                    td.html(this.tool.format(ov, f));
+                    td.html(this.tool.format(ov, null, f));
                 }
                 //存储原始值
                 td.attr("data-ov", ov);
+                i++;
             }
             this.editingRow = null;
         }
@@ -245,7 +266,8 @@
                     if (typeof (editor) == "undefined" || this.columns[j]["data"] === "Id") continue;
 
                     var dataKey = this.columns[j]["data"];
-                    var ov = this.editedRows[i]["originData"][dataKey];
+                    var d = this.editedRows[i]["originData"];
+                    var ov = d[dataKey];
                     var f = this.columns[j]["format"];
 
                     row.find("td:eq(" + j + ")").attr("data-ov", ov);
@@ -256,7 +278,7 @@
                     } else if (colType === "img") {
                         row.find("td:eq(" + j + ")").html('<img src="' + ov + '" style="width:120px;height:80px;"/>');
                     } else {
-                        row.find("td:eq(" + j + ")").html(this.tool.format(ov, f));
+                        row.find("td:eq(" + j + ")").html(this.tool.format(ov,d, f));
                     }
                 }
             }
@@ -306,8 +328,8 @@
             },
 
             //数据展示format
-            format: function (v, f) {
-                if (typeof (f) == 'function') return f(v);
+            format: function (v,d, f) {
+                if (typeof (f) == 'function') return f(v,d);
                 return v;
             },
 
@@ -339,6 +361,7 @@
                             return source.data[i][textField];
                         }
                     }
+                    return ov;
                 }
             }
         }
@@ -347,16 +370,20 @@
         this.loadData = function () {
             //加载表格
             for (var i = 0, n = this.originData.length; i < n; i++) {
+                var d = this.originData[i];
                 var tr = $('<tr></tr>');
+                
+                if (this.isBatch) {
+                    $('<td style="width:25px;"><div class="checkbox"><label><input type="checkbox" value="' + d["Id"] + '"><span class="text"></span></label></div></td>').appendTo(tr);
+                }
                 for (var j = 0, m = this.columns.length; j < m; j++) {
 
                     var f = this.columns[j]["format"];
-                    var d = this.originData[i];
                     var colType = this.columns[j]["type"];
                     //处理时间类型
                     var ov = d[this.columns[j]["data"]];
                     if (this.columns[j]["isformatval"]) {
-                        ov = this.tool.format(ov, f);
+                        ov = this.tool.format(ov,d, f);
                     }
                     if (colType === "combobox" || colType === "switch") {
                         var source = this.columns[j].source;
@@ -366,7 +393,7 @@
                         $('<td data-ov="' + ov + '"><img src="' + ov + '" style="width:120px;height:80px;"/></td>').appendTo(tr);
                     } else {
                         var display = colType === "hide" ? 'style="display:none;"' : '';
-                        $('<td ' + display + ' data-ov="' + ov + '">' + this.tool.format(ov, f) + '</td>').appendTo(tr);
+                        $('<td ' + display + ' data-ov="' + ov + '">' + this.tool.format(ov,d, f) + '</td>').appendTo(tr);
                     }
                 }
                 tr.appendTo(this.tab.find("tbody"));
@@ -378,13 +405,29 @@
 
         this.initHead = function () {
             var tab = this;
+            if (tab.isBatch)
+            {
+                var th=$('<th style="width:35px;"><div class="checkbox"><label><input type="checkbox"><span class="text"></span></label></div></th>')
+                th.find("input:checkbox").click(function () {
+                    if ($(this).is(":checked")) {
+                        tab.tab.find("tbody>tr").find("td:eq(0) input:checkbox").attr("checked", true);
+                    }
+                    else {
+                        tab.tab.find("tbody>tr").find("td:eq(0) input:checkbox").removeAttr("checked");
+                    }
+                });
+                th.appendTo(this.tab.find("thead>tr"));
+            }
+
             //初始化columnHash与表头
             for (var i = 0, n = this.columns.length; i < n; i++) {
                 //初始化switch的数据源
                 var colType = this.columns[i]["type"];
-                if (colType === "switch" && typeof (this.columns[i]["source"]) === "undefined") {
+                //初始化switch的format与数据源
+                if (colType === "switch" && typeof (this.columns[i]["source"]) === "undefined"){
                     this.columns[i]["source"] = { data: [{ "val": "false", "text": "否" }, { "val": "true", "text": "是" }] };
                 }
+
                 //初始化hide类型为可编辑列，方便保存数据
                 if (colType === "hide") {
                     this.columns[i]["editor"] = {};
@@ -394,7 +437,8 @@
                 this.columnsHash[this.columns[i].data] = this.columns[i];
                 var display = colType === "hide" ? 'style="display:none;"' : '';
                 var sortHtml = this.columns[i].sortDisable ? '' : ' class="sorting"';
-                $('<th ' + display + sortHtml + ' data-key="' + this.columns[i].data + '" style="width: 251px;">' + this.columns[i].title + '</th>').click(function () {
+                var width = this.columns[i].width || '251px';
+                $('<th ' + display + sortHtml + ' data-key="' + this.columns[i].data + '" style="width: '+width+';">' + this.columns[i].title + '</th>').click(function () {
                     if (typeof ($(this).attr("class")) == "undefined") return;
                     tab.queryParams.sortField = $(this).attr("data-key");
                     tab.queryParams.sortOrder = $(this).attr("class") === "sorting_asc" ? "desc" : "asc";
@@ -451,7 +495,9 @@
 
         this.initData = function () {
             var tab = this;
-
+            if (tab.isBatch) {
+                tab.tab.find(">thead>tr>th:eq(0)").find("input:checkbox:checked").click();
+            }
             //初始化数据
             if (typeof (this.conf.ajax) != "undefined") {
                 var ajax = this.conf.ajax || "";
@@ -461,12 +507,13 @@
 
                     //绑定分页控件
                     tab.initFoot(data.Total);
-                    tab.ajaxComplete();
+                    tab.loadDataComplete(data);
                 });
             }
             else {
                 this.loadData();
                 this.initFoot(this.originData.length);
+                this.loadDataComplete(this.originData);
             }
         }
 
@@ -491,7 +538,7 @@
                 var opraArr = tab.searchOperators.common.concat([]);
 
                 //改变操作选项
-                if (type === "number" || type === "datepicker") {
+                if (type === "number" || type === "datepicker" || type === "timepicker") {
                     opraArr = opraArr.concat(tab.searchOperators.struct);
                 }
                 if (type === "text" || type === "textarea") {
@@ -502,6 +549,13 @@
                     $('<option value="' + opraArr[i].val + '">' + opraArr[i].text + '</option>').appendTo(oprateSelect);
                 }
                 oprateSelect.select2("val", opraArr[0].val);
+
+                //移除值下拉选择框
+                if ($(this).closest("div").find(".select2-container").length == 3) {
+                    $(this).closest("div").find(".select2-container").eq(2).remove();
+                }
+                //去掉日期选择事件
+                dataInput.datetimepicker('remove');
 
                 //对switch与combobox选项的值进行处理
                 if (type === "combobox" || type === "switch") {
@@ -521,8 +575,20 @@
                     $(this).closest("div").find("a.btn").before(dataSelect);
                     dataSelect.select2().change();
                 }
+                else if (type === "datepicker" || type === "timepicker") {
+                    dataInput.val("").show();
+                    var minView = type === "datepicker" ? 2 : 1;
+                    var format = type === "datepicker" ? "yyyy-MM-dd" : "yyyy-MM-dd hh:ii";
+                    dataInput.datetimepicker({
+                        minView: minView,
+                        todayBtn: 1,
+                        language: 'zh-CN',
+                        format: format,
+                        weekStart: 1,
+                        autoclose: 1
+                    });
+                }
                 else {
-                    $(this).closest("div").find(".select2-container").eq(2).remove();
                     dataInput.val("").show();
                 }
             }).change();
@@ -556,7 +622,6 @@
         }
 
         this.query = function () {
-            this.queryParams.pageIndex = 1;
             this.addedRows.length = 0;
             this.editedRows.length = 0;
 

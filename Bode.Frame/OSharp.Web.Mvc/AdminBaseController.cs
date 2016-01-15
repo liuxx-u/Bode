@@ -11,7 +11,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using OSharp.Utility.Filter;
 using OSharp.Web.Mvc.UI;
-using OSharp.Web.Mvc.Logging;
 
 using OSharp.Core.Data;
 using OSharp.Core.Data.Extensions;
@@ -21,7 +20,6 @@ namespace OSharp.Web.Mvc
     /// <summary>
     /// 后台管理控制器基类
     /// </summary>
-    [OperateLogFilter]
     public abstract class AdminBaseController : BaseController
     {
         /// <summary>

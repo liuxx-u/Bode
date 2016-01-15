@@ -86,6 +86,38 @@ namespace Bode.Services.Core.Contracts
         IQueryable<SysUser> Users { get; }
 
         /// <summary>
+        /// 冻结/解冻用户
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> LockUserOrNot(int userId);
+
+        /// <summary>
+        /// 冻结/解冻用户
+        /// </summary>
+        /// <param name="user">系统用户</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> LockUserOrNot(SysUser user);
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="oldPsw">原密码</param>
+        /// <param name="newPsw">新密码</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> ResetPassword(string userName, string oldPsw, string newPsw);
+
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">用户密码</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> Login(string userName, string password);
+
+        /// <summary>
         /// 保存用户信息信息
         /// </summary>
         /// <param name="dtos">要保存的用户DTO信息</param>

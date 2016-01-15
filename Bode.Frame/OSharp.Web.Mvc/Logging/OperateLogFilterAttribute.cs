@@ -54,7 +54,9 @@ namespace OSharp.Web.Mvc.Logging
             }
             Operator @operator = new Operator()
             {
-                Ip = filterContext.HttpContext.Request.GetIpAddress(),
+                ValidatePeriod = DateTime.Now.AddMonths(1),
+                LoginDevice = LoginDevice.Web,
+                Ip = filterContext.HttpContext.Request.GetIpAddress()
             };
             if (filterContext.HttpContext.Request.IsAuthenticated)
             {

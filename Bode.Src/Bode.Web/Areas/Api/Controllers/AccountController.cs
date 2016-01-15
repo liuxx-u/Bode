@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Bode.Services.Core.Contracts;
@@ -12,6 +11,8 @@ using OSharp.Web.Http.Messages;
 using OSharp.Web.Http;
 using System.ComponentModel;
 using OSharp.Web.Http.Authentication;
+using System.Configuration;
+using OSharp.Core.Data.Extensions;
 
 namespace Bode.Web.Areas.Api.Controllers
 {
@@ -32,8 +33,18 @@ namespace Bode.Web.Areas.Api.Controllers
         public async Task<IHttpActionResult> GetSmsCode(string phoneNo, CodeType codeType = CodeType.用户注册)
         {
             if (!phoneNo.IsMobileNumber(true)) return Json(new ApiResult(OperationResultType.ValidError, "请输入正确的手机号"));
-            var result = await UserContract.GetSmsValidateCode(phoneNo, codeType);
 
+            var result = await UserContract.GetSmsValidateCode(phoneNo, codeType);
+            return Json(result.ToApiResult());
+        }
+
+        [HttpPost]
+        [Description("获取邮箱验证码")]
+        public async Task<IHttpActionResult> GetEmailCode(string email, CodeType codeType = CodeType.用户注册)
+        {
+            if (!email.IsEmail()) return Json(new ApiResult(OperationResultType.ValidError, "请输入正确的邮箱地址"));
+
+            var result = await UserContract.GetEmailValidateCode(email, codeType);
             return Json(result.ToApiResult());
         }
 
@@ -47,10 +58,9 @@ namespace Bode.Web.Areas.Api.Controllers
 
         [HttpPost]
         [Description("用户登录")]
-        public async Task<IHttpActionResult> Login(string phoneNo, string password, LoginDevice loginDevice,
-            string clientVersion, string registKey = "")
+        public async Task<IHttpActionResult> Login(string userName, string password, LoginDevice loginDevice, string clientVersion, string registKey = "")
         {
-            var result = await UserContract.Login(phoneNo, password, registKey, loginDevice, clientVersion);
+            var result = await UserContract.Login(userName, password, registKey, loginDevice, clientVersion);
             return Json(result.ToApiResult());
         }
 
@@ -60,7 +70,17 @@ namespace Bode.Web.Areas.Api.Controllers
         public async Task<IHttpActionResult> ResetTokenValidityPeriod(LoginDevice loginDevice, string clientVersion)
         {
             var user = await UserContract.UserInfos.SingleOrDefaultAsync(p => p.Id == OperatorId);
-            if (user == null) return Json(new ApiResult("用户不存在", OperationResultType.QueryNull));
+            if (user == null) return Json(new ApiResult(OperationResultType.QueryNull, "用户不存在"));
+            if (user.SysUser.IsLocked) return Json(new ApiResult(OperationResultType.NoChanged, "用户已被冻结,请联系客服。"));
+
+            if (loginDevice == LoginDevice.Android && clientVersion != ConfigurationManager.AppSettings["ApkVision"])
+            {
+                return Json(new ApiResult(OperationResultType.ValidError, "有新版本，请更新。"));
+            }
+            if (loginDevice == LoginDevice.Ios && clientVersion != ConfigurationManager.AppSettings["IpaVision"])
+            {
+                return Json(new ApiResult(OperationResultType.ValidError, "有新版本，请更新。"));
+            }
 
             var result = await UserContract.ResetToken(user, loginDevice, clientVersion);
             return Json(result.ToApiResult());
@@ -68,27 +88,27 @@ namespace Bode.Web.Areas.Api.Controllers
 
         [HttpPost]
         [Description("重置密码")]
-        public async Task<IHttpActionResult> ResetPassword(string phoneNo, string newPsw, string validateCode)
+        public async Task<IHttpActionResult> ResetPassword(string userName, string newPsw, string validateCode)
         {
-            var result = await UserContract.ResetPassword(phoneNo, newPsw, validateCode);
+            var result = await UserContract.ResetPassword(userName, newPsw, validateCode);
             return Json(result.ToApiResult());
         }
 
         [HttpPost]
         [TokenAuth]
         [Description("修改密码")]
-        public async Task<IHttpActionResult> ChangePassword(string phoneNo, string oldPsw, string newPsw)
+        public async Task<IHttpActionResult> ChangePassword(string userName, string oldPsw, string newPsw)
         {
-            var result = await UserContract.ChangePassword(phoneNo, oldPsw, newPsw);
+            var result = await UserContract.ChangePassword(userName, oldPsw, newPsw);
             return Json(result.ToApiResult());
         }
 
         [HttpPost]
         [TokenAuth]
-        [Description("修改手机号")]
-        public async Task<IHttpActionResult> ChangePhoneNo(string phoneNo, string newPhoneNo, string password, string validateCode)
+        [Description("修改用户名")]
+        public async Task<IHttpActionResult> ChangeUserName(string userName, string newUserName, string password, string validateCode)
         {
-            var result = await UserContract.ChangePhoneNo(phoneNo, newPhoneNo, password, validateCode);
+            var result = await UserContract.ChangeUserName(userName, newUserName, password, validateCode);
             return Json(result.ToApiResult());
         }
 
@@ -111,17 +131,12 @@ namespace Bode.Web.Areas.Api.Controllers
         [Description("获取自己个人信息")]
         public async Task<IHttpActionResult> GetUserInfo()
         {
-            var theUser = await UserContract.UserInfos.SingleOrDefaultAsync(p => p.Id == OperatorId);
+            var theUser = await UserContract.UserInfos.Unrecycled().Include(p => p.SysUser).SingleOrDefaultAsync(p => p.Id == OperatorId);
             if (theUser == null) return Json(new ApiResult(OperationResultType.QueryNull, "用户不存在"));
 
             var userData = new
             {
-                theUser.Id,
-                theUser.SysUser.NickName,
-                theUser.Signature,
-                theUser.HeadPic,
-                theUser.Sex,
-                theUser.BirthDay
+                PhoneNo = theUser.SysUser.UserName
             };
             return Json(new ApiResult("获取成功", userData));
         }
@@ -129,9 +144,9 @@ namespace Bode.Web.Areas.Api.Controllers
         [HttpPost]
         [TokenAuth]
         [Description("意见反馈")]
-        public async Task<IHttpActionResult> AddFeedBack(FeedBackDto dto)
+        public async Task<IHttpActionResult> AddFeedBack(string content)
         {
-            dto.UserInfoId = OperatorId;
+            var dto = new FeedBackDto { UserInfoId = OperatorId, Content = content };
             var result = await UserContract.SaveFeedBacks(dtos: dto);
 
             return Json(new ApiResult(result.ResultType, "反馈成功"));

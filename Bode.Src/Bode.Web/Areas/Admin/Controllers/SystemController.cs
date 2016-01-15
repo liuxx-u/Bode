@@ -10,9 +10,11 @@ using OSharp.Utility.Extensions;
 using OSharp.Web.Mvc.Security;
 using OSharp.Web.Mvc.UI;
 using OSharp.Web.Mvc;
+using OSharp.Utility.Windows;
 
 namespace Bode.Web.Areas.Admin.Controllers
 {
+    //[Authorize]
     [Description("系统管理")]
     public class SystemController : AdminBaseController
     {
@@ -99,6 +101,7 @@ namespace Bode.Web.Areas.Admin.Controllers
         [Description("服务器信息")]
         public ActionResult ServerInfo()
         {
+            ViewBag.SystemInfo = SystemInfoHandler.GetSystemInfo();
             return View();
         }
 

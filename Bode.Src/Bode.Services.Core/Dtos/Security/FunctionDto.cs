@@ -51,16 +51,6 @@ namespace Bode.Services.Core.Dtos.Security
         public bool DataLogEnabled { get; set; }
 
         /// <summary>
-        /// 获取或设置 数据缓存时间（秒）
-        /// </summary>
-        public int CacheExpirationSeconds { get; set; }
-
-        /// <summary>
-        /// 获取或设置 是否相对过期时间，否则为绝对过期
-        /// </summary>
-        public bool IsCacheSliding { get; set; }
-
-        /// <summary>
         /// 获取或设置 是否锁定
         /// </summary>
         public bool IsLocked { get; set; }
@@ -69,6 +59,11 @@ namespace Bode.Services.Core.Dtos.Security
         /// 获取或设置 排序号
         /// </summary>
         public int OrderNo { get; set; }
+
+        /// <summary>
+        /// 是否菜单
+        /// </summary>
+        public bool IsMenu { get; set; }
 
     }
 }

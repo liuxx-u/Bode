@@ -16,10 +16,12 @@ namespace Bode.Services.Core.Dtos
             Mapper.CreateMap<SysOrganizationDto, SysOrganization>();
             Mapper.CreateMap<SysUserDto, SysUser>();
             Mapper.CreateMap<SysRoleDto, SysRole>();
+
             //Security
             Mapper.CreateMap<FunctionDto, Function>();
             Mapper.CreateMap<EntityInfoDto, EntityInfo>();
 
+            //UserInfo
             Mapper.CreateMap<UserInfoRegistDto, UserInfo>();
             Mapper.CreateMap<UserInfoEditDto, UserInfo>();
         }

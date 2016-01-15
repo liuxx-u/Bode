@@ -13,14 +13,11 @@ namespace Bode.Services.Core.Dtos.User
 	public partial class UserInfoDto: IAddDto, IEditDto<int>
 	{
         public System.Int32 Id { get; set; }
-                            public System.String PhoneNo { get; set; }
-                                        public System.String Password { get; set; }
-                                        public System.String NickName { get; set; }
-                                        public System.String HeadPic { get; set; }
-                                        public System.DateTime BirthDay { get; set; }
-                                        public System.String Signature { get; set; }
+                            public System.String HeadPic { get; set; }
+                                        public System.String RealName { get; set; }
                                         public System.String RegistKey { get; set; }
                                         public Bode.Services.Core.Models.User.Sex Sex { get; set; }
+                                        public System.String ChannelCode { get; set; }
                                         public System.Int32 SysUserId { get; set; }
                     	}
 }
