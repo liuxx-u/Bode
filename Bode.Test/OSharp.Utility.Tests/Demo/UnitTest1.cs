@@ -84,5 +84,12 @@ namespace OSharp.Utility.Tests.Demo
 
             string piny = StringHelper.GetChineseSpell(ch);
         }
+
+        [TestMethod]
+        public void ImageHelperTest()
+        {
+            var path = @"D:\Frame\Bode\Bode.Src\Bode.Web\Content\images\attach-blue.png";
+            ImageHelper.GetThumbnail(path, 60);
+        }
     }
 }

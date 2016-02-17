@@ -16,6 +16,7 @@ using OSharp.Core.Data;
 using OSharp.Utility.Develop.T4;
 using OSharp.Utility.Extensions;
 using OSharp.Utility.Secutiry;
+using System.Threading;
 
 namespace Bode.Web.Controllers
 {
@@ -42,10 +43,17 @@ namespace Bode.Web.Controllers
                  CodeType = CodeType.用户注册
              };
 
-             //await UserContract.SaveValidateCodes(dtos: validate);
+            //await UserContract.SaveValidateCodes(dtos: validate);
+            int threadId1 = Thread.CurrentThread.ManagedThreadId;
 
-             var codes= await UserContract.ValidateCodes.ToListAsync();
-             return Content("as");
+             var codes= await UserContract.ValidateCodes.ToListAsync().ConfigureAwait(false);
+
+            int threadId2 = Thread.CurrentThread.ManagedThreadId;
+
+            string content = string.Format("start:{0};end:{1};", threadId1, threadId2);
+            return Content(content);
         }
+
+
     }
 }

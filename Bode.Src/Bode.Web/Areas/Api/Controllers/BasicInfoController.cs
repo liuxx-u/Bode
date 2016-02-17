@@ -12,6 +12,8 @@ using OSharp.Utility.Helper;
 using System.Configuration;
 using System.Threading.Tasks;
 using OSharp.Web.Http.Upload;
+using OSharp.Core.Caching;
+using System;
 
 namespace Bode.Web.Areas.Api.Controllers
 {
@@ -49,16 +51,48 @@ namespace Bode.Web.Areas.Api.Controllers
         [Description("获取指定尺寸的图片")]
         public HttpResponseMessage GetImage(string path, int width, int height)
         {
-            string host = ConfigurationManager.AppSettings["ServerHost"];
-            path = path.Replace(host, "~/");
-            path = System.Web.Hosting.HostingEnvironment.MapPath(path);
+            ICache cache = CacheManager.GetCacher("img");
+            string cacheKey = string.Format("{0}_{1}_{2}", path, width, height);
+            MemoryStream ms = cache.Get<MemoryStream>(cacheKey);
+            if (ms == null)
+            {
+                string host = ConfigurationManager.AppSettings["ServerHost"];
+                path = path.Replace(host, "~/");
+                path = System.Web.Hosting.HostingEnvironment.MapPath(path);
+                Image img = ImageHelper.GetThumbnail(path, width, height);
+                ms = new MemoryStream();
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-            Image img = ImageHelper.GetThumbnail(path, width, height);
-            MemoryStream ms = new MemoryStream();
-            img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                cache.Set(cacheKey, ms, TimeSpan.FromMinutes(20));
+            }
+
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new ByteArrayContent(ms.ToArray());
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            result.Content = new ByteArrayContent(ms.ToArray()); ;
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            return result;
+        }
+
+        [Description("获取指定比例的图片")]
+        public HttpResponseMessage GetRatioImage(string path, int percent = 100)
+        {
+            ICache cache = CacheManager.GetCacher("img");
+            string cacheKey = string.Format("{0}_{1}", path, percent);
+            MemoryStream ms = cache.Get<MemoryStream>(cacheKey);
+            if (ms == null)
+            {
+                string host = ConfigurationManager.AppSettings["ServerHost"];
+                path = path.Replace(host, "~/");
+                path = System.Web.Hosting.HostingEnvironment.MapPath(path);
+                Image img = ImageHelper.GetThumbnail(path, percent);
+                ms = new MemoryStream();
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                cache.Set(cacheKey, ms, TimeSpan.FromMinutes(20));
+            }
+
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new ByteArrayContent(ms.ToArray()); ;
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
             return result;
         }
     }

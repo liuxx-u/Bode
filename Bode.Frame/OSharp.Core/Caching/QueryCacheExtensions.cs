@@ -92,19 +92,19 @@ namespace OSharp.Core.Caching
         /// </summary>
         /// <typeparam name="TSource">源数据类型</typeparam>
         /// <param name="source">查询数据源</param>
+        /// <param name="cacheKey">缓存Key</param>
         /// <param name="cacheSeconds">缓存的秒数</param>
         /// <returns>查询结果</returns>
-        public static List<TSource> ToCacheList<TSource>(this IQueryable<TSource> source, int cacheSeconds = 60)
+        public static List<TSource> ToCacheList<TSource>(this IQueryable<TSource> source,string cacheKey, int cacheSeconds = 60)
         {
             ICache cache = CacheManager.GetCacher<TSource>();
-            string key = GetKey(source.Expression);
-            List<TSource> result = cache.Get<List<TSource>>(key);
+            List<TSource> result = cache.Get<List<TSource>>(cacheKey);
             if (result != null)
             {
                 return result;
             }
             result = source.ToList();
-            cache.Set(key, result, DateTime.Now.AddSeconds(cacheSeconds));
+            cache.Set(cacheKey, result, DateTime.Now.AddSeconds(cacheSeconds));
             return result;
         }
 
@@ -113,69 +113,19 @@ namespace OSharp.Core.Caching
         /// </summary>
         /// <typeparam name="TSource">源数据类型</typeparam>
         /// <param name="source">查询数据源</param>
+        /// <param name="cacheKey">缓存Key</param>
         /// <param name="cacheSeconds">缓存的秒数</param>
         /// <returns>查询结果</returns>
-        public static TSource[] ToCacheArray<TSource>(this IQueryable<TSource> source, int cacheSeconds = 60)
+        public static TSource[] ToCacheArray<TSource>(this IQueryable<TSource> source, string cacheKey, int cacheSeconds = 60)
         {
             ICache cache = CacheManager.GetCacher<TSource>();
-            string key = GetKey(source.Expression);
-            TSource[] result = cache.Get<TSource[]>(key);
+            TSource[] result = cache.Get<TSource[]>(cacheKey);
             if (result != null)
             {
                 return result;
             }
             result = source.ToArray();
-            cache.Set(key, result, DateTime.Now.AddSeconds(cacheSeconds));
-            return result;
-        }
-
-        /// <summary>
-        /// 将结果转换为缓存的列表，如缓存存在，直接返回，否则从数据源查询，并按指定缓存策略存入缓存中再返回
-        /// </summary>
-        /// <typeparam name="TSource">源数据类型</typeparam>
-        /// <param name="source">查询数据源</param>
-        /// <param name="function">缓存策略相关功能</param>
-        /// <returns>查询结果</returns>
-        public static List<TSource> ToCacheList<TSource>(this IQueryable<TSource> source, IFunction function)
-        {
-            if (function == null || function.CacheExpirationSeconds <= 0)
-            {
-                return source.ToList();
-            }
-            ICache cache = CacheManager.GetCacher<TSource>();
-            string key = GetKey(source.Expression);
-            List<TSource> result = cache.Get<List<TSource>>(key);
-            if (result != null)
-            {
-                return result;
-            }
-            result = source.ToList();
-            cache.Set(key, result, function);
-            return result;
-        }
-
-        /// <summary>
-        /// 将结果转换为缓存的列表，如缓存存在，直接返回，否则从数据源查询，并按指定缓存策略存入缓存中再返回
-        /// </summary>
-        /// <typeparam name="TSource">源数据类型</typeparam>
-        /// <param name="source">查询数据源</param>
-        /// <param name="function">缓存策略相关功能</param>
-        /// <returns>查询结果</returns>
-        public static TSource[] ToCacheArray<TSource>(this IQueryable<TSource> source, IFunction function)
-        {
-            if (function == null || function.CacheExpirationSeconds <= 0)
-            {
-                return source.ToArray();
-            }
-            ICache cache = CacheManager.GetCacher<TSource>();
-            string key = GetKey(source.Expression);
-            TSource[] result = cache.Get<TSource[]>(key);
-            if (result != null)
-            {
-                return result;
-            }
-            result = source.ToArray();
-            cache.Set(key, result, function);
+            cache.Set(cacheKey, result, DateTime.Now.AddSeconds(cacheSeconds));
             return result;
         }
 
