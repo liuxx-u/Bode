@@ -17,7 +17,7 @@ using OSharp.Core.Mapping;
 using OSharp.Core.Properties;
 using OSharp.Core.Security;
 using OSharp.Utility;
-
+using OSharp.Core.Context;
 
 namespace OSharp.Core
 {
@@ -91,6 +91,8 @@ namespace OSharp.Core
                     throw new InvalidOperationException(Resources.FrameworkInitializer_EntityInfoHandlerIsNull);
                 }
                 entityInfoHandler.Initialize();
+                OSharpContext.Current.EntityInfoHandler = entityInfoHandler;
+
                 _entityInfoInitialized = true;
             }
             //功能信息初始化
@@ -100,6 +102,7 @@ namespace OSharp.Core
                 throw new InvalidOperationException(Resources.FrameworkInitializer_FunctionHandlerIsNull);
             }
             functionHandler.Initialize();
+            OSharpContext.Current.FunctionHandler = functionHandler;
         }
     }
 }

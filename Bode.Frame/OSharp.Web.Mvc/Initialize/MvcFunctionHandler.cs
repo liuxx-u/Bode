@@ -88,10 +88,12 @@ namespace OSharp.Web.Mvc.Initialize
             {
                 throw new InvalidOperationException(Resources.FunctionHandler_DefindActionTypeIsNull.FormatWith(method.Name));
             }
+
+            string area = GetArea(type);
             Function function = new Function()
             {
                 Name = method.ToDescription(),
-                Area = GetArea(type),
+                Area = area,
                 Controller = type.Name.Replace("Controller", string.Empty),
                 Action = method.Name,
                 FunctionType = functionType,
@@ -99,7 +101,7 @@ namespace OSharp.Web.Mvc.Initialize
                 IsController = false,
                 IsAjax = method.HasAttribute<AjaxOnlyAttribute>(),
                 //非Ajax且方法名不是Edit开头的Get方法默认为菜单
-                IsMenu = !method.HasAttribute<AjaxOnlyAttribute>() && !method.HasAttribute<HttpPostAttribute>() && !method.Name.StartsWith("Edit"),
+                IsMenu = !method.HasAttribute<AjaxOnlyAttribute>() && !method.HasAttribute<HttpPostAttribute>() && !method.Name.StartsWith("Edit") && !method.Name.EndsWith("Detail") && !area.IsNullOrWhiteSpace(),
                 IsChild = method.HasAttribute<ChildActionOnlyAttribute>()
             };
             return function;

@@ -160,8 +160,8 @@
     <Compile Include="Mapping\IMapTargetTypeFinder.cs" />
     <Compile Include="Mapping\IMapTuple.cs" />
     <Compile Include="Mapping\InputDtoTypeFinder.cs" />
-    <Compile Include="Mapping\MappersBuilder.cs" />
     <Compile Include="Mapping\MapperExtensions.cs" />
+    <Compile Include="Mapping\MappersBuilder.cs" />
     <Compile Include="Mapping\MapTupleBase.cs" />
     <Compile Include="Mapping\OutputDtoTypeFinder.cs" />
     <Compile Include="Reflection\DirectoryAssemblyFinder.cs" />

@@ -1,4 +1,6 @@
-﻿// -----------------------------------------------------------------------
+﻿
+
+// -----------------------------------------------------------------------
 //  <copyright file="DbContextBase.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2015 OSharp. All rights reserved.
 //  </copyright>
@@ -193,7 +195,7 @@ namespace OSharp.Data.Entity
             {
                 if (_readContext == null)
                 {
-                    if (!_contextConfig.ReadConnectionStringNames.Any()) return this;
+                    if (_contextConfig.ReadConnectionStringNames == null || !_contextConfig.ReadConnectionStringNames.Any()) return this;
                     int index = DateTime.Now.Millisecond % _contextConfig.ReadConnectionStringNames.Length;
 
                     _readContext=GetSlaveContext(_contextConfig.ReadConnectionStringNames[index]);

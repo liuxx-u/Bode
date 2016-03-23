@@ -29,7 +29,6 @@ namespace OSharp.Web.Http.Authentication
             try
             {
                 string token = httpContext.Request.Headers.GetValues(HttpHeaderNames.OSharpAuthenticationToken).FirstOrDefault();
-                if (token.IsNullOrWhiteSpace()) return AllowAnonymous;
 
                 var strAuth = DesHelper.Decrypt(token, Constants.BodeAuthDesKey);
                 Operator user = strAuth.FromJsonString<Operator>() ?? new Operator();
@@ -40,6 +39,7 @@ namespace OSharp.Web.Http.Authentication
             }
             catch
             {
+                OSharpContext.Current.SetOperator(new Operator());
                 return AllowAnonymous;
             }
         }

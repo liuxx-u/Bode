@@ -78,6 +78,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Sms.Md", "Bode.Plugin\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Push.Umeng", "Bode.Plugin\Bode.Push.Umeng\Bode.Push.Umeng.csproj", "{36677FF3-676E-4818-A916-76901AFB63E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bode.Sms.Jh", "Bode.Plugin\Bode.Sms.Jh\Bode.Sms.Jh.csproj", "{63AF53E8-99F9-4F24-B8E5-755E630017AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +182,10 @@ Global
 		{36677FF3-676E-4818-A916-76901AFB63E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36677FF3-676E-4818-A916-76901AFB63E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36677FF3-676E-4818-A916-76901AFB63E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63AF53E8-99F9-4F24-B8E5-755E630017AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63AF53E8-99F9-4F24-B8E5-755E630017AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63AF53E8-99F9-4F24-B8E5-755E630017AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63AF53E8-99F9-4F24-B8E5-755E630017AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,5 +218,6 @@ Global
 		{3EFF7F89-CB12-4813-A0EC-ED95BADDE4EF} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
 		{40A42ADE-D8CA-4296-807A-A1987B4E5B70} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
 		{36677FF3-676E-4818-A916-76901AFB63E9} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
+		{63AF53E8-99F9-4F24-B8E5-755E630017AB} = {132D1A08-BA41-43A6-8925-982DB4106C2F}
 	EndGlobalSection
 EndGlobal
