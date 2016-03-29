@@ -175,7 +175,7 @@ namespace OSharp.Core.Security
         protected virtual bool ExistsFunction(IEnumerable<TFunction> functions, TFunction function)
         {
             return functions.Any(m => m.Action == function.Action && m.Controller == function.Controller
-                && m.Area == function.Area && m.Name == function.Name && m.PlatformToken == PlatformToken);
+                && m.Area == function.Area && m.Name == function.Name && m.PlatformToken == PlatformToken && m.MenuGroupKey == function.MenuGroupKey);
         }
 
         /// <summary>

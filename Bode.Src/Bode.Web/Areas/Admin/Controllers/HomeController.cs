@@ -24,7 +24,7 @@ namespace Bode.Web.Areas.Admin.Controllers
         public IIdentityContract IdentityContract { get; set; }
 
         [Authorize]
-        [BodeMenuGroupKey("mk")]
+        [BodeMenuGroupKey("mk222")]
         [Description("后台首页")]
         public ActionResult Index()
         {
