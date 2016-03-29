@@ -12,16 +12,19 @@ using OSharp.Web.Mvc.UI;
 using System;
 using OSharp.Utility.Helper;
 using OSharp.Core.Data;
+using OSharp.Web.Mvc.Initialize;
 
 namespace Bode.Web.Areas.Admin.Controllers
 {
     [Description("管理主页")]
+    [BodeMenuGroupKey("Admin.Home")]
     public class HomeController : Controller
     {
         public ISecurityContract SecurityContract { get; set; }
         public IIdentityContract IdentityContract { get; set; }
 
         [Authorize]
+        [BodeMenuGroupKey("mk")]
         [Description("后台首页")]
         public ActionResult Index()
         {
@@ -65,7 +68,7 @@ namespace Bode.Web.Areas.Admin.Controllers
                     Url = Url.Action(p.Action, p.Controller, new { area = p.Area }),
                     Children =
                         functions.Where(
-                            m => m.Controller == p.Controller && m.Area == p.Area && !m.IsController && m.IsMenu)
+                            m => m.MenuGroupKey==p.MenuGroupKey && !m.IsController && m.IsMenu)
                             .Select(m =>
                             {
                                 string url = Url.Action(m.Action, m.Controller, new { area = m.Area });

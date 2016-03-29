@@ -97,6 +97,7 @@
     <Compile Include="Filters\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Filters\NonRequireHttpsAttribute.cs" />
     <Compile Include="Initialize\AppBuilderExtensions.cs" />
+    <Compile Include="Initialize\BodeMenuGroupKeyAttribute.cs" />
     <Compile Include="Initialize\MvcActionMethodInfoFinder.cs" />
     <Compile Include="Initialize\MvcControllerTypeFinder.cs" />
     <Compile Include="Initialize\MvcFunctionHandler.cs" />

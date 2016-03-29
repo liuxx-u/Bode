@@ -46,14 +46,29 @@ namespace OSharp.Web.Mvc.Initialize
             {
                 throw new InvalidOperationException(Resources.ActionMethodInfoFinder_TypeNotMvcControllerType.FormatWith(type.FullName));
             }
+
+            string area = GetArea(type);
+            string controller = type.Name.Replace("Controller", string.Empty);
+            string menuGroupKey = string.Empty;
+
+            if (type.HasAttribute<BodeMenuGroupKeyAttribute>(true))
+            {
+                menuGroupKey = type.GetAttribute<BodeMenuGroupKeyAttribute>(true).GroupKey;
+            }
+            else
+            {
+                menuGroupKey = string.Format("{0}.{1}", area, controller);
+            }
+
             Function function = new Function()
             {
                 Name = type.ToDescription(),
-                Area = GetArea(type),
-                Controller = type.Name.Replace("Controller", string.Empty),
+                Area = area,
+                Controller = controller,
                 IsController = true,
                 FunctionType = FunctionType.Anonymouse,
-                PlatformToken = PlatformToken
+                PlatformToken = PlatformToken,
+                MenuGroupKey= menuGroupKey
             };
             return function;
         }
@@ -88,13 +103,28 @@ namespace OSharp.Web.Mvc.Initialize
             {
                 throw new InvalidOperationException(Resources.FunctionHandler_DefindActionTypeIsNull.FormatWith(method.Name));
             }
-
             string area = GetArea(type);
+            string controller = type.Name.Replace("Controller", string.Empty);
+            string menuGroupKey = string.Empty;
+
+            if (method.HasAttribute<BodeMenuGroupKeyAttribute>(true))
+            {
+                menuGroupKey = method.GetAttribute<BodeMenuGroupKeyAttribute>(true).GroupKey;
+            }
+            else if (type.HasAttribute<BodeMenuGroupKeyAttribute>(true))
+            {
+                menuGroupKey = type.GetAttribute<BodeMenuGroupKeyAttribute>(true).GroupKey;
+            }
+            else
+            {
+                menuGroupKey = string.Format("{0}.{1}", area, controller);
+            }
+            
             Function function = new Function()
             {
                 Name = method.ToDescription(),
                 Area = area,
-                Controller = type.Name.Replace("Controller", string.Empty),
+                Controller = controller,
                 Action = method.Name,
                 FunctionType = functionType,
                 PlatformToken = PlatformToken,
@@ -102,7 +132,8 @@ namespace OSharp.Web.Mvc.Initialize
                 IsAjax = method.HasAttribute<AjaxOnlyAttribute>(),
                 //非Ajax且方法名不是Edit开头的Get方法默认为菜单
                 IsMenu = !method.HasAttribute<AjaxOnlyAttribute>() && !method.HasAttribute<HttpPostAttribute>() && !method.Name.StartsWith("Edit") && !method.Name.EndsWith("Detail") && !area.IsNullOrWhiteSpace(),
-                IsChild = method.HasAttribute<ChildActionOnlyAttribute>()
+                IsChild = method.HasAttribute<ChildActionOnlyAttribute>(),
+                MenuGroupKey = menuGroupKey
             };
             return function;
         }

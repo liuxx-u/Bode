@@ -114,6 +114,11 @@ namespace OSharp.Core.Security
         public bool IsMenu { get; set; }
 
         /// <summary>
+        /// 菜单分组键
+        /// </summary>
+        public string MenuGroupKey { get; set; }
+
+        /// <summary>
         /// 排序号
         /// </summary>
         public int OrderNo { get; set; }
