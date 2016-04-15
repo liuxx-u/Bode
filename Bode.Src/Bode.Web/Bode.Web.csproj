@@ -65,6 +65,10 @@
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1457,6 +1461,10 @@
       <Project>{ec26e385-6ded-4695-9338-b7136152abc6}</Project>
       <Name>OSharp.Autofac.Mvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Bode.Frame\OSharp.Autofac.SignalR\OSharp.Autofac.SignalR.csproj">
+      <Project>{6b7bc43b-7373-41f8-95c9-7e76fcfa3672}</Project>
+      <Name>OSharp.Autofac.SignalR</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Bode.Frame\OSharp.Autofac.WebApi\OSharp.Autofac.WebApi.csproj">
       <Project>{8a4e190d-7d67-4ea4-92c7-90477608c091}</Project>
       <Name>OSharp.Autofac.WebApi</Name>
@@ -1484,6 +1492,10 @@
     <ProjectReference Include="..\..\Bode.Frame\OSharp.Web.Mvc\OSharp.Web.Mvc.csproj">
       <Project>{15279347-b0d7-41f3-a955-f4c34aa1a03b}</Project>
       <Name>OSharp.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bode.Frame\OSharp.Web.SignalR\OSharp.Web.SignalR.csproj">
+      <Project>{47d3569d-7fe4-4a97-99af-8b16823f3b1f}</Project>
+      <Name>OSharp.Web.SignalR</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bode.Frame\OSharp.Web.WebApi\OSharp.Web.WebApi.csproj">
       <Project>{fa06bc09-11b9-4fbd-81cd-24075ed1ec57}</Project>

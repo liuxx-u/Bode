@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Linq;
 
 
 namespace OSharp.Utility.Logging
@@ -83,7 +84,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsTraceEnabled)
             {
-                Write(LogLevel.Trace, string.Format(format, args), null);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Trace, msg, null);
             }
         }
 
@@ -108,7 +110,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsDebugEnabled)
             {
-                Write(LogLevel.Debug, string.Format(format, args), null);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Debug, msg, null);
             }
         }
 
@@ -134,7 +137,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsInfoEnabled)
             {
-                Write(LogLevel.Info, string.Format(format, args), null);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Info, msg, null);
             }
         }
 
@@ -159,7 +163,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsWarnEnabled)
             {
-                Write(LogLevel.Warn, string.Format(format, args), null);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Warn, msg, null);
             }
         }
 
@@ -184,7 +189,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsErrorEnabled)
             {
-                Write(LogLevel.Error, string.Format(format, args), null);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Error, msg, null);
             }
         }
 
@@ -211,7 +217,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsErrorEnabled)
             {
-                Write(LogLevel.Error, string.Format(format, args), exception);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Error, msg, exception);
             }
         }
 
@@ -236,7 +243,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsFatalEnabled)
             {
-                Write(LogLevel.Fatal, string.Format(format, args), null);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Fatal, msg, null);
             }
         }
 
@@ -263,7 +271,8 @@ namespace OSharp.Utility.Logging
         {
             if (IsFatalEnabled)
             {
-                Write(LogLevel.Fatal, string.Format(format, args), exception);
+                string msg = args.Any() ? string.Format(format, args) : format;
+                Write(LogLevel.Fatal, msg, exception);
             }
         }
 

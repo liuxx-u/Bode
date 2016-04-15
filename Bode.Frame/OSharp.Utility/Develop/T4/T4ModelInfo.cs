@@ -24,7 +24,8 @@ namespace OSharp.Utility.Develop.T4
         /// </summary>
         /// <param name="modelType">实体类型</param>
         /// <param name="useModuleDir">是否使用模块文件夹</param>
-        public T4ModelInfo(Type modelType, bool useModuleDir = false)
+        /// <param name="moduleName">模块名称</param>
+        public T4ModelInfo(Type modelType, bool useModuleDir = false, string moduleName = "")
         {
             string @namespace = modelType.Namespace;
             if (@namespace == null)
@@ -35,8 +36,15 @@ namespace OSharp.Utility.Develop.T4
             UseModuleDir = useModuleDir;
             if (useModuleDir)
             {
-                int index = @namespace.LastIndexOf('.') + 1;
-                ModuleName = @namespace.Substring(index, @namespace.Length - index);
+                if (string.IsNullOrWhiteSpace(moduleName))
+                {
+                    int index = @namespace.LastIndexOf('.') + 1;
+                    ModuleName = @namespace.Substring(index, @namespace.Length - index);
+                }
+                else
+                {
+                    ModuleName = moduleName;
+                }
             }
             Name = modelType.Name;
             Description = modelType.ToDescription();

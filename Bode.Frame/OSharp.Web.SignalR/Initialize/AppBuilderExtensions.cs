@@ -7,15 +7,8 @@
 //  <last-date>2015-09-29 23:06</last-date>
 // -----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using OSharp.Core;
 using OSharp.Core.Dependency;
-using OSharp.Core.Initialize;
 using OSharp.Utility;
 
 using Owin;
@@ -36,6 +29,17 @@ namespace OSharp.Web.SignalR.Initialize
             iocBuilder.CheckNotNull("iocBuilder");
             IFrameworkInitializer initializer = new FrameworkInitializer();
             initializer.Initialize(iocBuilder);
+            return app;
+        }
+
+        /// <summary>
+        /// 初始化SignalR
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IAppBuilder ConfigureSignalR(this IAppBuilder app)
+        {
+            app.MapSignalR();
             return app;
         }
     }
