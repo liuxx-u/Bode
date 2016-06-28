@@ -1,26 +1,22 @@
-﻿// -----------------------------------------------------------------------
-//  <copyright file="DbContextInitializer.cs" company="OSharp开源团队">
-//      Copyright (c) 2014-2015 OSharp. All rights reserved.
-//  </copyright>
-//  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-06-28 3:37</last-date>
-// -----------------------------------------------------------------------
-
+﻿
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-
-namespace OSharp.Data.Entity
+namespace OSharp.Data.Entity.Default
 {
     /// <summary>
     /// 默认 上下文初始化操作类
     /// </summary>
     public sealed class DefaultDbContextInitializer : DbContextInitializerBase<DefaultDbContext>
     {
-        
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public DefaultDbContextInitializer()
+        {
+            //添加迁移种子类
+            CreateDatabaseInitializer = new DefaultCreateDbContextWithSeed(MapperAssemblies);
+            MigrateInitializer = new MigrateDatabaseToLatestVersion<DefaultDbContext, DefaultMigrationsConfigurationWithSeed>(false, new DefaultMigrationsConfigurationWithSeed(MapperAssemblies));
+        }
     }
 }

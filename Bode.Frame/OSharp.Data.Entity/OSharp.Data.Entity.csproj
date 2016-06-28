@@ -82,8 +82,11 @@
     <Compile Include="DbContextInitializerBase.cs" />
     <Compile Include="DbContextManager.cs" />
     <Compile Include="DbContextTypeResolver.cs" />
+    <Compile Include="Defaults\DefaultCreateDbContextWithSeed.cs" />
     <Compile Include="Defaults\DefaultDbContextInitializer.cs" />
     <Compile Include="Defaults\DefaultDbContext.cs" />
+    <Compile Include="Defaults\DefaultMigrationsConfigurationWithSeed.cs" />
+    <Compile Include="Defaults\IDefaultSeedAction.cs" />
     <Compile Include="EntityConfigurationBase.cs" />
     <Compile Include="EntityMapperAssemblyFinder.cs" />
     <Compile Include="Extensions\AutoMapperExtension.cs" />

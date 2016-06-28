@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using OSharp.Data.Entity;
 
 
-namespace Bode.Services.Implement.DbContext
+namespace Bode.Services.Implement.DbContexts
 {
     public sealed class DemoDbContextInitializer : DbContextInitializerBase<DemoDbContext>
     {

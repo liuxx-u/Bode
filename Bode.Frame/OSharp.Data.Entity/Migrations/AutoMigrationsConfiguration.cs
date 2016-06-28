@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OSharp.Core.Data;
 
 namespace OSharp.Data.Entity.Migrations
 {
@@ -14,7 +8,7 @@ namespace OSharp.Data.Entity.Migrations
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
     public class AutoMigrationsConfiguration<TContext> : DbMigrationsConfiguration<TContext>
-        where TContext : DbContext, IUnitOfWork
+        where TContext : DbContext
     {
         /// <summary>
         /// 初始化一个<see cref="AutoMigrationsConfiguration{TContext}"/>类型的新实例

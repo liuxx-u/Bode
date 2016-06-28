@@ -16,7 +16,7 @@ using OSharp.Data.Entity.Logging;
 using OSharp.Data.Entity.Properties;
 using OSharp.Core.Initialize;
 using OSharp.Utility.Extensions;
-
+using OSharp.Data.Entity.Default;
 
 namespace OSharp.Data.Entity
 {

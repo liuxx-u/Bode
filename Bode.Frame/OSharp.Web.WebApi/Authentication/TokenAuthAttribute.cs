@@ -12,6 +12,7 @@ using OSharp.Utility.Extensions;
 using OSharp.Utility.Secutiry;
 using OSharp.Web.Http.Internal;
 using OSharp.Web.Http.Messages;
+using System.Web;
 
 namespace OSharp.Web.Http.Authentication
 {
@@ -28,7 +29,17 @@ namespace OSharp.Web.Http.Authentication
         {
             try
             {
-                string token = httpContext.Request.Headers.GetValues(HttpHeaderNames.OSharpAuthenticationToken).FirstOrDefault();
+                string token = string.Empty;
+                if (httpContext.Request.Headers.Contains(HttpHeaderNames.OSharpAuthenticationToken))
+                {
+                    token = httpContext.Request.Headers.GetValues(HttpHeaderNames.OSharpAuthenticationToken).FirstOrDefault();// 从客户端请求中获取 token
+                }
+                else
+                {
+                    HttpContextBase context = (HttpContextBase)httpContext.Request.Properties["MS_HttpContext"];//获取传统context     
+                    HttpRequestBase request = context.Request;//定义传统request对象
+                    token = request.Form[HttpHeaderNames.OSharpAuthenticationToken] ?? "";
+                }
 
                 var strAuth = DesHelper.Decrypt(token, Constants.BodeAuthDesKey);
                 Operator user = strAuth.FromJsonString<Operator>() ?? new Operator();

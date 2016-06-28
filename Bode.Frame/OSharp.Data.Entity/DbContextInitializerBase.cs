@@ -1,12 +1,4 @@
-﻿// -----------------------------------------------------------------------
-//  <copyright file="DbContextInitializerBase.cs" company="OSharp开源团队">
-//      Copyright (c) 2014-2015 OSharp. All rights reserved.
-//  </copyright>
-//  <last-editor>郭明锋</last-editor>
-//  <last-date>2015-06-28 16:07</last-date>
-// -----------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -19,6 +11,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using OSharp.Core.Data;
+using OSharp.Data.Entity.Default;
 using OSharp.Data.Entity.Migrations;
 using OSharp.Data.Entity.Properties;
 using OSharp.Utility.Extensions;

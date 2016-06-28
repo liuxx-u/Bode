@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 using EntityFramework;
 using EntityFramework.Batch;
-
+using OSharp.Data.Entity.Default;
 
 namespace OSharp.Data.Entity
 {

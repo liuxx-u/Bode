@@ -19,7 +19,7 @@ namespace OSharp.Data.Entity.Migrations
     /// <summary>
     /// 初始化种子数据接口
     /// </summary>
-    public interface ISeedAction
+    public interface ISeedAction<TDbContext> where TDbContext : DbContext
     {
         /// <summary>
         /// 获取 操作排序，数值越小越先执行

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using OSharp.Core.Configs;
 using OSharp.Data.Entity.Logging;
 using OSharp.Core.Reflection;
-
+using OSharp.Data.Entity.Default;
 
 namespace OSharp.Data.Entity
 {

@@ -14,6 +14,8 @@ namespace Bode.Services.Core.Models.Identity
         /// </summary>
         public bool IsLocked { get; set; }
 
+        public string test { get; set; }
+
         /// <summary>
         /// 获取或设置 角色所属组织机构
         /// </summary>
